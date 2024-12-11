@@ -517,10 +517,10 @@ $("#AddManualItem").click(function(){
            <span class="error-msg"><?php echo form_error("account_no_vlmbd");?></span>
          </div>
         <label class="col-sm-2 control-label">Note/Remarks</label>
-            <div class="col-sm-3">
-              <textarea  name="remarks" class="form-control" rows="3"><?php if(isset($info)) echo $info->remarks; else echo set_value('remarks'); ?> </textarea>
-               <span class="error-msg"><?php echo form_error("remarks");?></span>
-            </div>
+          <div class="col-sm-3">
+            <textarea  name="remarks" class="form-control" rows="3"><?php if(isset($info)) echo $info->remarks; else echo set_value('remarks'); ?> </textarea>
+             <span class="error-msg"><?php echo form_error("remarks");?></span>
+          </div>
            
       </div>
 <br><br>

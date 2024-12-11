@@ -6,13 +6,10 @@ class Dashboard extends My_Controller {
         $this->load->model('payment/Applications_model');
         $this->load->model('cc/Courier_model');
         $this->load->model('format/Po_model');
+        $this->load->model('merch/Invoice_model');
      }
 	public function index(){
     $department_id=$this->session->userdata('department_id');
-    // $sss=$this->db->query("SELECT * 
-    //   FROM machinery_report_view
-    //   ")->result();
-    // print_r($sss); exit();
 		$data['totalspares']=$this->db->query("SELECT COUNT(*) as ccc 
       FROM product_info WHERE product_type=2 AND department_id=12 AND machine_other=1")->row('ccc');
 		$data['totalmachine']=$this->db->query("SELECT COUNT(*) as ccc 
@@ -74,7 +71,30 @@ function viewpipdf($pi_id=FALSE){
       } else {
          redirect("Logincontroller");
       }
-    }
+  }
+  function viewInpdf($invoice_id=FALSE){
+  if ($this->session->userdata('user_id')) {
+      $data['heading']='Invoice';
+        $data['info']=$this->Invoice_model->get_info($invoice_id);
+        $data['detail']=$this->Invoice_model->get_detail($invoice_id);
+        $pdfFilePath='INVOICE'.date('Y-m-d H:i').'.pdf';
+        $this->load->library('mpdf');
+        $mpdf = new mPDF('bn','L','','','10','10','5','18');
+        $mpdf->useAdobeCJK = true;
+        $mpdf->SetAutoFont(AUTOFONT_ALL);
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+        $mpdf->AddPage('L');
+        $header = $this->load->view('header', $data, true);
+        $footer = $this->load->view('footer', $data, true);
+        $html=$this->load->view('merch/pdfview', $data, true);
+        $mpdf->SetHTMLFooter($footer); 
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+      } else {
+         redirect("Logincontroller");
+      }
+  }
   function viewapplicationspdf($payment_id=FALSE){
       $data['heading']='Payment Application';
       $data['info']=$this->Applications_model->get_info($payment_id);
