@@ -7,10 +7,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'vlmbdcom_inventory',
+	'hostname' => '10.55.250.25',
+	'username' => 'vlmbd',
+	'password' => 'B@ngladesh321',
+	'database' => 'inventory_backup',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
