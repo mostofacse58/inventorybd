@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-   class Requisitionapp extends My_Controller {
+   class Requisitionverify extends My_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('format/Requisition_model');
-        $this->load->model('format/Requisitionapp_model');
+        $this->load->model('format/Requisitionverify_model');
      }
     
     function lists(){
@@ -12,10 +12,10 @@
       if($this->input->post('perpage')!='') $perpage=$this->input->post('perpage'); else $perpage=10;
       ////////////////////////////////////
       $this->load->library('pagination');
-      $config['base_url']=base_url().'format/Requisitionapp/lists/';
+      $config['base_url']=base_url().'format/Requisitionverify/lists/';
       $config['suffix'] = '?' . http_build_query($_GET, '', "&");
       $config["uri_segment"] = 4;
-      $config['total_rows'] = $this->Requisitionapp_model->get_count();
+      $config['total_rows'] = $this->Requisitionverify_model->get_count();
       $config['per_page'] = $perpage;
       $choice = $config["total_rows"] / $config["per_page"];
       $config["num_links"] = 2;
@@ -43,10 +43,11 @@
       $total_rows=$config['total_rows'];
       $pagination = $this->pagination->create_links();
       $data['pagination']='<p>We have ' . $total_rows . ' records in ' . $choice . ' pages ' . $pagination . '</p>';
-      $data['list']=$this->Requisitionapp_model->lists($config["per_page"],$data['page'] );
+      $data['list']=$this->Requisitionverify_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
+      $data['llist']=$this->Look_up_model->getlocation();
       $data['heading']='Requisition Lists';
-      $data['display']='format/requisitionapp_lists';
+      $data['display']='format/requisitionverify_lists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");
@@ -73,17 +74,17 @@
        }else{
          $this->session->set_userdata('exception','Submission Failed');
        }
-      redirect("format/Requisitionapp/lists");
+      redirect("format/Requisitionverify/lists");
     }
  
     function delete($requisition_id=FALSE){
-      $check=$this->Requisitionapp_model->delete($requisition_id);
+      $check=$this->Requisitionverify_model->delete($requisition_id);
         if($check){ 
            $this->session->set_userdata('exception','Delete successfully');
          }else{
            $this->session->set_userdata('exception','Delete Failed');
         }
-      redirect("format/Requisitionapp/lists");
+      redirect("format/Requisitionverify/lists");
     }
 ////////////////////////
 
@@ -97,31 +98,31 @@
       $message=$this->load->view('req_rec_email', $data,true); 
       //$this->Communication->send($emailaddress,$subject,$message);
       /////////////////////
-      $check=$this->Requisitionapp_model->approved($requisition_id);
+      $check=$this->Requisitionverify_model->approved($requisition_id);
         if($check){ 
            $this->session->set_userdata('exception','Approved successfully');
          }else{
            $this->session->set_userdata('exception','Send Failed');
         }
-      redirect("format/Requisitionapp/lists");
+      redirect("format/Requisitionverify/lists");
     }
     function rejected($requisition_id=FALSE){
-      $check=$this->Requisitionapp_model->rejected($requisition_id);
+      $check=$this->Requisitionverify_model->rejected($requisition_id);
         if($check){ 
            $this->session->set_userdata('exception','Reject successfully');
          }else{
            $this->session->set_userdata('exception','Send Failed');
         }
-      redirect("format/Requisitionapp/lists");
+      redirect("format/Requisitionverify/lists");
     }
     function returns($requisition_id=FALSE){
-      $check=$this->Requisitionapp_model->returns($requisition_id);
+      $check=$this->Requisitionverify_model->returns($requisition_id);
       if($check){ 
          $this->session->set_userdata('exception','Approved successfully');
        }else{
          $this->session->set_userdata('exception','Send Failed');
       }
-      redirect("format/Requisitionapp/lists");
+      redirect("format/Requisitionverify/lists");
     }
     function view2($requisition_id=FALSE){
       $data['info']=$this->Requisition_model->get_info($requisition_id);

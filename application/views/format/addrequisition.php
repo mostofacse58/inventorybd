@@ -61,7 +61,7 @@
        </div><!-- ///////////////////// -->
       <div class="form-group">
          <label class="col-sm-2 control-label">File No<span style="color:red;">  </span></label>
-          <div class="col-sm-3">
+          <div class="col-sm-2">
             <select class="form-control select2" name="file_no" id="file_no">
             <option value="" selected="selected">Select File No</option>
             <?php foreach ($flist as $rows) { ?>
@@ -74,20 +74,41 @@
                 <?php } ?>
             </select>
            </div>  
-           <label class="col-sm-2 control-label ">Location <span style="color:red;">  *</span></label>
-            <div class="col-sm-3">
-              <select class="form-control select2" name="location_id" id="location_id" style="width: 100%" required="">
-                <option value="">Select Location</option>
-                <?php foreach ($llist as $value) {  ?>
-                  <option value="<?php echo $value->location_id; ?>"
-                    <?php  if(isset($info)) echo $value->location_id==$info->location_id? 'selected="selected"':0; else echo set_select('location_id',$value->location_id);?>>
-                    <?php echo $value->location_name; ?></option>
-                  <?php } ?>
-              </select>
-             <span class="error-msg"><?php echo form_error("location_id");?></span>
-            </div>    
+           <label class="col-sm-1 control-label ">Location <span style="color:red;">  *</span></label>
+          <div class="col-sm-3">
+            <select class="form-control select2" name="location_id" id="location_id" style="width: 100%" required="">
+              <option value="">Select Location</option>
+              <?php foreach ($llist as $value) {  ?>
+                <option value="<?php echo $value->location_id; ?>"
+                  <?php  if(isset($info)) echo $value->location_id==$info->location_id? 'selected="selected"':0; else echo set_select('location_id',$value->location_id);?>>
+                  <?php echo $value->location_name; ?></option>
+                <?php } ?>
+            </select>
+           <span class="error-msg"><?php echo form_error("location_id");?></span>
+          </div> 
+          <label class="col-sm-2 control-label ">IE Verify <span style="color:red;">  *</span></label>
+          <div class="col-sm-2">
+            <select class="form-control select2" name="ie_verify" id="ie_verify" style="width: 100%" required="">
+              <option value="NO" <?php  if(isset($info)) echo 'NO'==$info->ie_verify? 'selected="selected"':0; else echo set_select('ie_verify','NO');?>>NO</option>
+              <option value="YES" <?php  if(isset($info)) echo 'YES'==$info->ie_verify? 'selected="selected"':0; else echo set_select('ie_verify','YES');?>>YES</option>
+            </select>
+           <span class="error-msg"><?php echo form_error("ie_verify");?></span>
+          </div>    
         
         </div><!-- ///////////////////// -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Attachment</label>
+          <div class="col-sm-3">
+            <input type="file" class="form-control"  name="attachment" class="form-control" >
+            <?php if(isset($info) &&!empty($info->attachment)) { ?>
+              <div style="margin-top:10px;">
+              <a href="<?php echo base_url(); ?>dashboard/ReqAttach/<?php echo $info->attachment; ?>">Download</a>
+              </div>
+            <?php } ?>
+            <span>Allow only: pdf,xls,jpg</span>
+          </div>
+            
+      </div>
     <div class="form-group">
       <label class="col-sm-2 control-label" style="margin-top: 14px">SCAN CODE or Search 搜索Item<span style="color:red;">  </span></label>
         <div class="col-sm-8">

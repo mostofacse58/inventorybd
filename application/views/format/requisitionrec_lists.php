@@ -62,6 +62,7 @@
             <th style="width:8%;">Status</th>
             <th style="width:10%;">Prepared by</th>
             <th style="text-align:center;width:5%;">Actions 行动</th>
+            <th style="width:8%;">Attachment</th>
         </tr>
         </thead>
         <tbody>
@@ -79,9 +80,9 @@
             <td class="text-center"><?php echo findDate($row->requisition_date); ?></td>
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==3)?"danger":"success";?>">
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==4)?"danger":"success";?>">
               <?php 
-             if($row->requisition_status==3) echo "Pending";
+             if($row->requisition_status==4) echo "Pending";
               else echo "Received";
               ?>
               </span></td>
@@ -101,7 +102,7 @@
 
               <li> <a href="<?php echo base_url()?>format/Deptrequisn/prtopi/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-plus tiny-icon"></i>Make PI</a></li>
-              <?php if($row->requisition_status==3){ ?>
+              <?php if($row->requisition_status==4){ ?>
               <li><a href="<?php echo base_url()?>format/Requisitionrec/received/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
               Receive</a></li>
@@ -114,6 +115,11 @@
              <?php } ?>
               </ul>
             </div>
+            </td>
+            <td class="text-center">
+              <?php if(isset($row) &&!empty($row->attachment)) { ?>
+              <a href="<?php echo base_url(); ?>Dashboard/ReqAttach/<?php echo $row->attachment; ?>">Download</a>
+            <?php } ?>
             </td>
           </tr>
           <?php

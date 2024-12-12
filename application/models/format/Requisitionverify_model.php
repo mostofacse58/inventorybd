@@ -1,5 +1,5 @@
 <?php
-class Requisitionapp_model extends CI_Model {
+class Requisitionverify_model extends CI_Model {
 	public function get_count(){
       $department_id=$this->session->userdata('department_id');
       $mlocation_id=$this->session->userdata('mlocation_id');
@@ -13,6 +13,10 @@ class Requisitionapp_model extends CI_Model {
           $requisition_no=$this->input->get('requisition_no');
           $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
         }
+         if($this->input->get('location_id')!=''){
+            $location_id=$this->input->get('location_id');
+            $condition=$condition."  AND pm.location_id='$location_id' ";
+          }
        }
 
       $query=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,
@@ -23,8 +27,8 @@ class Requisitionapp_model extends CI_Model {
           LEFT JOIN location_info l ON(l.location_id=pm.location_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id 
-          AND pm.requisition_status>2 
-          AND pm.pr_type=1 AND pm.ie_verify
+          AND pm.requisition_status>1 
+          AND pm.pr_type=1 AND pm.ie_verify='YES'
           AND pm.general_or_tpm=1 $condition");
       $data = count($query->result());
       return $data;
@@ -41,6 +45,11 @@ class Requisitionapp_model extends CI_Model {
             $requisition_no=$this->input->get('requisition_no');
             $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
           }
+          if($this->input->get('location_id')!=''){
+            $location_id=$this->input->get('location_id');
+            $condition=$condition."  AND pm.location_id='$location_id' ";
+          }
+
         }
 
         $result=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,l.location_name,
@@ -51,8 +60,8 @@ class Requisitionapp_model extends CI_Model {
           LEFT JOIN location_info l ON(l.location_id=pm.location_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id 
-          AND pm.requisition_status>2 
-          AND pm.general_or_tpm=1 
+          AND pm.requisition_status>1 
+          AND pm.general_or_tpm=1 AND pm.ie_verify='YES'
           AND pm.pr_type=1 $condition
           ORDER BY pm.requisition_status ASC LIMIT $start,$limit")->result();
         //echo $this->db->last_query(); exit
@@ -78,9 +87,10 @@ class Requisitionapp_model extends CI_Model {
   }
    function approved($requisition_id) {
       $data=array();
-      $data['requisition_status']=4;
-      $data['aproved_date_time']=date('Y-m-d h:i:s a');
-      $data['dept_head']=$this->session->userdata('user_id');
+      $data['requisition_status']=3;
+      $data['verify_date ']=date('Y-m-d h:i:s a');
+      $data['verify_name']=$this->session->userdata('user_name');
+      $data['verify_id']=$this->session->userdata('user_id');
       $this->db->WHERE('requisition_id',$requisition_id);
       $query=$this->db->Update('requisition_master',$data);
       return $query;
@@ -93,11 +103,11 @@ class Requisitionapp_model extends CI_Model {
       return $query;
    }
    function returns($requisition_id) {
-      $data=array();
-      $data['requisition_status']=1;
-      $this->db->WHERE('requisition_id',$requisition_id);
-      $query=$this->db->Update('requisition_master',$data);
-      return $query;
-     }
+    $data=array();
+    $data['requisition_status']=1;
+    $this->db->WHERE('requisition_id',$requisition_id);
+    $query=$this->db->Update('requisition_master',$data);
+    return $query;
+   }
   
 }

@@ -160,7 +160,7 @@ public function suggestions(){
       $this->load->view('format/requisitionExcel', $data);
     }
     function submit($requisition_id=FALSE){
-      $this->load->model('Communication');
+      //$this->load->model('Communication');
       $data['info']=$this->Requisition_model->get_info($requisition_id); 
       $department_id=$data['info']->department_id;
       $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 

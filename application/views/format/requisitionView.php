@@ -57,6 +57,12 @@ hr{margin: 5px}
       File No: <?php if(isset($info)) echo  $info->file_no; ?> 
     </th>
   </tr>
+  <tr>
+    <th style="text-align: left" > 
+      IE Verify: <?php  echo  $info->ie_verify; ?> 
+    </th>
+    
+  </tr>
 </table>
 <br>
 <table class="tg">

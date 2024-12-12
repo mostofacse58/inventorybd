@@ -72,6 +72,17 @@ hr{margin: 5px}
       File No: <?php if(isset($info)) echo  $info->file_no; ?> 
     </th>
   </tr>
+  <tr>
+    <th style="text-align: left" > 
+      IE Verify: <?php  echo  $info->ie_verify; ?> 
+    </th>
+    <?php if($info->attachment!=''){ ?>
+    <th class="tg-s6z2" style="" valign="top">
+    Attachment:
+      <a href="<?php echo base_url(); ?>Dashboard/ReqAttach/<?php echo $info->attachment; ?>">Download</a>
+    </td>
+    <?php } ?>
+  </tr>
 </table>
 
 <br>

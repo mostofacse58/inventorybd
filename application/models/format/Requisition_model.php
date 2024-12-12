@@ -69,6 +69,19 @@ class Requisition_model extends CI_Model {
       $data['file_no']=$this->input->post('file_no');
       $data['location_id']=$this->input->post('location_id');
       $data['create_date']=date('Y-m-d');
+      $data['ie_verify']=$this->input->post('ie_verify');
+      if($_FILES['attachment']['name']!=""){
+        $config['upload_path'] = './requisition/';
+        $config['allowed_types'] = '*';
+        $config['max_size'] = '300000';
+        $config['encrypt_name'] = TRUE;
+        $config['detect_mime'] = TRUE;
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload("attachment")){
+          $upload_info = $this->upload->data();
+          $data['attachment']=$upload_info['file_name'];
+        }
+      }
       //////////////////////////////
       $product_id=$this->input->post('product_id');
       $specification=$this->input->post('specification');
@@ -137,8 +150,13 @@ class Requisition_model extends CI_Model {
   }
     
    function submit($requisition_id) {
+      $info=$this->db->query("SELECT pm.*     
+          FROM  requisition_master pm 
+          WHERE pm.requisition_id=$requisition_id ")->row();
       $data=array();
+      if($info->ie_verify=='YES')
       $data['requisition_status']=2;
+      else $data['requisition_status']=3;
       $data['submited_date_time']=date('Y-m-d  h:i:s a');
       $this->db->WHERE('requisition_id',$requisition_id);
       $query=$this->db->Update('requisition_master',$data);

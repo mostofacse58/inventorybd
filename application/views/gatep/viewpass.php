@@ -134,7 +134,7 @@ tbody{margin: 0;
     Attachment:
     </th>
     <td class="tg-baqh" style="" valign="top">: 
-      <a href="<?php echo base_url(); ?>dashboard/gatepassExcel/<?php echo $info->attachment; ?>">Download</a>
+      <a href="<?php echo base_url(); ?>Dashboard/gatepassExcel/<?php echo $info->attachment; ?>">Download</a>
     </td>
     <?php } ?>
     <?php if($info->gatepass_type==3){ ?>

@@ -7,29 +7,36 @@
 <div class="widget-head">
 <h5><?php echo ucwords($heading); ?></h5>
 <div class="widget-control pull-right">
-<a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisition/add">
-<i class="fa fa-plus"></i>
-Add Requisition
-</a>
+
 </div>
 </div>
 </div>
 </div>
             <!-- /.box-header -->
       <div class="box-body">
-         <form class="form-horizontal" action="<?php echo base_url();?>format/Requisition/lists" method="GET" enctype="multipart/form-data">
+        <form class="form-horizontal" action="<?php echo base_url();?>format/Requisitionverify/lists" method="GET" enctype="multipart/form-data">
           <div class="box-body">
             <label class="col-sm-2 control-label">
-             Req. No <span style="color:red;">  </span></label>
+             PR. NO <span style="color:red;">  </span></label>
               <div class="col-sm-2">
                 <input class="form-control" name="requisition_no" id="requisition_no" value="<?php echo set_value('requisition_no'); ?>" placeholder="NO">
               <span class="error-msg"><?php echo form_error("requisition_no");?></span>
               </div>
+               <label class="col-sm-1 control-label ">Location <span style="color:red;">  *</span></label>
+              <div class="col-sm-3">
+                <select class="form-control select2" name="location_id" id="location_id" style="width: 100%" required="">
+                  <option value="">Select Location</option>
+                  <?php foreach ($llist as $value) {  ?>
+                    <option value="<?php echo $value->location_id; ?>"
+                      <?php  if(isset($info)) echo $value->location_id==$info->location_id? 'selected="selected"':0; else echo set_select('location_id',$value->location_id);?>>
+                      <?php echo $value->location_name; ?></option>
+                    <?php } ?>
+                </select>
+               <span class="error-msg"><?php echo form_error("location_id");?></span>
+              </div> 
               <div class="col-sm-2">
                 <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisition/lists">All</a>
+                <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisitionverify/lists">All</a>
             </div>
           </div>
           <!-- /.box-body -->
@@ -66,15 +73,14 @@ Add Requisition
             <td class="text-center"><?php echo findDate($row->requisition_date); ?></td>
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==1)?"danger":"success";?>">
-                  <?php 
-                  if($row->requisition_status==1) echo "Draft";
-                  elseif($row->requisition_status==0) echo "Reject";
-                  elseif($row->requisition_status==2) echo "Submitted";
-                  elseif($row->requisition_status==3) echo "Verified";
-                  elseif($row->requisition_status==4) echo "Approved";
-                  else echo "Received";
-                  ?>
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==2)?"danger":"success";?>">
+              <?php 
+              if($row->requisition_status==1) echo "Draft";
+              elseif($row->requisition_status==2) echo "Pending";
+              elseif($row->requisition_status==3) echo "Verified";
+              elseif($row->requisition_status==4) echo "Approved";
+              else echo "Received";
+              ?>
               </span></td>
             <td class="text-center"><?php echo $row->user_name; ?></td>
             <td style="text-align:center">
@@ -84,17 +90,20 @@ Add Requisition
               <i class="fa fa-gear tiny-icon"></i><span class="caret"></span>
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
-              <li> <a href="<?php echo base_url()?>format/Requisition/view2/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
+              <li> <a href="<?php echo base_url()?>format/Requisitionverify/view2/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
               <li> <a href="<?php echo base_url()?>format/Requisition/view/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>pdf</a></li>
-              <li> <a href="<?php echo base_url()?>format/Requisition/excelload/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>Excel</a></li>
-              <?php if($row->requisition_status==1){ ?>
-              <li> <a href="<?php echo base_url()?>format/Requisition/submit/<?php echo $row->requisition_id;?>">
-                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>Submit</a></li>
-              <li> <a href="<?php echo base_url()?>format/Requisition/edit/<?php echo $row->requisition_id;?>"><i class="fa fa-edit tiny-icon"></i>Edit 编辑</a></li>
-              <?php if($this->session->userdata('delete')=='YES'){ ?>
-              <li><a href="#" class="delete" data-requisitiond="<?php echo $row->requisition_id;?>"><i class="fa fa-trash-o tiny-icon"></i>Delete 删除</a></li>
-              <?php } ?>
-              <?php } ?>
+              <?php if($row->requisition_status==2){ ?>
+              <li><a href="<?php echo base_url()?>format/Requisitionverify/approved/<?php echo $row->requisition_id;?>">
+                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
+              Approve</a></li>
+               
+              <li><a href="<?php echo base_url()?>format/Requisitionverify/rejected/<?php echo $row->requisition_id;?>">
+                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
+              Reject</a></li>
+              <li><a href="<?php echo base_url()?>format/Requisitionverify/returns/<?php echo $row->requisition_id;?>">
+                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
+              Return</a></li>
+             <?php } ?>
               </ul>
             </div>
             </td>
@@ -111,8 +120,8 @@ Add Requisition
         </tbody>
         </table>
         <div class="box-tools">
-                  <?php if(isset($pagination))echo $pagination; ?>
-              </div>
+          <?php if(isset($pagination))echo $pagination; ?>
+        </div>
         </div>
       </div>
           <!-- /.box-body -->

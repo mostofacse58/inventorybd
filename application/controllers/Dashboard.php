@@ -335,6 +335,13 @@ function viewpipdf($pi_id=FALSE){
     $name = $file;
     force_download($name, $data);
   }
+  function ReqAttach($file = "") {
+    // load ci download helder
+    $this->load->helper('download');
+    $data = file_get_contents("requisition/".$file); // Read the file's 
+    $name = $file;
+    force_download($name, $data);
+  }
   function dpayment($file = "") {
     // load ci download helder
     $this->load->helper('download');

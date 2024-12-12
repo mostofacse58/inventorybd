@@ -43,6 +43,7 @@
             <th style="width:8%;">Status</th>
             <th style="width:10%;">Prepared by</th>
             <th style="text-align:center;width:5%;">Actions 行动</th>
+            <th style="width:8%;">Attachment</th>
         </tr>
         </thead>
         <tbody>
@@ -60,11 +61,12 @@
             <td class="text-center"><?php echo findDate($row->requisition_date); ?></td>
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==2)?"danger":"success";?>">
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==5)?"danger":"success";?>">
               <?php 
               if($row->requisition_status==1) echo "Draft";
               elseif($row->requisition_status==2) echo "Pending";
-              elseif($row->requisition_status==3) echo "Approved";
+              elseif($row->requisition_status==3) echo "Pending";
+              elseif($row->requisition_status==4) echo "Approved";
               else echo "Received";
               ?>
               </span></td>
@@ -78,7 +80,7 @@
               <ul class="dropdown-menu pull-right" role="menu">
               <li> <a href="<?php echo base_url()?>format/Requisitionapp/view2/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
               <li> <a href="<?php echo base_url()?>format/Requisition/view/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>pdf</a></li>
-              <?php if($row->requisition_status==2){ ?>
+              <?php if($row->requisition_status==3){ ?>
               <li><a href="<?php echo base_url()?>format/Requisitionapp/approved/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
               Approve</a></li>
@@ -92,6 +94,11 @@
              <?php } ?>
               </ul>
             </div>
+            </td>
+            <td class="text-center">
+              <?php if(isset($row) &&!empty($row->attachment)) { ?>
+              <a href="<?php echo base_url(); ?>Dashboard/ReqAttach/<?php echo $row->attachment; ?>">Download</a>
+            <?php } ?>
             </td>
           </tr>
           <?php
