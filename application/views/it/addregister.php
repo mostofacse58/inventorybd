@@ -206,7 +206,7 @@ $(document).ready(function(){
               </div>
               <label class="col-sm-1 control-label">Price <span style="color:red;">  *</span></label>
                    <div class="col-sm-2">
-                       <input type="text" name="machine_price" id="machine_price" class="form-control" value="<?php if(isset($info)) echo $info->machine_price; else echo set_value('machine_price'); ?>" required>
+                       <input type="text" name="machine_price" id="machine_price" class="form-control integerchk" value="<?php if(isset($info)) echo $info->machine_price; else echo set_value('machine_price'); ?>" required>
                <span class="error-msg"><?php echo form_error("machine_price");?></span>
               </div>
               <label class="col-sm-1 control-label" style="text-align: left;">IN BDT</label>

@@ -23,7 +23,7 @@
         <label class="col-sm-2 control-label">
           Select Excel File</label>
           <div class="col-sm-3">
-              <input type="file" class="form-control"  name="data_file">
+              <input type="file" class="form-control"  name="data_file" accept=".xlsx, .xls">
               <?php
                 $exception_err = $this->session->userdata('exception_err');
                 if ($exception_err) {

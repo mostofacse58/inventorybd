@@ -10,7 +10,7 @@ class Monthlystatement extends My_Controller {
 		$data['clist']=$this->Look_up_model->getCategory(12);
         $data['dlist']=$this->Look_up_model->departmentList();
         $data['slist']=$this->Look_up_model->getSymptom();
-	    $data['display']='medical/Monthlystatement/';
+	    $data['display']='medical/monthlystatement';
         $this->load->view('admin/master',$data);
         } else {
            redirect("Logincontroller");
@@ -34,10 +34,10 @@ class Monthlystatement extends My_Controller {
         $data['from_date']=alterDateFormat($this->input->post('from_date'));
         $data['to_date']=alterDateFormat($this->input->post('to_date'));
         $data['resultdetail']=$this->Monthlystatement_model->reportrResult($department_id,$data['symptoms_id'],$data['from_date'],$data['to_date']);
-        $data['display']='medical/Monthlystatement/';
+        $data['display']='medical/monthlystatement';
         $this->load->view('admin/master',$data);
         }else{
-        $data['display']='medical/Monthlystatement/';
+        $data['display']='medical/monthlystatement';
         $this->load->view('admin/master',$data);
         }
         } else {

@@ -98,7 +98,7 @@ tbody{margin: 0;
   <div class="primary_area">
 <div class="primary_area1">
   
-<?php echo  $this->load->view($view); ?>
+<?php echo  $this->load->view($view,null,true); ?>
   <!-- ///////////////////// -->
 </div>
 </div>

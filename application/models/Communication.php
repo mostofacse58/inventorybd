@@ -1,9 +1,6 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Communication extends CI_Controller{
-    
-
     function send($emailaddress,$subject,$message){
         // Load PHPMailer library
         //$emailaddress='golam.mostofa58@gmail.com';

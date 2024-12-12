@@ -145,20 +145,20 @@ public function suggestions(){
         }
       }
     function submit($requisition_id=FALSE){
-      $this->load->model('Communication');
-      $data['info']=$this->Requisition_model->get_info($requisition_id); 
-      $department_id=$data['info']->department_id;
-      $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
-        WHERE department_id=$department_id")->row('dept_head_email');
-      $subject="Requisition Approval Notification";
-      $message=$this->load->view('req_email_format', $data,true); 
-      //$this->Communication->send($emailaddress,$subject,$message);
+      // $this->load->model('Communication');
+      // $data['info']=$this->Requisition_model->get_info($requisition_id); 
+      // $department_id=$data['info']->department_id;
+      // $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
+      //   WHERE department_id=$department_id")->row('dept_head_email');
+      // $subject="Requisition Approval Notification";
+      // $message=$this->load->view('req_email_format', $data,true); 
+      // //$this->Communication->send($emailaddress,$subject,$message);
       $check=$this->Requisition_model->submit($requisition_id);
-        if($check){ 
-           $this->session->set_userdata('exception','Send successfully');
-         }else{
-           $this->session->set_userdata('exception','Send Failed');
-        }
+      if($check){ 
+         $this->session->set_userdata('exception','Send successfully');
+       }else{
+         $this->session->set_userdata('exception','Send Failed');
+      }
       redirect("aformat/Requisition/lists");
     }
 

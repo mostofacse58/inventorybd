@@ -3,7 +3,7 @@
     function __construct(){
         parent::__construct();
         $this->load->model('aformat/Requisition_model');
-        $this->load->model('aformat/requisitionapp_model');
+        $this->load->model('aformat/Requisitionapp_model');
         
      }
     
@@ -86,7 +86,7 @@
 ////////////////////////
 
     function approved($requisition_id=FALSE){
-      $this->load->model('Communication');
+      //$this->load->model('Communication');
       $data['info']=$this->Requisition_model->get_info($requisition_id); 
       $department_id=$data['info']->responsible_department;
       $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 

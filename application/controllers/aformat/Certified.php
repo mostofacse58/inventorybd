@@ -46,7 +46,7 @@ class Certified extends My_Controller {
       ////////////////////////////////////////
       $data['dlist']=$this->Look_up_model->departmentList();
       $data['heading']='Fixed Asset PI Lists  固定资产购买缩进清单';
-      $data['display']='aformat/certified_list';
+      $data['display']='aformat/deptpi_list';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");

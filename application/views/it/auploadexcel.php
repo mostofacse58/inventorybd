@@ -11,7 +11,7 @@
             <label class="col-sm-2 control-label">
             Select Asset Excel</label>
               <div class="col-sm-4">
-                  <input type="file" class="form-control"  name="data_file">
+                  <input type="file" class="form-control"  name="data_file" accept=".xlsx, .xls">
                   <?php
                     $exception_err = $this->session->userdata('exception_err');
                     if ($exception_err) {
