@@ -27,8 +27,10 @@ class Requisitionrec_model extends CI_Model {
           LEFT JOIN department_info pt ON(pm.department_id=pt.department_id)
           LEFT JOIN department_info d ON(pm.responsible_department=d.department_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
-          WHERE pm.responsible_department=$department_id AND pm.general_or_tpm=1
-          AND pm.requisition_status>2 AND pm.pr_type=1 $condition 
+          WHERE pm.responsible_department=$department_id 
+          AND pm.general_or_tpm=1
+          AND pm.requisition_status>3 
+          AND pm.pr_type=1 $condition 
         GROUP BY pm.requisition_id");
 
     }else{
@@ -38,8 +40,10 @@ class Requisitionrec_model extends CI_Model {
           LEFT JOIN department_info pt ON(pm.department_id=pt.department_id)
           LEFT JOIN department_info d ON(pm.responsible_department=d.department_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
-          WHERE pm.responsible_department=$department_id AND pm.general_or_tpm=1
-          AND pm.requisition_status>2 AND pm.pr_type=1 $condition ");
+          WHERE pm.responsible_department=$department_id 
+          AND pm.general_or_tpm=1
+          AND pm.requisition_status>3 
+          AND pm.pr_type=1 $condition ");
     }
       
       $data = count($query->result());
