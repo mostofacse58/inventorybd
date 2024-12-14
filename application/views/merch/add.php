@@ -88,7 +88,7 @@ $("#AddManualItem").click(function(){
 
     '<td> <input type="text" name="amount[]" readonly class="form-control" placeholder="Amount" style="margin-bottom:5px;width:98%;text-align:center" value="0.00"  id="amount_' + id + '"/> </td>' +
 
-    '<td><input type="text" name="remarks[]" readonly class="form-control" placeholder="remarks" style="width:100%;float:left" value="" id="remarks_' + id + '"></td>'+
+    '<td><input type="text" name="remarks[]"  class="form-control" placeholder="remarks" style="width:100%;float:left" value="" id="remarks_' + id + '"></td>'+
     '<td style="text-align:center"><button class="btn btn-danger btn-xs" onclick="return deleter(' + id + ');" style="margin-top:5px;"><i class="fa fa-trash-o"></i> </button> </td> </tr>';
       $("#form-table tbody").append(nodeStr);
     updateRowNo();
@@ -187,14 +187,7 @@ $("#AddManualItem").click(function(){
         var totalAmount=0;
         for(var i=0;i<id;i++){
         if(deletedRow.indexOf(i)<0) {
-
           totalAmount += parseFloat($.trim($("#amount_" + i).val()));
-          var length= parseFloat($.trim($("#length_" + i).val()));
-          var width= parseFloat($.trim($("#width_" + i).val()));
-          var height= parseFloat($.trim($("#height_" + i).val()));
-          var remarks=(length*width*height)/5000;
-          ///alert(remarks);
-          $("#remarks_"+i).val(remarks);
         }
         }
         $("#total_amount").val(totalAmount.toFixed(2));
@@ -285,7 +278,7 @@ $("#AddManualItem").click(function(){
       $str.= '<td><input type="text" name="unit_price[]" value="'.$value->unit_price.'"  class="form-control"  placeholder="unit_price" style="width:100%;float:left;text-align:center"  id="unit_price_' .$id. '"  onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');">'; 
       $str.= '<td><input type="text" name="amount[]" value="'.$value->amount.'"  class="form-control"  placeholder="amount style="width:100%;float:left;text-align:center"  id="amount_' .$id. '"  onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');">';
  
-      $str.= '<td><input type="text" name="remarks[]" value="'.$value->remarks.'"  class="form-control"  placeholder="remarks" style="width:100%;float:left;text-align:center" readonly id="remarks_' .$id. '">';
+      $str.= '<td><input type="text" name="remarks[]" value="'.$value->remarks.'"  class="form-control"  placeholder="remarks" style="width:100%;float:left;text-align:center"  id="remarks_' .$id. '">';
       $str.= '<td style"text-align:center"><button class="btn btn-danger btn-xs" style"text-align:center" onclick="return deleter('. $i .');" style="margin-top:5px;"><i class="fa fa-trash-o"></i></button></td></tr>';
       echo $str;
        ?>
