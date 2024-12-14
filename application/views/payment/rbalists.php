@@ -42,7 +42,7 @@
       <div class="col-sm-2">
         <input type="text" name="to_date" readonly="" class="form-control date" placeholder="To Date" value="<?php  echo set_value('to_date'); ?>">
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
         <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>payment/Bareceived/lists">All</a>
     </div>

@@ -52,7 +52,7 @@ Add New PI
         </select>
        <span class="error-msg"><?php echo form_error("pi_status");?></span>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
         <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Deptrequisn/lists">All</a>
     </div>

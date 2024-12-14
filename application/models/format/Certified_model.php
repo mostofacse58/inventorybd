@@ -12,7 +12,7 @@ class Certified_model extends CI_Model {
     }elseif($department_id==4){
       $condition=$condition." AND (pm.department_id=4) ";
     }elseif($department_id==5){
-      $condition=$condition." AND (pm.department_id=5 OR pm.department_id=17 OR pm.department_id=28 OR pm.department_id=29 OR pm.department_id=18 OR pm.department_id=12) ";
+      $condition=$condition." AND (pm.department_id=5 OR pm.department_id=17 OR pm.department_id=28 OR pm.department_id=29 OR pm.department_id=18) ";
     }elseif($department_id==28){
       $condition=$condition." AND (pm.department_id=28) ";
     }elseif($department_id==19){
@@ -64,7 +64,7 @@ class Certified_model extends CI_Model {
     }elseif($department_id==4){
       $condition=$condition."  AND (pm.department_id=4) ";
     }elseif($department_id==5){
-      $condition=$condition."  AND (pm.department_id=5 OR pm.department_id=17 OR pm.department_id=28 OR pm.department_id=29 OR pm.department_id=18 OR pm.department_id=12) ";
+      $condition=$condition."  AND (pm.department_id=5 OR pm.department_id=17 OR pm.department_id=28 OR pm.department_id=29 OR pm.department_id=18) ";
     }elseif($department_id==28){
       $condition=$condition."  AND (pm.department_id=28) ";
     }elseif($department_id==19){
