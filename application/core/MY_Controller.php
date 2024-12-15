@@ -11,8 +11,8 @@ class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-        $this->load->model('my_model');
-        $this->load->model('config_model');
+        $this->load->model('My_model');
+        $this->load->model('Config_model');
         $_SESSION['redirect_to'] = current_url();
 
 
@@ -25,9 +25,9 @@ class MY_Controller extends CI_Controller {
         }
         $uriSegment = $uri1 . '/' . $uri2 . $uri3;
         //echo $uriSegment; exit();
-        $menu_uri['menu_active_id'] = $this->my_model->select_menu_by_uri($uriSegment);
+        $menu_uri['menu_active_id'] = $this->My_model->select_menu_by_uri($uriSegment);
         $menu_uri['menu_active_id'] == false || $this->session->set_userdata($menu_uri);
-        $this->my_model->checkurl();
+        $this->My_model->checkurl();
 
         // Login check
         $exception_uris = array(
@@ -37,18 +37,18 @@ class MY_Controller extends CI_Controller {
             'Logincontroller/logout'
         );        
         if (in_array(uri_string(), $exception_uris) == FALSE) {
-            if ($this->config_model->loggedin() == FALSE) {
+            if ($this->Config_model->loggedin() == FALSE) {
                 redirect('Logincontroller');
             }
         }
-        $this->my_model->checkpermission();
+        $this->My_model->checkpermission();
         //////////////////
         $meth=$this->router->fetch_method();
         $user_id=$this->session->userdata('user_id');
         
         $info=$this->db->query("SELECT * FROM user WHERE id=$user_id ")->row();
        // print_r($info); exit();
-        if($info->pw_change_date=='2021-12-06' && $meth!='changePassword'){
+        if($info->pw_change_date=='2025-12-06' && $meth!='changePassword'){
             redirect("Configcontroller/changePassword");
         }
         
