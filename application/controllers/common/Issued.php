@@ -330,8 +330,8 @@ class Issued extends My_Controller {
             $data['dlist']=$this->Look_up_model->departmentList();
             $data['detail']=$this->Issued_model->getDetails($issue_id);
             $pdfFilePath='sparesInvoice'.date('Y-m-d H:i').'.pdf';
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('bn','A4','','','5','5','10','18');
+            require 'vendor/autoload.php';
+            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
             $mpdf->useAdobeCJK = true;
             
             $mpdf->autoScriptToLang = true;

@@ -61,7 +61,7 @@
             <td class="text-center"><?php echo findDate($row->requisition_date); ?></td>
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==5)?"danger":"success";?>">
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==3)?"danger":"success";?>">
               <?php 
               if($row->requisition_status==1) echo "Draft";
               elseif($row->requisition_status==2) echo "Pending";

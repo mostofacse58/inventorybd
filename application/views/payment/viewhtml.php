@@ -412,17 +412,17 @@ hr{margin: 5px}
   <div class="col-sm-12" style="text-align: center;">
     <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/lists">
     <i class="fa fa-arrow-circle-o-left tiny-icon"></i> Back</a>
-    <?php if($info->status==1&&$controller=='applications'){ ?>
+    <?php if($info->status==1&&$controller=='Applications'){ ?>
       <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/submit/<?php echo $info->payment_id;?>">
     <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Submit</a>
    <?php } ?>
-    <?php if($info->status==2&&$controller=='checked'){ ?>
+    <?php if($info->status==2&&$controller=='Checked'){ ?>
     <a class="btn btn-warning decisions"  data-pastatus="1" href="#">
     <i class="fa fa-arrow-circle-o-left  tiny-icon"> </i> Return </a>
     <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/approved/<?php echo $info->payment_id;?>">
     <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Confirm</a>
   <?php } ?>
- <!--  <?php if($info->status==4&&$controller=='papproved'){ ?>
+ <!--  <?php if($info->status==4&&$controller=='Papproved'){ ?>
     <a class="btn btn-warning decisions"  data-pastatus="1" href="#">
     <i class="fa fa-arrow-circle-o-left  tiny-icon"> </i> Return </a>
     <a class="btn btn-danger decisions"  data-pastatus="8" href="#">
@@ -430,7 +430,7 @@ hr{margin: 5px}
     <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/approved/<?php echo $info->payment_id;?>">
     <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Approve</a>
   <?php } ?> -->
-  <?php if($info->status==3&&$controller=='verified'){ ?>
+  <?php if($info->status==3&&$controller=='Verified'){ ?>
     <a class="btn btn-warning decisions"  data-pastatus="1" href="#">
     <i class="fa fa-arrow-circle-o-left  tiny-icon"> </i> Return </a>
     <a class="btn btn-danger decisions"  data-pastatus="8" href="#">
@@ -440,7 +440,7 @@ hr{margin: 5px}
     <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/approved/<?php echo $info->payment_id;?>">
     <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Verify</a>
   <?php } ?>
-  <?php if($info->status==4&&$controller=='received'){ ?>
+  <?php if($info->status==4&&$controller=='Received'){ ?>
     <a class="btn btn-warning decisions"  data-pastatus="1" href="#">
     <i class="fa fa-arrow-circle-o-left  tiny-icon"> </i> Return </a>
     <a class="btn btn-danger decisions"  data-pastatus="8" href="#">

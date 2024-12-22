@@ -323,7 +323,7 @@ foreach ($updates as $value){
 <!-- content holder -->
 <div class="box-footer end" data-id='<?php echo $conuts+1; ?>'>
   <div class="col-sm-6">
- <h4><a href="<?php echo base_url(); ?>format/verified/lists" class="btn btn-info">
+ <h4><a href="<?php echo base_url(); ?>format/Verified/lists" class="btn btn-info">
     <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 
     Back to List</a></h4>
   <button type="button" class="btn btn-info edit-previous">
@@ -343,7 +343,7 @@ foreach ($updates as $value){
         <h4 class="modal-title text-primary" id="myModalLabel"> Approve Comments</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" id="formId" method="POST" action="<?php echo base_url()?>format/verified/returns">
+        <form class="form-horizontal" id="formId" method="POST" action="<?php echo base_url()?>format/Verified/returns">
           <div class="form-group">
             <label class="col-sm-3 control-label">Comments </label>
             <div class="col-sm-6">

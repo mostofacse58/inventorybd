@@ -290,7 +290,7 @@ foreach ($updates as $value){
   <div class="box-footer">
   <?php if($info->pi_status==6){ ?>
   <div class="col-sm-12" style="text-align: center;">
-    <a class="btn btn-info" href="<?php echo base_url()?>format/Pi/approved/<?php echo $info->pi_id;?>">
+    <a class="btn btn-info" href="<?php echo base_url()?>format/Pi/Approved/<?php echo $info->pi_id;?>">
     <i class="fa fa-check-circle-o tiny-icon"></i> Approve 批准</a>
     <a class="btn btn-warning canceled" data-pistatus="1"  data-pid="<?php echo $info->pi_id; ?>">
       <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Return 返回</a>

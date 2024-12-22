@@ -121,7 +121,7 @@ Add New PI
         <ul class="dropdown-menu pull-right" role="menu">
         <?php if($row->pi_status==1){ ?>
         <li> <a href="<?php echo base_url()?>format/Deptrequisn/edit/<?php echo $row->pi_id;?>"><i class="fa fa-edit tiny-icon"></i>Edit 编辑</a></li>
-            <?php if($this->session->userdata('delete')=='YES'){ ?>
+          <?php if($this->session->userdata('delete')=='YES'){ ?>
         <li><a href="#" class="delete" data-pid="<?php echo $row->pi_id;?>"><i class="fa fa-trash-o tiny-icon"></i>Delete 删除</a></li>
         <?php } ?>
         <?php } ?>

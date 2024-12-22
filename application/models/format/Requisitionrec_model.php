@@ -81,7 +81,7 @@ class Requisitionrec_model extends CI_Model {
           LEFT JOIN location_info l ON(l.location_id=pm.location_id)
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.responsible_department=$department_id 
-          AND pm.requisition_status>2 AND pm.general_or_tpm=1 AND pm.pr_type=1
+          AND pm.requisition_status>3 AND pm.general_or_tpm=1 AND pm.pr_type=1
           $condition
           GROUP BY pm.requisition_id 
           ORDER BY pm.requisition_status ASC,pm.aproved_date_time DESC
@@ -96,7 +96,7 @@ class Requisitionrec_model extends CI_Model {
           LEFT JOIN location_info l ON(l.location_id=pm.location_id)
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.responsible_department=$department_id 
-          AND pm.requisition_status>2 AND pm.general_or_tpm=1 AND pm.pr_type=1
+          AND pm.requisition_status>3 AND pm.general_or_tpm=1 AND pm.pr_type=1
           $condition
           ORDER BY pm.requisition_status ASC,pm.aproved_date_time DESC
           LIMIT $start,$limit")->result();
@@ -117,7 +117,7 @@ class Requisitionrec_model extends CI_Model {
   }
    function received($requisition_id) {
       $data=array();
-      $data['requisition_status']=4;
+      $data['requisition_status']=5;
       $data['delivery_date']=date('Y-m-d h:i:s a');
       $data['approved_by']=$this->session->userdata('user_id');
       $this->db->WHERE('requisition_id',$requisition_id);
