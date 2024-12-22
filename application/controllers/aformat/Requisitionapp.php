@@ -44,7 +44,7 @@
       $data['list']=$this->Requisitionapp_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
       $data['heading']='Fixed Asset PR Lists';
-      $data['display']='aformat/Requisitionapp_lists';
+      $data['display']='aformat/requisitionapp_lists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");

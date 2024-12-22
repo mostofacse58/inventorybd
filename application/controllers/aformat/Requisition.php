@@ -42,7 +42,7 @@ class Requisition extends My_Controller {
       $data['list']=$this->Requisition_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
       $data['heading']='Fixed Asset PR Lists';
-      $data['display']='aformat/Requisition_lists';
+      $data['display']='aformat/requisition_lists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");
