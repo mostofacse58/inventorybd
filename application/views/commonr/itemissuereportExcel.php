@@ -92,7 +92,7 @@ body{
               <td style="vertical-align: text-top;text-align:center;">
               <?php if($row->issue_for==1)  echo "NEW"; elseif($row->issue_for==2) echo "REPLACE"; ?></td>
               <td style="vertical-align: text-top;text-align:center;">
-              <?php  echo $this->itemissuereport_model->getAssetCode($row->product_detail_id); ?></td>
+              <?php  echo $this->Itemissuereport_model->getAssetCode($row->product_detail_id); ?></td>
             </tr>
             <?php
             endforeach;

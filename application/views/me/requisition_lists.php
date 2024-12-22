@@ -64,13 +64,14 @@ Add Requisition
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center"><?php echo $row->asset_encoding; ?></td>
             <td class="text-center">
-              <span class="btn btn-xs btn-<?php echo ($row->requisition_status==1)?"danger":"success";?>">
+              <span class="btn btn-xs btn-<?php echo ($row->requisition_status==3)?"danger":"success";?>">
                     <?php 
                     if($row->requisition_status==1) echo "Draft";
                     elseif($row->requisition_status==0) echo "Reject";
                     elseif($row->requisition_status==2) echo "Submitted";
-                    elseif($row->requisition_status==3) echo "Received";
-                    else echo "Approved";
+                    elseif($row->requisition_status==3) echo "Submitted";
+                    elseif($row->requisition_status==4) echo "Received";
+                    elseif($row->requisition_status==5) echo "Approved";
                     ?>
                 </span></td>
             <td class="text-center"><?php echo $row->user_name; ?></td>

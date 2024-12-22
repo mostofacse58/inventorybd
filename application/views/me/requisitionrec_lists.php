@@ -79,11 +79,11 @@
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center"><?php echo $row->asset_encoding; ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==2)?"danger":"success";?>">
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==3)?"danger":"success";?>">
               <?php 
-             if($row->requisition_status==2) echo "Pending";
-             else if($row->requisition_status==3) echo "Received";
-              else echo "Approved";
+             if($row->requisition_status==3) echo "Pending";
+             else if($row->requisition_status==4) echo "Received";
+            else if($row->requisition_status==5)  echo "Approved";
               ?>
               </span></td>
             <td class="text-center"><?php echo $row->user_name; ?></td>
@@ -98,7 +98,7 @@
                 <i class="fa fa-eye tiny-icon"></i>View</a></li>
                <li> <a href="<?php echo base_url()?>me/Requisition/viewhtml/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-eye tiny-icon"></i>PDF</a></li>
-              <?php if($row->requisition_status==2){ ?>
+              <?php if($row->requisition_status==3){ ?>
               <li><a href="<?php echo base_url()?>me/Requisitionrec/received/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
               Receive</a></li>

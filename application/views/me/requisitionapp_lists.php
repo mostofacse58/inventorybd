@@ -61,12 +61,12 @@
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center"><?php echo $row->asset_encoding; ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==3)?"danger":"success";?>">
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==4)?"danger":"success";?>">
               <?php 
               if($row->requisition_status==1) echo "Draft";
               elseif($row->requisition_status==2) echo "Received";
-              elseif($row->requisition_status==3) echo "Pending";
-              else echo "Approved";
+              elseif($row->requisition_status==4) echo "Pending";
+              else if($row->requisition_status==5)  echo "Approved";
               ?>
               </span></td>
             <td class="text-center"><?php echo $row->user_name; ?></td>
@@ -78,7 +78,7 @@
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
               <li> <a href="<?php echo base_url()?>me/Requisition/view/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
-              <?php if($row->requisition_status==3){ ?>
+              <?php if($row->requisition_status==4){ ?>
               <li><a href="<?php echo base_url()?>me/Requisitionapp/approved/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
               Approve</a></li>

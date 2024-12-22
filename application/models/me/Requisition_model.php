@@ -139,7 +139,7 @@ class Requisition_model extends CI_Model {
     
    function submit($requisition_id) {
         $this->db->WHERE('requisition_id',$requisition_id);
-        $query=$this->db->Update('requisition_master',array('requisition_status'=>2));
+        $query=$this->db->Update('requisition_master',array('requisition_status'=>3));
         return $query;
      }
   

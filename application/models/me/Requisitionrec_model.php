@@ -21,14 +21,14 @@ class Requisitionrec_model extends CI_Model {
         $data=$this->db->query("SELECT count(*) as counts     
             FROM  requisition_master pm 
             WHERE pm.responsible_department=12 AND pm.general_or_tpm=2
-            AND pm.requisition_status>1 AND pm.pr_type=1 $condition 
+            AND pm.requisition_status>2 AND pm.pr_type=1 $condition 
             GROUP BY pm.requisition_id")->row('counts');
 
       }else{
         $data=$this->db->query("SELECT count(*) as counts 
             FROM  requisition_master pm       
             WHERE pm.responsible_department=12 AND pm.general_or_tpm=2
-            AND pm.requisition_status>1 AND pm.pr_type=1 ")->row('counts');
+            AND pm.requisition_status>2 AND pm.pr_type=1 ")->row('counts');
       }
      return $data;
     }
@@ -58,7 +58,7 @@ class Requisitionrec_model extends CI_Model {
           LEFT JOIN department_info d ON(pm.responsible_department=d.department_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.responsible_department=12 
-          AND pm.requisition_status>1 AND pm.general_or_tpm=2 $condition
+          AND pm.requisition_status>2 AND pm.general_or_tpm=2 $condition
           GROUP BY pm.requisition_id 
           ORDER BY pm.requisition_status ASC,requisition_id DESC
           LIMIT $start,$limit")->result();
@@ -71,7 +71,7 @@ class Requisitionrec_model extends CI_Model {
           LEFT JOIN department_info d ON(pm.responsible_department=d.department_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.responsible_department=12 
-          AND pm.requisition_status>1 AND pm.general_or_tpm=2 $condition
+          AND pm.requisition_status>2 AND pm.general_or_tpm=2 $condition
           ORDER BY pm.requisition_status ASC,requisition_id DESC
           LIMIT $start,$limit")->result();
         }
@@ -91,7 +91,7 @@ class Requisitionrec_model extends CI_Model {
   }
    function received($requisition_id) {
       $data=array();
-      $data['requisition_status']=3;
+      $data['requisition_status']=4;
       $data['approved_by']=$this->session->userdata('user_id');
       $this->db->WHERE('requisition_id',$requisition_id);
       $query=$this->db->Update('requisition_master',$data);

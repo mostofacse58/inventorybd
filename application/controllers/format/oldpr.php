@@ -121,8 +121,8 @@ public function suggestions(){
             $data['info']=$this->Oldpr_model->get_info($deptrequisn_id);
             $data['detail']=$this->Oldpr_model->getDetails($deptrequisn_id);
             $pdfFilePath='Requisition'.date('Y-m-d H:i').'.pdf';
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('bn','L','','','15','15','10','18');
+            require 'vendor/autoload.php';
+            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 15, 'margin_right' => 15, 'margin_top' => 10, 'margin_bottom' => 18,]);
             $mpdf->useAdobeCJK = true;
             
             $mpdf->autoScriptToLang = true;

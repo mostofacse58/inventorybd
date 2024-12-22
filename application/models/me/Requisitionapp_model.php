@@ -12,7 +12,7 @@ class Requisitionapp_model extends CI_Model {
       $data=$this->db->query("SELECT count(*) as counts      
           FROM  requisition_master pm 
          
-          WHERE pm.requisition_status>2 
+          WHERE pm.requisition_status>3 
           AND pm.pr_type=1 AND pm.general_or_tpm=2 $condition")->row('counts');
       return $data;
     }
@@ -31,7 +31,7 @@ class Requisitionapp_model extends CI_Model {
           LEFT JOIN department_info pt ON(pm.department_id=pt.department_id)
           LEFT JOIN department_info d ON(pm.responsible_department=d.department_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
-          WHERE  pm.requisition_status>2 AND pm.general_or_tpm=2$condition
+          WHERE  pm.requisition_status>3 AND pm.general_or_tpm=2$condition
           ORDER BY pm.requisition_status ASC LIMIT $start,$limit")->result();
         return $result;
     }
@@ -55,7 +55,7 @@ class Requisitionapp_model extends CI_Model {
   }
    function approved($requisition_id) {
       $data=array();
-      $data['requisition_status']=4;
+      $data['requisition_status']=5;
       $data['dept_head']=$this->session->userdata('user_id');
       $this->db->WHERE('requisition_id',$requisition_id);
       $query=$this->db->Update('requisition_master',$data);

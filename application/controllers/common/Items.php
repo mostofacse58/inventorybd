@@ -120,7 +120,7 @@ class Items extends My_Controller {
           $this->form_validation->set_rules('product_code','ITEM CODE','trim');
         }
         $this->form_validation->set_rules('unit_id','Product Unit','trim|required');
-        $this->form_validation->set_rules('product_description','Description','trim|');
+        $this->form_validation->set_rules('product_description','Description','trim');
         $this->form_validation->set_rules('stock_quantity','Stock Quatity','trim|required');
         $this->form_validation->set_rules('minimum_stock','minimum Stock Qty','trim|required');
         $this->form_validation->set_rules('unit_price','Unit Price','trim|required');

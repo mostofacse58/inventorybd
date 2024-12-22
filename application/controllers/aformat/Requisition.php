@@ -122,16 +122,15 @@ public function suggestions(){
             $data['info']=$this->Requisition_model->get_info($requisition_id);
             $data['detail']=$this->Requisition_model->getDetails($requisition_id);
             $pdfFilePath='Requisition'.date('Y-m-d H:i').'.pdf';
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('bn','L','','','15','15','10','18');
+            require 'vendor/autoload.php';
+            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
             $mpdf->useAdobeCJK = true;
-            
             $mpdf->autoScriptToLang = true;
             $mpdf->autoLangToFont = true;
             $mpdf->AddPage('L');
             $header = $this->load->view('header', $data, true);
             $footer = $this->load->view('footer', $data, true);
-            $html=$this->load->view('aformat/RequisitionView', $data, true);
+            $html=$this->load->view('aformat/requisitionView', $data, true);
             //$mpdf->setHtmlHeader($header);
             // $mpdf->pagenumPrefix = '  Page ';
             // $mpdf->pagenumSuffix = ' - ';

@@ -233,7 +233,7 @@ Download PDF
               <td style="vertical-align: text-top;text-align:center;">
               <?php  echo "$row->employee_name($row->employee_id)"; ?></td>
               <td style="vertical-align: text-top;text-align:center;">
-              <?php  echo $this->itemissuereport_model->getAssetCode($row->product_detail_id); ?></td>
+              <?php  echo $this->Itemissuereport_model->getAssetCode($row->product_detail_id); ?></td>
             </tr>
             <?php
             endforeach;

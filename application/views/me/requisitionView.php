@@ -90,9 +90,9 @@ hr{margin: 5px}
 <table style="width:100%">
   <tr>
   <td style="width:25%;text-align:left;"><?php if(isset($info)) echo "$info->requested_by"; ?></td>
-  <td style="width:25%;text-align:center"><?php if($info->requisition_status>2) echo "$info->dept_head"; ?></td>
+  <td style="width:25%;text-align:center"><?php if($info->requisition_status>3) echo "$info->dept_head"; ?></td>
   <td style="width:25%;text-align:center"></td>
-  <td style="width:25%;text-align:right"><?php if($info->requisition_status>3) echo "$info->approved_by"; ?></td>
+  <td style="width:25%;text-align:right"><?php if($info->requisition_status>4) echo "$info->approved_by"; ?></td>
   </tr>
   <tr>
   <td style="text-align:left;font-size: 15px;line-height: 5px">---------------</td>

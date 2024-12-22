@@ -23,7 +23,7 @@ class Requisitionapp_model extends CI_Model {
           LEFT JOIN location_info l ON(l.location_id=pm.location_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id 
-          AND pm.requisition_status>3 
+          AND pm.requisition_status>2 
           AND pm.pr_type=1 
           AND pm.general_or_tpm=1 $condition");
       $data = count($query->result());
@@ -51,7 +51,7 @@ class Requisitionapp_model extends CI_Model {
           LEFT JOIN location_info l ON(l.location_id=pm.location_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id 
-          AND pm.requisition_status>3 
+          AND pm.requisition_status>2 
           AND pm.general_or_tpm=1 
           AND pm.pr_type=1 $condition
           ORDER BY pm.requisition_status ASC LIMIT $start,$limit")->result();
