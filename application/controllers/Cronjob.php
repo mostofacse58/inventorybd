@@ -48,7 +48,7 @@ function safetystockemail(){
 
     $mpdf = new mPDF('bn','A4','','','15','15','30','18');
     $mpdf->useAdobeCJK = true;
-    $mpdf->SetAutoFont(AUTOFONT_ALL);
+    
     $mpdf->autoScriptToLang = true;
     $mpdf->autoLangToFont = true;
     $header = $this->load->view('header', $data, true);

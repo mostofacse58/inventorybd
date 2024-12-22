@@ -12,7 +12,7 @@ class Sparestockreport extends My_Controller {
         $data['heading']='Spares Stock Report';
         $data['flist']=$this->Look_up_model->getFloor();
         $data['clist']=$this->Look_up_model->getCategory(12);
-        $data['display']='report/Sparestockreport';
+        $data['display']='report/sparestockreport';
         $this->load->view('admin/master',$data);
         } else {
            redirect("Logincontroller");
@@ -111,7 +111,7 @@ function downloadPdf($category_id=FALSE,$rack_id=FALSE,$box_id=FALSE,$color_code
     ini_set("pcre.backtrack_limit","1000000000");
     $mpdf = new mPDF('bn','L','','','15','15','30','18');
     $mpdf->useAdobeCJK = true;
-    $mpdf->SetAutoFont(AUTOFONT_ALL);
+    
     $mpdf->autoScriptToLang = true;
     $mpdf->autoLangToFont = true;
     $header = $this->load->view('header', $data, true);

@@ -52,10 +52,9 @@ function viewpipdf($pi_id=FALSE){
         $data['info']=$this->Deptrequisn_model->get_info($pi_id);
         $data['detail']=$this->Deptrequisn_model->getDetails($pi_id);
         $pdfFilePath='PI'.date('Y-m-d H:i').'.pdf';
-        $this->load->library('mpdf');
-        $mpdf = new mPDF('bn','L','','','10','10','5','18');
+        require 'vendor/autoload.php';
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
         $mpdf->useAdobeCJK = true;
-        $mpdf->SetAutoFont(AUTOFONT_ALL);
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
         $mpdf->AddPage('L');
@@ -78,10 +77,10 @@ function viewpipdf($pi_id=FALSE){
         $data['info']=$this->Invoice_model->get_info($invoice_id);
         $data['detail']=$this->Invoice_model->get_detail($invoice_id);
         $pdfFilePath='INVOICE'.date('Y-m-d H:i').'.pdf';
-        $this->load->library('mpdf');
-        $mpdf = new mPDF('bn','L','','','10','10','5','18');
+        require 'vendor/autoload.php';
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
         $mpdf->useAdobeCJK = true;
-        $mpdf->SetAutoFont(AUTOFONT_ALL);
+        
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
         $mpdf->AddPage('L');
@@ -102,10 +101,10 @@ function viewpipdf($pi_id=FALSE){
       $data['detail3']=$this->Applications_model->getDetails3($payment_id);
       $data['detail4']=$this->Applications_model->getDetails4($payment_id);
       $pdfFilePath='PA-'.date('Y-m-d H:i').'.pdf';
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('bn','P','','','15','15','10','15');
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
       $mpdf->useAdobeCJK = true;
-      $mpdf->SetAutoFont(AUTOFONT_ALL);
+      
       $mpdf->autoScriptToLang = true;
       $mpdf->autoLangToFont = true;
       $mpdf->AddPage('P');
@@ -121,10 +120,10 @@ function viewpipdf($pi_id=FALSE){
       $data['info']=$this->Courier_model->get_info($courier_id);
       $data['detail']=$this->Courier_model->get_detail($courier_id);
       $pdfFilePath='PA-'.date('Y-m-d H:i').'.pdf';
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('bn','P','','','15','15','10','15');
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
       $mpdf->useAdobeCJK = true;
-      $mpdf->SetAutoFont(AUTOFONT_ALL);
+      
       $mpdf->autoScriptToLang = true;
       $mpdf->autoLangToFont = true;
       $mpdf->AddPage('P');
@@ -151,10 +150,10 @@ function viewpipdf($pi_id=FALSE){
       $data['info']=$this->Po_model->get_info($po_id);
       $data['detail']=$this->Po_model->getDetails($po_id);
       $pdfFilePath='PO'.date('Y-m-d H:i').'.pdf';
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('bn','P','','','15','15','5','18');
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
       $mpdf->useAdobeCJK = true;
-      $mpdf->SetAutoFont(AUTOFONT_ALL);
+      
       $mpdf->autoScriptToLang = true;
       $mpdf->autoLangToFont = true;
       $mpdf->AddPage('P');
@@ -176,10 +175,10 @@ function viewpipdf($pi_id=FALSE){
       $data['info']=$this->Po_model->get_info2($po_number);
       $data['detail']=$this->Po_model->getDetails($data['info']->po_id);
       $pdfFilePath='PO'.date('Y-m-d H:i').'.pdf';
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('bn','P','','','15','15','5','18');
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
       $mpdf->useAdobeCJK = true;
-      $mpdf->SetAutoFont(AUTOFONT_ALL);
+      
       $mpdf->autoScriptToLang = true;
       $mpdf->autoLangToFont = true;
       $mpdf->AddPage('P');

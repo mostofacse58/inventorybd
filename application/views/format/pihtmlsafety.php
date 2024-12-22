@@ -56,8 +56,8 @@ hr{margin: 5px}
    <div class="table-responsive table-bordered">
     <?php $m=1; $conuts=count($lists);
     foreach ($lists as $value1){ 
-      $info=$this->deptrequisn_model->get_info($value1->pi_id);
-      $detail=$this->deptrequisn_model->getDetails($value1->pi_id);
+      $info=$this->Deptrequisn_model->get_info($value1->pi_id);
+      $detail=$this->Deptrequisn_model->getDetails($value1->pi_id);
      ?>
 <div class="content1" id="content-<?php echo $m; ?>" data-id='<?php echo $m; ?>' <?php if($m==1) echo 'style="display: block;"'; ?> >
   <div class="bs-wizard" style="border-bottom:0;">

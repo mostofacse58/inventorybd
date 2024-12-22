@@ -95,7 +95,7 @@ function downloadPdf($category_id=FALSE,$rack_id=FALSE,$box_id=FALSE,$color_code
     $this->load->library('mpdf');
     $mpdf = new mPDF('bn','L','','','15','15','30','18');
     $mpdf->useAdobeCJK = true;
-    $mpdf->SetAutoFont(AUTOFONT_ALL);
+    
     $mpdf->autoScriptToLang = true;
     $mpdf->autoLangToFont = true;
     $header = $this->load->view('header', $data, true);

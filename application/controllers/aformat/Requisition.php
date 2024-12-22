@@ -125,7 +125,7 @@ public function suggestions(){
             $this->load->library('mpdf');
             $mpdf = new mPDF('bn','L','','','15','15','10','18');
             $mpdf->useAdobeCJK = true;
-            $mpdf->SetAutoFont(AUTOFONT_ALL);
+            
             $mpdf->autoScriptToLang = true;
             $mpdf->autoLangToFont = true;
             $mpdf->AddPage('L');

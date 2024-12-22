@@ -140,10 +140,10 @@ function viewpdf($rfq_id=FALSE){
       $data['info']=$this->Rfq_model->get_info($rfq_id);
       $data['detail']=$this->Rfq_model->getDetails($rfq_id);
       $pdfFilePath='ItemRFQInvoice'.date('Y-m-d H:i').'.pdf';
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('bn','A4','','','5','5','10','18');
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
       $mpdf->useAdobeCJK = true;
-      $mpdf->SetAutoFont(AUTOFONT_ALL);
+      
       $mpdf->autoScriptToLang = true;
       $mpdf->autoLangToFont = true;
       $header = $this->load->view('header', $data, true);

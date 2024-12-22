@@ -149,10 +149,10 @@ function viewpdf($purchase_id=FALSE){
       $data['info']=$this->Ipurchase_model->get_info($purchase_id);
       $data['detail']=$this->Ipurchase_model->getDetails($purchase_id);
       $pdfFilePath='ItemReceiveInvoice'.date('Y-m-d H:i').'.pdf';
-      $this->load->library('mpdf');
-      $mpdf = new mPDF('bn','A4','','','5','5','10','18');
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 5, 'margin_bottom' => 18,]);
       $mpdf->useAdobeCJK = true;
-      $mpdf->SetAutoFont(AUTOFONT_ALL);
+      
       $mpdf->autoScriptToLang = true;
       $mpdf->autoLangToFont = true;
       $header = $this->load->view('header', $data, true);
