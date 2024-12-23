@@ -109,7 +109,7 @@ class Items extends My_Controller {
           //$this->form_validation->set_rules('product_model','Model','trim|is_unique[product_info.product_model]');
           $this->form_validation->set_rules('product_model','Model','trim');
         }else{
-          $this->form_validation->set_rules('product_model','Model','trim|');
+          $this->form_validation->set_rules('product_model','Model','trim');
         }        
         $this->form_validation->set_rules('product_name','English Name','trim|required');
         $this->form_validation->set_rules('china_name','Chinese  Name','trim');
@@ -125,7 +125,7 @@ class Items extends My_Controller {
         $this->form_validation->set_rules('minimum_stock','minimum Stock Qty','trim|required');
         $this->form_validation->set_rules('unit_price','Unit Price','trim|required');
         $this->form_validation->set_rules('box_id','Box Name','trim');
-        $this->form_validation->set_rules('brand_id','Brand','trim|');
+        $this->form_validation->set_rules('brand_id','Brand','trim');
         $this->form_validation->set_rules('bd_or_cn','Country','trim');
          if ($this->form_validation->run() == TRUE) {
             $stock_quantity=$this->input->post('stock_quantity');

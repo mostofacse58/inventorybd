@@ -95,7 +95,7 @@ $(function() {
     <input type="hidden" name="head_id[]" value="<?php echo $rows->head_id; ?>"> 
   </td>
   <td style="text-align:center;">
-    <input type="text" name="amount[]" class="form-control integerchk" onfocus="this.select();" value="<?php if($rows->amount==0) echo $this->budget_model->getLastMonth($rows->head_id,$date); else echo $rows->amount; ?>" id="amount_<?php echo $i; ?>">
+    <input type="text" name="amount[]" class="form-control integerchk" onfocus="this.select();" value="<?php if($rows->amount==0) echo $this->Budget_model->getLastMonth($rows->head_id,$date); else echo $rows->amount; ?>" id="amount_<?php echo $i; ?>">
   </td>
   <td style="text-align: center;"><input type="checkbox" class="checkboxfun"  value="<?php echo $i; ?>"></td>
   <td style="text-align:center;">

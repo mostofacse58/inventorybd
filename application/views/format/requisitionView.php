@@ -99,31 +99,31 @@ hr{margin: 5px}
 <br><br>
 <table style="width:100%">
   <tr>
-  <td style="width:25%;text-align:left;">
-    <?php if(isset($info)) echo "$info->requested_by"; ?></td>
-  <td style="width:25%;text-align:center">
-    <?php if($info->requisition_status>2) echo "$info->dept_head"; ?></td>
-  <td style="width:25%;text-align:center"><?php if($info->requisition_status>3) echo "$info->approved_by"; ?></td>
-  <td style="width:25%;text-align:right">
-    <?php if($info->requisition_status>3) echo "$info->approved_by"; ?></td>
+  <td style="width:20%;text-align:left;"><?php if(isset($info)) echo "$info->requested_by"; ?></td>
+  <td style="width:20%;text-align:center"><?php if($info->requisition_status>2) echo "$info->verify_name"; ?></td>
+  <td style="width:20%;text-align:center"><?php if($info->requisition_status>3) echo "$info->dept_head"; ?></td>
+  <td style="width:20%;text-align:center"><?php if($info->requisition_status>4) echo "$info->approved_by"; ?></td>
+  <td style="width:20%;text-align:right"> <?php if($info->requisition_status>4) echo "$info->approved_by"; ?></td>
   </tr>
   <tr>
-  <td style="width:25%;text-align:left;">
+  <td style="text-align:left;">
     <?php if(isset($info)) echo $info->submited_date_time; ?></td>
-  <td style="width:25%;text-align:center">
-    <?php if($info->requisition_status>2) echo "$info->aproved_date_time"; ?></td>
-  <td style="width:25%;text-align:center"><?php if($info->requisition_status>3) echo $info->delivery_date; ?></td>
-  <td style="width:25%;text-align:right">
-    <?php if($info->requisition_status>3) echo $info->delivery_date; ?></td>
+  <td style="text-align:center"><?php if($info->requisition_status>2) echo "$info->aproved_date_time"; ?></td>
+  <td style="text-align:center"><?php if($info->requisition_status>3) echo "$info->verify_date"; ?></td>
+
+  <td style="text-align:center"><?php if($info->requisition_status>4) echo $info->delivery_date; ?></td>
+  <td style="text-align:right"><?php if($info->requisition_status>4) echo $info->delivery_date; ?></td>
   </tr>
   <tr>
   <td style="text-align:left;font-size: 15px;line-height: 5px">-------------</td>
+  <td style="text-align:center;font-size: 15px;line-height: 5px">-------------</td>
   <td style="text-align:center;font-size: 15px;line-height: 5px">-------------</td>
   <td style="text-align:center;font-size: 15px;line-height: 5px">--------------</td>
   <td style="text-align:right;font-size: 15px;line-height: 5px">--------------</td>
   </tr>
   <tr>
   <td style="text-align:left;">PREPARED BY</td>
+  <td style="text-align:center">VERIFY</td>
   <td style="text-align:center">HEAD OF DEPARTMENT</td>
   <td style="text-align:center">RECEIVED BY</td>
   <td style="text-align:right">DELIVERED BY</td>
