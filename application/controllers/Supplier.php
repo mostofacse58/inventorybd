@@ -12,7 +12,7 @@ class Supplier extends My_Controller {
         if($this->session->userdata('user_id')) {
         $data['heading']='Supplier Informatoion';
         $data['list']=$this->Supplier_model->lists();
-        $data['display']='Supplier/supplierinfo';
+        $data['display']='supplier/supplierinfo';
         $this->load->view('admin/master',$data);
         } else {
           redirect("Logincontroller");
@@ -21,7 +21,7 @@ class Supplier extends My_Controller {
     function add(){
         if ($this->session->userdata('user_id')) {
         $data['heading']='Add Supplier Informatoion';
-        $data['display']='Supplier/add';
+        $data['display']='supplier/add';
         $this->load->view('admin/master',$data);
         } else {
            redirect("Logincontroller");
@@ -31,7 +31,7 @@ class Supplier extends My_Controller {
         if ($this->session->userdata('user_id')) {
         $data['heading']='Edit Supplier Informatoion';
         $data['info']=$this->Supplier_model->get_info($supplier_id);
-        $data['display']='Supplier/add';
+        $data['display']='supplier/add';
         $this->load->view('admin/master',$data);
         } else {
            redirect("Logincontroller");
@@ -59,7 +59,7 @@ class Supplier extends My_Controller {
               $data['heading']='Edit Supplier Informatoion';
               $data['info']=$this->Supplier_model->get_info($supplier_id);  
             }
-            $data['display']='Supplier/add';
+            $data['display']='supplier/add';
             $this->load->view('admin/master',$data);
          }
     }
