@@ -105,6 +105,7 @@ Add New PO
       <th style="text-align:center;width:8%">
         Delivery Date</th>
       <th style="width:15%;">Supplier Name</th>
+      <th style="width:8%;">Total Amount </th>
       <th style="width:8%;">Status 状态</th>
       <th style="width:10%;">Prep.By</th>
       <th style="text-align:center;width:7%;">
@@ -126,6 +127,7 @@ Add New PO
       <td class="text-center"><?php echo findDate($row->po_date); ?></td>
       <td class="text-center"><?php echo findDate($row->delivery_date); ?></td>
       <td class="text-center"><?php echo $row->supplier_name; ?></td>
+      <td class="text-center"><?php echo $row->total_amount; ?></td>
       <td class="text-center">
       <span class="btn btn-xs btn-<?php echo ($row->po_status==2||$row->po_status==5)?"danger":"success";?>">
         <?php 

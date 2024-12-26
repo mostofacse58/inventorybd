@@ -228,18 +228,18 @@ if(isset($info)) { echo $info->for_month;  }?>  </b></p>
   <div class="col-sm-12" style="text-align: center;">
     <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/lists">
     <i class="fa fa-arrow-circle-o-left tiny-icon"></i> Back</a>
-    <?php if($info->status==1&&$controller=='budgety'){ ?>
+    <?php if($info->status==1&&$controller=='Budgety'){ ?>
       <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/submit/<?php echo $info->master_id;?>">
     <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Submit</a>
    <?php } ?>
-    <?php if($info->status==2&&$controller=='cbudgety'){ ?>
+    <?php if($info->status==2&&$controller=='Cbudgety'){ ?>
     <a class="btn btn-warning decisions"  data-pastatus="1" href="#">
     <i class="fa fa-arrow-circle-o-left  tiny-icon"> </i> Return </a>
     <a class="btn btn-info" href="<?php echo base_url()?>payment/<?php echo $controller; ?>/approved/<?php echo $info->master_id;?>">
     <i class="fa fa-arrow-circle-o-right tiny-icon"></i> Confirm</a>
   <?php } ?>
 
-  <?php if($info->status==3&&$controller=='rbudgety'){ ?>
+  <?php if($info->status==3&&$controller=='Rbudgety'){ ?>
     <a class="btn btn-warning decisions"  data-pastatus="1" href="#">
     <i class="fa fa-arrow-circle-o-left  tiny-icon"> </i> Return </a>
     <a class="btn btn-danger decisions"  data-pastatus="8" href="#">
