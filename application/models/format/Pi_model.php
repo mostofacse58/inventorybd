@@ -18,6 +18,7 @@ class Pi_model extends CI_Model {
      }else{
          $condition=$condition."  AND pm.pi_status=6 ";
      }
+     
     $department_id1=$this->session->userdata('department_id');
       $query=$this->db->query("SELECT pm.*,pt.p_type_name,u.user_name
       FROM  pi_master pm 

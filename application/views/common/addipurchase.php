@@ -439,6 +439,7 @@ function getPOwiseitem(){
 <div class="form-group">
   <label class="col-sm-2 control-label ">Currency<span style="color:red;">  *</span></label>
     <div class="col-sm-2">
+      <input type="hidden" name="cnc_rate_in_hkd" id="cnc_rate_in_hkd">
     <select class="form-control select2" name="currency" id="currency" style="width: 100%"> 
       <?php foreach ($clist as $rows) { ?>
         <option value="<?php echo $rows->currency; ?>" 
