@@ -52,6 +52,15 @@ SELECT i.id,i.name,(SELECT GROUP_CONCAT(pd.expiry_imei_serial SEPARATOR '||') as
  FROM tbl_items i 
  WHERE i.id = '36';
 
+-- ////////////////////////////
+
+INSERT INTO every_month_using_qty (SELECT NULL as id, p.product_id,'2024-07' as month, (SELECT IFNULL(SUM(ad.quantity),0) FROM spares_use_detail ad 
+WHERE p.product_id=ad.product_id AND ad.date LIKE '2024-07%') as total_quantity, 
+p.department_id,'2024-07-28' as last_update FROM product_info p 
+WHERE p.department_id=12 AND p.product_type=2)
+
+-- ////////////////////////////
+
 
 
 

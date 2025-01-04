@@ -34,7 +34,8 @@ class AIpurchase_model extends CI_Model {
           LEFT JOIN department_info d ON(pm.for_department_id=d.department_id) 
           INNER JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)
           LEFT JOIN user u ON(u.id=pm.user_id) 
-          WHERE pm.for_department_id=$department_id AND pm.status>=2 AND pm.status!=5
+          WHERE pm.for_department_id=$department_id 
+          AND pm.status>=2 AND pm.status!=5
           $condition
           GROUP BY pm.purchase_id")->result();
      }else{
@@ -44,7 +45,8 @@ class AIpurchase_model extends CI_Model {
           LEFT JOIN department_info d ON(pm.for_department_id=d.department_id) 
           INNER JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)
           LEFT JOIN user u ON(u.id=pm.user_id) 
-          WHERE pm.for_department_id=$department_id AND pm.status>=2 AND pm.status!=5
+          WHERE pm.for_department_id=$department_id 
+          AND pm.status>=2 AND pm.status!=5
           $condition")->result();
          }
      $data = count($query);
