@@ -83,6 +83,13 @@ hr{margin: 5px}
     </td>
     <?php } ?>
   </tr>
+   <tr>
+    <th style="text-align: left" > 
+      ASSET CODE: <?php if(isset($info)) echo  $info->asset_encoding; ?> 
+    </th>
+    <th style="text-align: left" > 
+    </th>
+  </tr>
 </table>
 
 <br>

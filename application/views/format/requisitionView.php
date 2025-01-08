@@ -61,8 +61,11 @@ hr{margin: 5px}
     <th style="text-align: left" > 
       IE Verify: <?php  echo  $info->ie_verify; ?> 
     </th>
-    
+    <th style="text-align: left" > 
+      ASSET CODE: <?php if(isset($info)) echo  $info->asset_encoding; ?> 
+    </th>
   </tr>
+
 </table>
 <br>
 <table class="tg">
