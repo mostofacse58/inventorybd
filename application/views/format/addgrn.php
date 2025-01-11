@@ -383,8 +383,10 @@ function getPOwiseitem(){
         </select>
         <span class="error-msg"><?php echo form_error("currency"); ?></span>
       </div>
-   <div class="col-sm-4">
-       
+   <label class="col-sm-2 control-label">Currency Rate <span style="color:red;">  *</span></label>
+    <div class="col-sm-2">
+      <input type="text" name="cnc_rate_in_hkd" id="cnc_rate_in_hkd" readonly class="form-control pull-right" value="<?php if(isset($info)) echo $info->cnc_rate_in_hkd; else echo set_value('cnc_rate_in_hkd'); ?>">
+      <span class="error-msg"><?php echo form_error("cnc_rate_in_hkd"); ?></span>
     </div>
   <label class="col-sm-2 control-label">Total Amount 总金额<span style="color:red;">  *</span></label>
     <div class="col-sm-2">

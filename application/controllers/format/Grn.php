@@ -164,7 +164,13 @@ public function getPOInfo(){
        AND pud2.status!=5 )")->result();
 
   if(!is_null($info)){
-    $data=array('check'=>'YES','currency'=>$info->currency,'cnc_rate_in_hkd'=>$info->cnc_rate_in_hkd,'supplier_id'=>$info->supplier_id,'for_department_id'=>$info->for_department_id,'po_id'=>$info->po_id,'ids'=>count($detail));
+    $data=array('check'=>'YES',
+      'currency'=>$info->currency,
+      'cnc_rate_in_hkd'=>$info->cnc_rate_in_hkd,
+      'supplier_id'=>$info->supplier_id,
+      'for_department_id'=>$info->for_department_id,
+      'po_id'=>$info->po_id,
+      'ids'=>count($detail));
   }else{
     $data=array('check'=>'NO');
   }
