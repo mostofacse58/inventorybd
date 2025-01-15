@@ -219,7 +219,8 @@ public function getPOwiseitem(){
       FROM po_pline prd,po_master pm
       WHERE pm.po_id=prd.po_id AND pm.po_status=3
       AND pm.po_number='$po_number' 
-      AND pm.for_department_id=$department_id")->result();
+      AND pm.for_department_id=$department_id
+      ORDER BY prd.product_code ASC ")->result();
     $i=0;
     $id=0;
     $boxselect='';

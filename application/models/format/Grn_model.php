@@ -217,7 +217,7 @@ class Grn_model extends CI_Model {
         INNER JOIN category_info c ON(p.category_id=c.category_id)
         INNER JOIN product_unit u ON(p.unit_id=u.unit_id)
         WHERE pud.purchase_id=$purchase_id AND pud.status!=5
-        ORDER BY p.product_name ASC")->result();
+        ORDER BY p.product_code ASC")->result();
    return $result;
   }
   function submit($purchase_id) {

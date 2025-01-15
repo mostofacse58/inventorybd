@@ -184,7 +184,8 @@ public function getPOwiseitem(){
     $detail=$this->db->query("SELECT pm.* ,prd.*,prd.quantity as po_qty    
       FROM po_pline prd,po_master pm
       WHERE pm.po_id=prd.po_id 
-      AND pm.po_number='$po_number'  ")->result();
+      AND pm.po_number='$po_number' 
+      ORDER BY  prd.product_code ASC")->result();
    $i=0;
    $id=0;
 

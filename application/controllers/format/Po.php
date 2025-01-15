@@ -231,7 +231,8 @@ function add(){
       AND pm.product_type='$product_type' 
       AND prd.supplier_id NOT IN(SELECT po.supplier_id FROM po_pline po
       WHERE po.product_id=prd.product_id 
-      AND prd.pi_no=po.pi_no) ")->result();
+      AND prd.pi_no=po.pi_no)
+      ORDER BY prd.product_code ASC ")->result();
     $i=0;
     $id=0;
     ///////////////

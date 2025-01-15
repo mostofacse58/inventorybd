@@ -97,7 +97,7 @@ class Deptrequisn_model extends CI_Model {
           LEFT JOIN supplier_info s ON(pud.supplier_id=s.supplier_id)
           LEFT JOIN category_info c ON(p.category_id=c.category_id)
           WHERE pud.pi_id=$pi_id 
-          ORDER BY pud.unit_name ASC")->result();
+          ORDER BY pud.product_code ASC")->result();
      return $result;
     }
      public function getPRDetails($requisition_id=''){

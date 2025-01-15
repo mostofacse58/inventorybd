@@ -149,7 +149,7 @@ class Po_model extends CI_Model {
           LEFT JOIN product_info p ON(pud.product_id=p.product_id)
           LEFT JOIN category_info c ON(p.category_id=c.category_id)
           WHERE pud.po_id=$po_id 
-          ORDER BY pud.product_name ASC")->result();
+          ORDER BY pud.product_code ASC")->result();
      return $result;
     }
    
