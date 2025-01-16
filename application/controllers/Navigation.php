@@ -14,7 +14,7 @@ class Navigation extends My_Controller{
         $data['heading'] = "Navigation List";
         
         $data['list']=$this->Model_navigation->lists();
-        $data['display']='Navigation/list';
+        $data['display']='navigation/list';
         $this->load->view('admin/master',$data);
      }else{
         redirect("admin/index");
@@ -29,7 +29,7 @@ class Navigation extends My_Controller{
             $data['heading'] = "Add Menu";
             $data['dlist']=$this->Look_up_model->departmentList();
             $data['mlist'] = $this->Model_navigation->get_menu();
-            $data['display']='Navigation/add';
+            $data['display']='navigation/add';
             $this->load->view('admin/master',$data);
          
 
@@ -46,7 +46,7 @@ class Navigation extends My_Controller{
             $data['info']=$this->db->get_where('sys_menu',array('menu_id'=>$menu_id))->row();
             $data['dlist']=$this->Look_up_model->departmentList();
             $data['mlist'] = $this->Model_navigation->get_menu();
-            $data['display']='Navigation/add';
+            $data['display']='navigation/add';
             $this->load->view('admin/master',$data);
         
            
@@ -102,7 +102,7 @@ class Navigation extends My_Controller{
             }
             
             $data['mlist'] = $this->Model_navigation->get_menu();
-            $data['display']='Navigation/add';
+            $data['display']='navigation/add';
             $this->load->view('admin/master',$data);
             }
         }else{

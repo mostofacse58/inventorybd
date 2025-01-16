@@ -13,10 +13,15 @@ class Requisitionverify_model extends CI_Model {
           $requisition_no=$this->input->get('requisition_no');
           $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
         }
-         if($this->input->get('location_id')!=''){
-            $location_id=$this->input->get('location_id');
-            $condition=$condition."  AND pm.location_id='$location_id' ";
-          }
+       if($this->input->get('location_id')!=''){
+          $location_id=$this->input->get('location_id');
+          $condition=$condition."  AND pm.location_id='$location_id' ";
+        }
+        if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
+          $from_date=$this->input->get('from_date');
+          $to_date=$this->input->get('to_date');
+          $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
+        }
        }
 
       $query=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,
@@ -28,8 +33,11 @@ class Requisitionverify_model extends CI_Model {
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id 
           AND pm.requisition_status>1 
-          AND pm.pr_type=1 AND pm.ie_verify='YES'
-          AND pm.general_or_tpm=1 $condition");
+          AND pm.pr_type=1 
+          AND pm.ie_verify='YES'
+          AND pm.general_or_tpm=1 
+          AND pm.tpm_status=2 
+          $condition");
       $data = count($query->result());
       return $data;
     }
@@ -49,9 +57,12 @@ class Requisitionverify_model extends CI_Model {
             $location_id=$this->input->get('location_id');
             $condition=$condition."  AND pm.location_id='$location_id' ";
           }
-
+          if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
+            $from_date=$this->input->get('from_date');
+            $to_date=$this->input->get('to_date');
+            $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
+          }
         }
-
         $result=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,l.location_name,
           d.department_name as responsible_department_name       
           FROM  requisition_master pm 
@@ -61,8 +72,11 @@ class Requisitionverify_model extends CI_Model {
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id 
           AND pm.requisition_status>1 
-          AND pm.general_or_tpm=1 AND pm.ie_verify='YES'
-          AND pm.pr_type=1 $condition
+          AND pm.general_or_tpm=1 
+          AND pm.ie_verify='YES'
+          AND pm.pr_type=1 
+          AND pm.tpm_status=2 
+          $condition
           ORDER BY pm.requisition_status ASC LIMIT $start,$limit")->result();
         //echo $this->db->last_query(); exit
         return $result;

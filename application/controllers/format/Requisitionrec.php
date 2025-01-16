@@ -50,6 +50,7 @@ class Requisitionrec extends My_Controller {
       $this->form_validation->set_rules('requisition_no','NO','trim');
       $data['dlist']=$this->Look_up_model->departmentList();
       $data['heading']='Requisition Lists';
+      $data['dlist']=$this->Look_up_model->departmentList();
       $data['display']='format/requisitionrec_lists';
       $this->load->view('admin/master',$data);
       } else {
@@ -96,8 +97,9 @@ class Requisitionrec extends My_Controller {
       redirect("format/Requisitionrec/lists");
     }
     function view2($requisition_id=FALSE){
+      $data['controller']=$this->router->fetch_class();
       $data['info']=$this->Requisition_model->get_info($requisition_id);
-            $data['detail']=$this->Requisition_model->getDetails($requisition_id);
+      $data['detail']=$this->Requisition_model->getDetails($requisition_id);
       $data['display']='format/requisitionView2';
       $this->load->view('admin/master',$data);
     }

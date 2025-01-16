@@ -7,6 +7,15 @@ class Requisition_model extends CI_Model {
         $requisition_no=$this->input->get('requisition_no');
         $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
       }
+      if($this->input->get('responsible_department')!=''){
+        $responsible_department=$this->input->get('responsible_department');
+        $condition=$condition."  AND pm.responsible_department='$responsible_department' ";
+      }
+      if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
+        $from_date=$this->input->get('from_date');
+        $to_date=$this->input->get('to_date');
+        $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
+      }
      }
     $department_id=$this->session->userdata('department_id');
       $data=$this->db->query("SELECT count(*) as counts  
@@ -25,6 +34,15 @@ class Requisition_model extends CI_Model {
             $requisition_no=$this->input->get('requisition_no');
             $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
           }
+          if($this->input->get('responsible_department')!=''){
+            $responsible_department=$this->input->get('responsible_department');
+            $condition=$condition."  AND pm.responsible_department='$responsible_department' ";
+          }
+          if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
+            $from_date=$this->input->get('from_date');
+            $to_date=$this->input->get('to_date');
+            $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
+          }
          }
         $result=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,l.location_name,
           d.department_name as responsible_department_name       
@@ -35,6 +53,8 @@ class Requisition_model extends CI_Model {
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           WHERE pm.department_id=$department_id AND pm.general_or_tpm=1 AND pm.pr_type=1 $condition
           ORDER BY pm.requisition_id DESC, pm.requisition_status ASC LIMIT $start,$limit")->result();
+        //echo $this->db->last_query();
+        //exit;
         return $result;
     }
     function get_info($requisition_id){
@@ -128,7 +148,8 @@ class Requisition_model extends CI_Model {
         return $query;
      }
   public function getDetails($requisition_id=''){
-   $result=$this->db->query("SELECT pud.*,p.*,c.category_name,u.unit_name
+   $result=$this->db->query("SELECT pud.*,p.*,c.category_name,
+        u.unit_name,pud.unit_price,pud.amount
         FROM requisition_item_details pud
         INNER JOIN product_info p ON(pud.product_id=p.product_id)
         INNER JOIN category_info c ON(p.category_id=c.category_id)

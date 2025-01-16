@@ -13,29 +13,31 @@
   });
 </script>
 <div class="row">
-        <div class="col-xs-12">
-   <div class="box box-primary">
-            <div class="box-header">
-              <div class="widget-block">
-             
-<div class="widget-head">
-<h5><?php echo ucwords($heading); ?></h5>
-<div class="widget-control pull-right">
-
-</div>
-</div>
-</div>
+    <div class="col-xs-12">
+     <div class="box box-primary">
+      <div class="box-header">
+        <div class="widget-block">
+               
+      <div class="widget-head">
+        <h5><?php echo ucwords($heading); ?></h5>
+        <div class="widget-control pull-right">
+        <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisitionprice/add">
+        <i class="fa fa-plus"></i>
+        Add Requisitionprice
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
             <!-- /.box-header -->
       <div class="box-body">
-        <form class="form-horizontal" action="<?php echo base_url();?>format/Requisitionapp/lists" method="GET" enctype="multipart/form-data">
+         <form class="form-horizontal" action="<?php echo base_url();?>format/Requisitionprice/lists" method="GET" enctype="multipart/form-data">
           <div class="box-body">
-           <div class="box-body">
             <div class="row form-group">
             <label class="col-sm-2 control-label">To Department  <span style="color:red;">  *</span></label>
              <div class="col-sm-2">
               <select class="form-control select2" name="responsible_department" id="responsible_department">
-              <option value="">All</option> 
+                <option value="">All</option>
                 <?php foreach ($dlist as $rows) { ?>
                   <option value="<?php echo $rows->department_id; ?>" 
                   <?php if (isset($info))
@@ -55,22 +57,21 @@
             </div>
            </div>
           <div class="row form-group">
-            <label class="col-sm-2 control-label">Demand Date</label>
-            <div class="col-sm-2">
-            <input type="text" name="from_date" readonly="" class="form-control date" placeholder="From Date" value="<?php  echo set_value('from_date'); ?>">
-          </div>
+          <label class="col-sm-2 control-label">Demand Date</label>
           <div class="col-sm-2">
-            <input type="text" name="to_date" readonly="" class="form-control date" placeholder="To Date" value="<?php  echo set_value('to_date'); ?>">
-          </div>
+          <input type="text" name="from_date" readonly="" class="form-control date" placeholder="From Date" value="<?php  echo set_value('from_date'); ?>">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" name="to_date" readonly="" class="form-control date" placeholder="To Date" value="<?php  echo set_value('to_date'); ?>">
+        </div>
             <div class="col-sm-2">
               <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
           </div>
             <div class="col-sm-2">
-                <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisitionapp/lists">All</a>
+                <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisitionprice/lists">All</a>
             </div>
           </div>
           </div>
-          <!-- /.box-body -->
           <!-- /.box-body -->
         </form>
       <div class="table-responsive table-bordered">
@@ -81,8 +82,8 @@
             <th style="width:10%;">From Department</th>
             <th style="width:10%;">To Department</th>
             <th style="width:10%;">Location</th>
-            <th style="text-align:center;width:10%">Requisition NO</th>
-            <th style="width:10%;">Requisition Date</th>
+            <th style="text-align:center;width:10%">Requisitionprice NO</th>
+            <th style="width:10%;">Requisitionprice Date</th>
             <th style="text-align:center;width:10%">Demand Date</th>
             <th style="width:8%;">Status</th>
             <th style="width:10%;">Prepared by</th>
@@ -105,14 +106,15 @@
             <td class="text-center"><?php echo findDate($row->requisition_date); ?></td>
             <td class="text-center"><?php echo findDate($row->demand_date); ?></td>
             <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==3)?"danger":"success";?>">
-              <?php 
-              if($row->requisition_status==1) echo "Draft";
-              elseif($row->requisition_status==2) echo "Pending";
-              elseif($row->requisition_status==3) echo "Pending";
-              elseif($row->requisition_status==4) echo "Approved";
-              else echo "Received";
-              ?>
+            <span class="btn btn-xs btn-<?php echo ($row->requisition_status==1)?"danger":"success";?>">
+                  <?php 
+                  if($row->requisition_status==1) echo "Draft";
+                  elseif($row->requisition_status==0) echo "Reject";
+                  elseif($row->requisition_status==2) echo "Submitted";
+                  elseif($row->requisition_status==3) echo "Verified";
+                  elseif($row->requisition_status==4) echo "Approved";
+                  else echo "Received";
+                  ?>
               </span></td>
             <td class="text-center"><?php echo $row->user_name; ?></td>
             <td style="text-align:center">
@@ -122,20 +124,16 @@
               <i class="fa fa-gear tiny-icon"></i><span class="caret"></span>
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
-              <li> <a href="<?php echo base_url()?>format/Requisitionapp/view2/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
-              <li> <a href="<?php echo base_url()?>format/Requisition/view/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>pdf</a></li>
-              <?php if($row->requisition_status==3){ ?>
-              <li><a href="<?php echo base_url()?>format/Requisitionapp/approved/<?php echo $row->requisition_id;?>">
-                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-              Approve</a></li>
-              <li> <a href="<?php echo base_url()?>format/Requisitionapp/edit/<?php echo $row->requisition_id;?>"><i class="fa fa-edit tiny-icon"></i>Edit 编辑</a></li>
-              <li><a href="<?php echo base_url()?>format/Requisitionapp/rejected/<?php echo $row->requisition_id;?>">
-                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-              Reject</a></li>
-              <li><a href="<?php echo base_url()?>format/Requisitionapp/returns/<?php echo $row->requisition_id;?>">
-                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-              Return</a></li>
-             <?php } ?>
+              <?php if($row->requisition_status==2&&$row->tpm_status==1){ ?>
+                <li> <a href="<?php echo base_url()?>format/Requisitionprice/edit/<?php echo $row->requisition_id;?>"><i class="fa fa-edit tiny-icon"></i>Edit 编辑</a></li>
+                <li> <a href="<?php echo base_url()?>format/Requisitionprice/submit/<?php echo $row->requisition_id;?>">
+                  <i class="fa fa-arrow-circle-o-right tiny-icon"></i>Done</a></li>
+                
+              <?php } ?>
+              <li> <a href="<?php echo base_url()?>format/Requisitionprice/view2/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
+              <li> <a href="<?php echo base_url()?>format/Requisitionprice/view/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>pdf</a></li>
+              <li> <a href="<?php echo base_url()?>format/Requisitionprice/excelload/<?php echo $row->requisition_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>Excel</a></li>
+              
               </ul>
             </div>
             </td>
@@ -152,8 +150,8 @@
         </tbody>
         </table>
         <div class="box-tools">
-          <?php if(isset($pagination))echo $pagination; ?>
-        </div>
+                  <?php if(isset($pagination))echo $pagination; ?>
+              </div>
         </div>
       </div>
           <!-- /.box-body -->
@@ -170,7 +168,7 @@ $(".delete").click(function(e){
    if(job==true){
   e.preventDefault();
   var rowId=$(this).data('requisitiond');
-  location.href="<?php echo base_url();?>format/Requisition/delete/"+rowId;
+  location.href="<?php echo base_url();?>format/Requisitionprice/delete/"+rowId;
 }else{
   return false;
 }

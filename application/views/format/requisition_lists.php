@@ -1,36 +1,76 @@
+<script src="<?php echo base_url('asset/js/plugins/datepicker/bootstrap-datepicker.js'); ?>"></script>
+<script>
+  $(function () {
+  $(document).on('click','input[type=number]',function(){ 
+    this.select(); 
+    });
+    $('.date').datepicker({
+      "format": "dd/mm/yyyy",
+      "todayHighlight": true,
+      "autoclose": true
+    });
+  
+  });
+</script>
 <div class="row">
-        <div class="col-xs-12">
-   <div class="box box-primary">
-            <div class="box-header">
-              <div class="widget-block">
-             
-<div class="widget-head">
-<h5><?php echo ucwords($heading); ?></h5>
-<div class="widget-control pull-right">
-<a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisition/add">
-<i class="fa fa-plus"></i>
-Add Requisition
-</a>
-</div>
-</div>
-</div>
+    <div class="col-xs-12">
+     <div class="box box-primary">
+      <div class="box-header">
+        <div class="widget-block">
+               
+      <div class="widget-head">
+        <h5><?php echo ucwords($heading); ?></h5>
+        <div class="widget-control pull-right">
+        <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisition/add">
+        <i class="fa fa-plus"></i>
+        Add Requisition
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
             <!-- /.box-header -->
       <div class="box-body">
          <form class="form-horizontal" action="<?php echo base_url();?>format/Requisition/lists" method="GET" enctype="multipart/form-data">
           <div class="box-body">
+            <div class="row form-group">
+            <label class="col-sm-2 control-label">To Department  <span style="color:red;">  *</span></label>
+             <div class="col-sm-2">
+              <select class="form-control select2" name="responsible_department" id="responsible_department">
+                <option value="">All</option>
+                <?php foreach ($dlist as $rows) { ?>
+                  <option value="<?php echo $rows->department_id; ?>" 
+                  <?php if (isset($info))
+                      echo $rows->department_id == $info->responsible_department? 'selected="selected"' : 0;
+                  else
+                      echo $rows->department_id == set_value('responsible_department') ? 'selected="selected"' : 0;
+                  ?>><?php echo $rows->department_name; ?></option>
+                      <?php } ?>
+                  </select>
+             <span class="error-msg"><?php echo form_error("responsible_department");?></span>
+           </div>
             <label class="col-sm-2 control-label">
-             Req. No <span style="color:red;">  </span></label>
-              <div class="col-sm-2">
-                <input class="form-control" name="requisition_no" id="requisition_no" value="<?php echo set_value('requisition_no'); ?>" placeholder="NO">
-              <span class="error-msg"><?php echo form_error("requisition_no");?></span>
-              </div>
-              <div class="col-sm-2">
-                <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
+           Req. No <span style="color:red;">  </span></label>
+            <div class="col-sm-2">
+              <input class="form-control" name="requisition_no" id="requisition_no" value="<?php echo set_value('requisition_no'); ?>" placeholder="NO">
+            <span class="error-msg"><?php echo form_error("requisition_no");?></span>
             </div>
+           </div>
+          <div class="row form-group">
+          <label class="col-sm-2 control-label">Demand Date</label>
+          <div class="col-sm-2">
+          <input type="text" name="from_date" readonly="" class="form-control date" placeholder="From Date" value="<?php  echo set_value('from_date'); ?>">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" name="to_date" readonly="" class="form-control date" placeholder="To Date" value="<?php  echo set_value('to_date'); ?>">
+        </div>
+            <div class="col-sm-2">
+              <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
+          </div>
             <div class="col-sm-2">
                 <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisition/lists">All</a>
             </div>
+          </div>
           </div>
           <!-- /.box-body -->
         </form>

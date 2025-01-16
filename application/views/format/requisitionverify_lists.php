@@ -1,3 +1,17 @@
+<script src="<?php echo base_url('asset/js/plugins/datepicker/bootstrap-datepicker.js'); ?>"></script>
+<script>
+  $(function () {
+  $(document).on('click','input[type=number]',function(){ 
+    this.select(); 
+    });
+    $('.date').datepicker({
+      "format": "dd/mm/yyyy",
+      "todayHighlight": true,
+      "autoclose": true
+    });
+  
+  });
+</script>
 <div class="row">
         <div class="col-xs-12">
    <div class="box box-primary">
@@ -16,6 +30,7 @@
       <div class="box-body">
         <form class="form-horizontal" action="<?php echo base_url();?>format/Requisitionverify/lists" method="GET" enctype="multipart/form-data">
           <div class="box-body">
+            <div class="row form-group">
             <label class="col-sm-2 control-label">
              PR. NO <span style="color:red;">  </span></label>
               <div class="col-sm-2">
@@ -34,6 +49,15 @@
                 </select>
                <span class="error-msg"><?php echo form_error("location_id");?></span>
               </div> 
+              </div>
+              <div class="row form-group">
+                <label class="col-sm-2 control-label">Demand Date</label>
+                <div class="col-sm-2">
+                <input type="text" name="from_date" readonly="" class="form-control date" placeholder="From Date" value="<?php  echo set_value('from_date'); ?>">
+              </div>
+              <div class="col-sm-2">
+                <input type="text" name="to_date" readonly="" class="form-control date" placeholder="To Date" value="<?php  echo set_value('to_date'); ?>">
+              </div>
               <div class="col-sm-2">
                 <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
                 <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisitionverify/lists">All</a>

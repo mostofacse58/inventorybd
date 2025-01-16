@@ -13,6 +13,15 @@ class Requisitionapp_model extends CI_Model {
           $requisition_no=$this->input->get('requisition_no');
           $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
         }
+        if($this->input->get('responsible_department')!=''){
+          $responsible_department=$this->input->get('responsible_department');
+          $condition=$condition."  AND pm.responsible_department='$responsible_department' ";
+        }
+        if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
+          $from_date=$this->input->get('from_date');
+          $to_date=$this->input->get('to_date');
+          $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
+        }
        }
 
       $query=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,
@@ -40,6 +49,15 @@ class Requisitionapp_model extends CI_Model {
           if($this->input->get('requisition_no')!=''){
             $requisition_no=$this->input->get('requisition_no');
             $condition=$condition."  AND pm.requisition_no='$requisition_no' ";
+          }
+          if($this->input->get('responsible_department')!=''){
+            $responsible_department=$this->input->get('responsible_department');
+            $condition=$condition."  AND pm.responsible_department='$responsible_department' ";
+          }
+          if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
+            $from_date=$this->input->get('from_date');
+            $to_date=$this->input->get('to_date');
+            $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
           }
         }
 

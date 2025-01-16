@@ -8,7 +8,7 @@
          <div class="form-group">
         <label class="col-sm-2 control-label">To Department  <span style="color:red;">  *</span></label>
            <div class="col-sm-2">
-            <select class="form-control select2" name="responsible_department" id="responsible_department">> 
+            <select class="form-control select2" name="responsible_department" id="responsible_department">
               <?php foreach ($dlist as $rows) { ?>
                 <option value="<?php echo $rows->department_id; ?>" 
                 <?php if (isset($info))

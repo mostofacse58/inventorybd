@@ -46,6 +46,7 @@
       $data['list']=$this->Requisitionapp_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
       $data['heading']='Requisition Lists';
+      $data['dlist']=$this->Look_up_model->departmentList();
       $data['display']='format/requisitionapp_lists';
       $this->load->view('admin/master',$data);
       } else {
@@ -124,8 +125,9 @@
       redirect("format/Requisitionapp/lists");
     }
     function view2($requisition_id=FALSE){
+      $data['controller']=$this->router->fetch_class();
       $data['info']=$this->Requisition_model->get_info($requisition_id);
-            $data['detail']=$this->Requisition_model->getDetails($requisition_id);
+      $data['detail']=$this->Requisition_model->getDetails($requisition_id);
       $data['display']='format/requisitionView2';
       $this->load->view('admin/master',$data);
     }

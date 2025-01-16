@@ -74,9 +74,11 @@ hr{margin: 5px}
     <th style="width:8%;text-align:center">Item code</th>
     <th style="width:15%;text-align:center">Materials Description</th>
     <th style="width:8%;text-align:center">Spacification</th>
-    <th style="width:7%;text-align:center;">Unit</th>
     <th style="width:7%;text-align:center;">Colour</th>
     <th style="width:7%;text-align:center;">Req. Qty</th>
+    <th style="width:7%;text-align:center;">Unit</th>
+    <th style="width:7%;text-align:center;">Unit Price</th>
+    <th style="width:7%;text-align:center;">Amount</th>
     <th style="width:7%;text-align:center;">Issued Qty</th>
     <th style="width:12%;text-align:center;">Remarks</th>
   </tr>
@@ -90,9 +92,12 @@ hr{margin: 5px}
     <td class="tg-s6z2"><?php echo $value->product_code;  ?></td>
     <td class=""><?php echo $value->product_name; ?></td>
     <td class="tg-s6z2"><?php echo "$value->specification"; ?></td>
-    <td class="tg-s6z2"><?php echo "$value->unit_name"; ?></td>
+    
     <td class="tg-s6z2"></td>
     <td class="tg-s6z2"><?php echo "$value->required_qty"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->unit_name"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->unit_price"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->amount"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->issued_qty"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->remarks"; ?></td>
   </tr>

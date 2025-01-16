@@ -31,18 +31,23 @@ hr{margin: 5px}
 </style>
 
 <div class="row">
-    <div class="col-md-12">
+  <div class="col-md-12">
+  <form class="form-horizontal" action="<?php echo base_url(); ?>format/Requisitionprice/save<?php if (isset($info)) echo "/$info->requisition_id"; ?>" method="POST" enctype="multipart/form-data" onsubmit="return formsubmit();">
+
     <div class="box box-info" style="padding: 10px">
       <div class="primary_area1">
-     <div class="table-responsive table-bordered">  
-  	<div  style="width:100%;float:left;font-size: 30px;text-align: center;overflow:hidden;margin:0;margin-top: 0px;">
-<p style="margin:2px 0px;color: #538FD4">
-<b> <?php echo  $this->session->userdata('company_name'); ?></b></p>
-</div>
+
+     <div class="table-responsive table-bordered"> 
+    <div  style="width:100%;float:left;font-size: 30px;text-align: center;overflow:hidden;margin:0;margin-top: 0px;">
+      <p style="margin:2px 0px;color: #538FD4">
+      <b> <?php echo  $this->session->userdata('company_name'); ?></b></p>
+      </div>
+
  <div style="width:100%;overflow:hidden;text-align:center;margin-top: 0px;">
 <p style="line-height: 20px;padding: 3px 5px;font-size: 18px" >
   <b><u> MATERIAL REQUISITION SLIP</u></b></p>
 </div>
+
 <hr style="margin-top: 0px;">
 <table style="width: 100%">
   <tr>
@@ -80,7 +85,7 @@ hr{margin: 5px}
     <th class="tg-s6z2" style="" valign="top">
     Attachment:
       <a href="<?php echo base_url(); ?>Dashboard/ReqAttach/<?php echo $info->attachment; ?>">Download</a>
-    </td>
+    </th>
     <?php } ?>
   </tr>
    <tr>
@@ -99,9 +104,9 @@ hr{margin: 5px}
     <th style="width:8%;text-align:center">Item code</th>
     <th style="width:15%;text-align:center">Materials Description</th>
     <th style="width:8%;text-align:center">Spacification</th>
+    <th style="width:7%;text-align:center;">Unit</th>
     <th style="width:7%;text-align:center;">Colour</th>
     <th style="width:7%;text-align:center;">Req. Qty</th>
-    <th style="width:7%;text-align:center;">Unit</th>
     <th style="width:7%;text-align:center;">Unit Price</th>
     <th style="width:7%;text-align:center;">Amount</th>
     <th style="width:7%;text-align:center;">Issued Qty</th>
@@ -109,19 +114,25 @@ hr{margin: 5px}
   </tr>
   <?php
   if(isset($detail)){
-	   $i=1; 
-	  foreach($detail as $value){ 
-	  ?>
+     $i=1; 
+     $id=0;
+    foreach($detail as $value){ 
+    ?>
   <tr>
     <td class="tg-s6z2"><?php echo $i++; ?></td>
     <td class="tg-s6z2"><?php echo $value->product_code;  ?></td>
     <td class=""><?php echo $value->product_name; ?></td>
     <td class="tg-s6z2"><?php echo "$value->specification"; ?></td>
+    
     <td class="tg-s6z2"></td>
-    <td class="tg-s6z2"><?php echo "$value->required_qty"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->required_qty"; ?>
+    <input type="hidden" name="requisition_detail_id[]" id="requisition_detail_id<?php echo $id; ?>" value="<?php echo $value->requisition_detail_id; ?>">
+    <input type="hidden" name="product_id[]" id="product_id<?php echo $id; ?>" value="<?php echo $value->product_id; ?>">
+      <input type="hidden" name="required_qty[]" id="required_qty_<?php echo $id; ?>" value="<?php echo $value->required_qty; ?>">
+    </td>
     <td class="tg-s6z2"><?php echo "$value->unit_name"; ?></td>
-    <td class="tg-s6z2"><?php echo "$value->unit_price"; ?></td>
-    <td class="tg-s6z2"><?php echo "$value->amount"; ?></td>
+    <td><input type="text" name="unit_price[]" value="<?php echo $value->unit_price; ?>" onblur="return checkQuantity(<?php echo $id; ?>);" onkeyup="return checkQuantity(<?php echo $id; ?>);" class="form-control integerchk"  placeholder="unit_price" style="width:100%;float:left;text-align:center"  id="unit_price_<?php echo $id; ?>"></td>
+    <td><input type="text" name="amount[]" value="<?php echo $value->amount; ?>" readonly onblur="return checkQuantity(<?php echo $id; ?>);" onkeyup="return checkQuantity(<?php echo $id; ?>);" class="form-control"  placeholder="amount" style="width:100%;float:left;text-align:center"  id="amount_<?php echo $id; ?>"></td>
     <td class="tg-s6z2"><?php echo "$value->issued_qty"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->remarks"; ?></td>
   </tr>
@@ -163,46 +174,25 @@ hr{margin: 5px}
   </tr>
 
 </table>
-</div>
-</div>
-<?php if($info->requisition_status==3&&$controller=='Requisitionapp'){ ?>
-    <a href="<?php echo base_url()?>format/Requisitionapp/approved/<?php echo $info->requisition_id;?>" class="btn btn-primary">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Approve</a>
-    <a href="<?php echo base_url()?>format/Requisitionapp/returns/<?php echo $info->requisition_id;?>" class="btn btn-warning">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Return</a>
-    <a class="btn btn-danger" href="<?php echo base_url()?>format/Requisitionapp/rejected/<?php echo $info->requisition_id;?>"> 
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Reject</a>
-    <?php } ?>
 
-    <?php if($info->requisition_status==2&&$controller=='Requisitionverify'){ ?>
-    <a href="<?php echo base_url()?>format/Requisitionverify/approved/<?php echo $info->requisition_id;?>" class="btn btn-primary">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Approve</a>
-    <a href="<?php echo base_url()?>format/Requisitionverify/returns/<?php echo $info->requisition_id;?>" class="btn btn-warning">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Return</a>
-    <a class="btn btn-danger" href="<?php echo base_url()?>format/Requisitionverify/rejected/<?php echo $info->requisition_id;?>"> 
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Reject</a>
-
-    <?php } ?>
-    <?php if($info->requisition_status==4&&$controller=='Requisitionrec'){ ?>
-    <a href="<?php echo base_url()?>format/Requisitionrec/approved/<?php echo $info->requisition_id;?>" class="btn btn-primary">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Approve</a>
-    <a href="<?php echo base_url()?>format/Requisitionrec/returns/<?php echo $info->requisition_id;?>" class="btn btn-warning">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Return</a>
-    <a class="btn btn-danger" href="<?php echo base_url()?>format/Requisitionrec/rejected/<?php echo $info->requisition_id;?>"> 
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Reject</a>
-
-    <?php } ?>
 </div>
 </div>
+<button type="submit" class="btn btn-info pull-right"> <i class="fa fa-save"></i> SAVE 保存</button>
 </div>
+<!-- end box-info   -->
+</form>
+</div>
+</div>
+<script type="text/javascript">
+  function checkQuantity(ids){
+     var required_qty=parseFloat($("#required_qty_"+ids).val());
+     var unit_price=parseFloat($("#unit_price_"+ids).val());
+     if($.trim(unit_price)==""|| $.isNumeric(unit_price)==false){
+      $("#unit_price_"+ids).val(0);
+     }
+     var amount=required_qty*unit_price;
+     $("#amount_"+ids).val(amount);
+  }
+</script>
 
 

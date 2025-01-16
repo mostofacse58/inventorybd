@@ -1,9 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Requisition extends My_Controller {
+class Requisitionprice extends My_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('shipping/Import_model');
         $this->load->model('format/Requisition_model');
+        $this->load->model('format/Requisitionprice_model');
+        $this->load->model('shipping/Import_model');
      }
     
     function lists(){
@@ -12,10 +13,10 @@ class Requisition extends My_Controller {
       if($this->input->post('perpage')!='') $perpage=$this->input->post('perpage'); else $perpage=10;
       ////////////////////////////////////
       $this->load->library('pagination');
-      $config['base_url']=base_url().'format/Requisition/lists/';
+      $config['base_url']=base_url().'format/Requisitionprice/lists/';
       $config['suffix'] = '?' . http_build_query($_GET, '', "&");
       $config["uri_segment"] = 4;
-      $config['total_rows'] = $this->Requisition_model->get_count();
+      $config['total_rows'] = $this->Requisitionprice_model->get_count();
       $config['per_page'] = $perpage;
       $choice = $config["total_rows"] / $config["per_page"];
       $config["num_links"] = 2;
@@ -41,13 +42,13 @@ class Requisition extends My_Controller {
       $this->pagination->initialize($config); 
       $data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
       $total_rows=$config['total_rows'];
+      $data['dlist']=$this->Look_up_model->departmentList();
       $pagination = $this->pagination->create_links();
       $data['pagination']='<p>We have ' . $total_rows . ' records in ' . $choice . ' pages ' . $pagination . '</p>';
-      $data['list']=$this->Requisition_model->lists($config["per_page"],$data['page'] );
+      $data['list']=$this->Requisitionprice_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
-      $data['heading']='Requisition Lists';
-      $data['dlist']=$this->Look_up_model->departmentList();
-      $data['display']='format/requisition_lists';
+      $data['heading']='Requisitionprice Lists';
+      $data['display']='format/requisitionPricelists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");
@@ -55,7 +56,7 @@ class Requisition extends My_Controller {
   }
   function add(){
     if($this->session->userdata('user_id')) {
-      $data['heading']='Add Requisition';
+      $data['heading']='Add Requisitionprice';
       $data['dlist']=$this->Look_up_model->departmentList();
       $data['llist']=$this->Look_up_model->getlocation();
       $data['display']='format/addrequisition';
@@ -67,20 +68,20 @@ class Requisition extends My_Controller {
   }
   function edit($requisition_id){
     if ($this->session->userdata('user_id')) {
-    $data['heading']='Edit Requisition';
+    $data['heading']='Edit Requisitionprice';
     $data['llist']=$this->Look_up_model->getlocation();
     $data['flist']=$this->Import_model->getdata('shipping_file_style_info');
     $data['dlist']=$this->Look_up_model->departmentList();
     $data['info']=$this->Requisition_model->get_info($requisition_id);
     $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-    $data['display']='format/addrequisition';
+    $data['display']='format/EditReq';
     $this->load->view('admin/master',$data);
     } else {
        redirect("Logincontroller");
     }
     }
    function save($requisition_id=FALSE){
-      $check=$this->Requisition_model->save($requisition_id);
+      $check=$this->Requisitionprice_model->save($requisition_id);
       if($check && !$requisition_id){
        $this->session->set_userdata('exception','Saved successfully');
        }elseif($check&& $requisition_id){
@@ -88,17 +89,9 @@ class Requisition extends My_Controller {
        }else{
          $this->session->set_userdata('exception','Submission Failed');
        }
-      redirect("format/Requisition/lists");
+      redirect("format/Requisitionprice/lists");
     }
-    function delete($requisition_id=FALSE){
-      $check=$this->Requisition_model->delete($requisition_id);
-        if($check){ 
-           $this->session->set_userdata('exception','Delete successfully');
-         }else{
-           $this->session->set_userdata('exception','Delete Failed');
-        }
-      redirect("format/Requisition/lists");
-    }
+
 ////////////////////////
 public function suggestions(){
         $term = $this->input->get('term', true);
@@ -106,7 +99,7 @@ public function suggestions(){
         if (strlen($term) < 1 || !$term) {
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
         }
-        $rows = $this->Requisition_model->getRequisitionProduct($responsible_department,$term);
+        $rows = $this->Requisitionprice_model->getRequisitionpriceProduct($responsible_department,$term);
         if ($rows){
             $c = str_replace(".", "", microtime(true));
             $r = 0;
@@ -134,10 +127,10 @@ public function suggestions(){
     }
     function view($requisition_id=FALSE){
     if ($this->session->userdata('user_id')) {
-        $data['heading']='Requisition Form';
+        $data['heading']='Requisitionprice Form';
             $data['info']=$this->Requisition_model->get_info($requisition_id);
             $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-            $pdfFilePath='Requisition'.date('Y-m-d H:i').'.pdf';
+            $pdfFilePath='Requisitionprice'.date('Y-m-d H:i').'.pdf';
             require 'vendor/autoload.php';
             $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 15, 'margin_right' => 15, 'margin_top' => 10, 'margin_bottom' => 18,]);
             $mpdf->useAdobeCJK = true;
@@ -156,7 +149,7 @@ public function suggestions(){
         }
       }
     function excelload($requisition_id=FALSE){
-      $data['heading']='Requisition Form';
+      $data['heading']='Requisitionprice Form';
       $data['info']=$this->Requisition_model->get_info($requisition_id);
       $data['detail']=$this->Requisition_model->getDetails($requisition_id);
       $this->load->view('format/requisitionExcel', $data);
@@ -167,16 +160,16 @@ public function suggestions(){
       $department_id=$data['info']->department_id;
       $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
         WHERE department_id=$department_id")->row('dept_head_email');
-      $subject="Requisition Approval Notification";
+      $subject="Requisitionprice Approval Notification";
       $message=$this->load->view('req_email_format', $data,true); 
      // $this->Communication->send($emailaddress,$subject,$message);
-      $check=$this->Requisition_model->submit($requisition_id);
+      $check=$this->Requisitionprice_model->submit($requisition_id);
         if($check){ 
            $this->session->set_userdata('exception','Send successfully');
          }else{
            $this->session->set_userdata('exception','Send Failed');
         }
-      redirect("format/Requisition/lists");
+      redirect("format/Requisitionprice/lists");
     }
 
    
