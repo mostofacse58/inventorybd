@@ -86,18 +86,18 @@ class Spares extends My_Controller {
     }
    
     function save($product_id=FALSE){
-        $this->form_validation->set_rules('product_model','Product Model','trim|');
+        $this->form_validation->set_rules('product_model','Product Model','trim');
         $this->form_validation->set_rules('product_name','English Name','trim');
         $this->form_validation->set_rules('china_name','Chinese  Name','trim');
         $this->form_validation->set_rules('category_id','Category','trim|required');
-         if($product_id==FALSE){
+        if($product_id==FALSE){
           $this->form_validation->set_rules('product_code','ITEM CODE','trim|is_unique[product_info.product_code]');
         }else{
           $this->form_validation->set_rules('product_code','ITEM CODE','trim|required');
         }
         $this->form_validation->set_rules('mtype_id','Material Type','trim');
         $this->form_validation->set_rules('unit_id','Product Unit','trim|required');
-        $this->form_validation->set_rules('product_description','Description','trim|');
+        $this->form_validation->set_rules('product_description','Description','trim');
         $this->form_validation->set_rules('stock_quantity','Stock Quatity','trim|required');
         $this->form_validation->set_rules('minimum_stock','Maximum Stock Qty','trim|required');
         $this->form_validation->set_rules('safety_stock_qty','Safety Stock Qty','trim|required');

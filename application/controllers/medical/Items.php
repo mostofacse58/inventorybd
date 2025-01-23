@@ -109,7 +109,7 @@ class Items extends My_Controller {
        if($product_id==FALSE){
           $this->form_validation->set_rules('product_model','Model','trim|is_unique[product_info.product_model]');
         }else{
-          $this->form_validation->set_rules('product_model','Model','trim|');
+          $this->form_validation->set_rules('product_model','Model','trim');
         }        $this->form_validation->set_rules('product_name','English Name','trim|required');
         $this->form_validation->set_rules('china_name','Chinese  Name','trim');
         $this->form_validation->set_rules('category_id','Category','trim|required');
@@ -119,12 +119,12 @@ class Items extends My_Controller {
           $this->form_validation->set_rules('product_code','ITEM CODE','trim');
         }
         $this->form_validation->set_rules('unit_id','Product Unit','trim|required');
-        $this->form_validation->set_rules('product_description','Description','trim|');
+        $this->form_validation->set_rules('product_description','Description','trim');
         $this->form_validation->set_rules('stock_quantity','Stock Quatity','trim|required');
         $this->form_validation->set_rules('minimum_stock','minimum Stock Qty','trim|required');
         $this->form_validation->set_rules('unit_price','Unit Price','trim|required');
         $this->form_validation->set_rules('box_id','Box Name','trim');
-        $this->form_validation->set_rules('brand_id','Brand','trim|');
+        $this->form_validation->set_rules('brand_id','Brand','trim');
          if ($this->form_validation->run() == TRUE) {
             $stock_quantity=$this->input->post('stock_quantity');
             if($product_id!=FALSE){

@@ -26,6 +26,27 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => '10.55.250.25',
+	'username' => 'vlmbd',
+	'password' => 'B@ngladesh321',
+	'database' => 'inventory_backup',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
