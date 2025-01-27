@@ -190,9 +190,9 @@ hr{margin: 5px}
 
     <?php } ?>
     <?php if($info->requisition_status==4&&$controller=='Requisitionrec'){ ?>
-    <a href="<?php echo base_url()?>format/Requisitionrec/approved/<?php echo $info->requisition_id;?>" class="btn btn-primary">
+    <a href="<?php echo base_url()?>format/Requisitionrec/received/<?php echo $info->requisition_id;?>" class="btn btn-primary">
       <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Approve</a>
+    Receive</a>
     <a href="<?php echo base_url()?>format/Requisitionrec/returns/<?php echo $info->requisition_id;?>" class="btn btn-warning">
       <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
     Return</a>

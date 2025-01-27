@@ -99,7 +99,9 @@ class Machinestatus_model extends CI_Model {
         INNER JOIN product_detail_info pd ON(ps.product_detail_id=pd.product_detail_id)
         INNER JOIN product_info p ON(pd.product_id=p.product_id)
         WHERE pd.department_id=12  AND ps.take_over_status=1
-        AND (pd.ventura_code LIKE '%$term%' or pd.tpm_serial_code LIKE '%$term%' or p.product_name LIKE '%$term%') ")->result();
+        AND (pd.ventura_code LIKE '%$term%' 
+        or pd.tpm_serial_code='$term' 
+        or p.product_name LIKE '%$term%') ")->result();
         ///////////////////////////////////////////
         if(count($result)<1){
           $result=$this->db->query("SELECT pd.product_detail_id,
@@ -112,7 +114,9 @@ class Machinestatus_model extends CI_Model {
             FROM product_detail_info pd
             INNER JOIN product_info p ON(pd.product_id=p.product_id)
             WHERE pd.department_id=12  
-            AND (pd.ventura_code LIKE '%$term%' or pd.tpm_serial_code LIKE '%$term%' or p.product_name LIKE '%$term%') ")->result();
+            AND (pd.ventura_code LIKE '%$term%' 
+            or pd.tpm_serial_code='$term'  
+            or p.product_name LIKE '%$term%') ")->result();
         }
       return $result;
     }

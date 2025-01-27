@@ -208,8 +208,8 @@ $(document).ready(function(){
 <tr>
   <th style="width:5%;text-align:center">SL</th>
   <th style="width:15%;text-align:center">Machine Name</th>
-  <th style="width:10%;text-align:center">Ventura Code</th>
   <th style="width:10%;text-align:center">TPM CODE (TPM代码)</th>
+  <th style="width:10%;text-align:center">Ventura Code</th>
   <th style="width:10%;text-align:center">Current Location</th>
   <th style="width:10%;text-align:center;">Transfer Location</th>
   <th style="width:10%;text-align:center;">Status 状态</th>
