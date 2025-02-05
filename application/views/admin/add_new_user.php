@@ -11,7 +11,7 @@
 
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" action="<?php echo base_url(); ?>Configcontroller/saveUser/<?php if (isset($user_info->id)) echo "/$user_info->id"; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+            <form class="form-horizontal" action="<?php echo base_url(); ?>Configcontroller/saveUser<?php if (isset($user_info->id)) echo "/$user_info->id"; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="box-body">
                  <div class="col-sm-6">
                     <div class="form-group">

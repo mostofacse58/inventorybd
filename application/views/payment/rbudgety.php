@@ -99,7 +99,7 @@
         <ul class="dropdown-menu pull-right" role="menu">
           <li><a href="<?php echo base_url()?>payment/Rbudgety/view/<?php echo $row->master_id;?>">
           <i class="fa fa-eye tiny-icon"></i>View  </a></li>
-           <li> <a href="<?php echo base_url()?>payment/Budgeta/loadExcel/<?php echo $row->master_id;?>" target="_blank">
+           <li> <a href="<?php echo base_url()?>payment/Budgety/loadExcel/<?php echo $row->master_id;?>" target="_blank">
           <i class="fa fa-eye tiny-icon"></i>Excel</a></li>
          <?php if($row->status==3){ ?>
           <li><a href="<?php echo base_url()?>payment/Rbudgety/view/<?php echo $row->master_id;?>">
