@@ -1,9 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Requisition extends My_Controller {
+class Quotation extends My_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('shipping/Import_model');
-        $this->load->model('format/Requisition_model');
+        $this->load->model('canteen/Quotation_model');
      }
     
     function lists(){
@@ -12,10 +11,10 @@ class Requisition extends My_Controller {
       if($this->input->post('perpage')!='') $perpage=$this->input->post('perpage'); else $perpage=10;
       ////////////////////////////////////
       $this->load->library('pagination');
-      $config['base_url']=base_url().'format/Requisition/lists/';
+      $config['base_url']=base_url().'canteen/Quotation/lists/';
       $config['suffix'] = '?' . http_build_query($_GET, '', "&");
       $config["uri_segment"] = 4;
-      $config['total_rows'] = $this->Requisition_model->get_count();
+      $config['total_rows'] = $this->Quotation_model->get_count();
       $config['per_page'] = $perpage;
       $choice = $config["total_rows"] / $config["per_page"];
       $config["num_links"] = 2;
@@ -43,11 +42,11 @@ class Requisition extends My_Controller {
       $total_rows=$config['total_rows'];
       $pagination = $this->pagination->create_links();
       $data['pagination']='<p>We have ' . $total_rows . ' records in ' . $choice . ' pages ' . $pagination . '</p>';
-      $data['list']=$this->Requisition_model->lists($config["per_page"],$data['page'] );
+      $data['list']=$this->Quotation_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
-      $data['heading']='Requisition Lists';
+      $data['heading']='Quotation Lists';
       $data['dlist']=$this->Look_up_model->departmentList();
-      $data['display']='format/requisition_lists';
+      $data['display']='canteen/quotation_lists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");
@@ -55,49 +54,47 @@ class Requisition extends My_Controller {
   }
   function add(){
     if($this->session->userdata('user_id')) {
-      $data['heading']='Add Requisition';
-      $data['dlist']=$this->Look_up_model->departmentList();
-      $data['llist']=$this->Look_up_model->getlocation();
-      $data['display']='format/addrequisition';
+      $data['heading']='Add Quotation';
+      $data['display']='canteen/addquotation';
       $data['flist']=$this->Import_model->getdata('shipping_file_style_info');
       $this->load->view('admin/master',$data);
     }else{
       redirect("Logincontroller");
     }
   }
-  function edit($requisition_id){
+  function edit($quotation_id){
     if ($this->session->userdata('user_id')) {
-    $data['heading']='Edit Requisition';
+    $data['heading']='Edit Quotation';
     $data['llist']=$this->Look_up_model->getlocation();
     $data['flist']=$this->Import_model->getdata('shipping_file_style_info');
     $data['dlist']=$this->Look_up_model->departmentList();
-    $data['info']=$this->Requisition_model->get_info($requisition_id);
-    $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-    $data['display']='format/addrequisition';
+    $data['info']=$this->Quotation_model->get_info($quotation_id);
+    $data['detail']=$this->Quotation_model->getDetails($quotation_id);
+    $data['display']='canteen/addquotation';
     $this->load->view('admin/master',$data);
     } else {
        redirect("Logincontroller");
     }
     }
-   function save($requisition_id=FALSE){
-      $check=$this->Requisition_model->save($requisition_id);
-      if($check && !$requisition_id){
+   function save($quotation_id=FALSE){
+      $check=$this->Quotation_model->save($quotation_id);
+      if($check && !$quotation_id){
        $this->session->set_userdata('exception','Saved successfully');
-       }elseif($check&& $requisition_id){
+       }elseif($check&& $quotation_id){
            $this->session->set_userdata('exception','Update successfully');
        }else{
          $this->session->set_userdata('exception','Submission Failed');
        }
-      redirect("format/Requisition/lists");
+      redirect("canteen/Quotation/lists");
     }
-    function delete($requisition_id=FALSE){
-      $check=$this->Requisition_model->delete($requisition_id);
+    function delete($quotation_id=FALSE){
+      $check=$this->Quotation_model->delete($quotation_id);
         if($check){ 
            $this->session->set_userdata('exception','Delete successfully');
          }else{
            $this->session->set_userdata('exception','Delete Failed');
         }
-      redirect("format/Requisition/lists");
+      redirect("canteen/Quotation/lists");
     }
 ////////////////////////
 public function suggestions(){
@@ -106,7 +103,7 @@ public function suggestions(){
         if (strlen($term) < 1 || !$term) {
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
         }
-        $rows = $this->Requisition_model->getRequisitionProduct($responsible_department,$term);
+        $rows = $this->Quotation_model->getQuotationProduct($responsible_department,$term);
         if ($rows){
             $c = str_replace(".", "", microtime(true));
             $r = 0;
@@ -125,19 +122,19 @@ public function suggestions(){
             exit;
         }
     }
-    function view2($requisition_id=FALSE){
+    function view2($quotation_id=FALSE){
       $data['controller']=$this->router->fetch_class();
-      $data['info']=$this->Requisition_model->get_info($requisition_id);
-      $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-      $data['display']='format/requisitionView2';
+      $data['info']=$this->Quotation_model->get_info($quotation_id);
+      $data['detail']=$this->Quotation_model->getDetails($quotation_id);
+      $data['display']='canteen/quotationView2';
       $this->load->view('admin/master',$data);
     }
-    function view($requisition_id=FALSE){
+    function view($quotation_id=FALSE){
     if ($this->session->userdata('user_id')) {
-        $data['heading']='Requisition Form';
-            $data['info']=$this->Requisition_model->get_info($requisition_id);
-            $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-            $pdfFilePath='Requisition'.date('Y-m-d H:i').'.pdf';
+        $data['heading']='Quotation Form';
+            $data['info']=$this->Quotation_model->get_info($quotation_id);
+            $data['detail']=$this->Quotation_model->getDetails($quotation_id);
+            $pdfFilePath='Quotation'.date('Y-m-d H:i').'.pdf';
             require 'vendor/autoload.php';
             $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 15, 'margin_right' => 15, 'margin_top' => 10, 'margin_bottom' => 18,]);
             $mpdf->useAdobeCJK = true;
@@ -147,7 +144,7 @@ public function suggestions(){
             $mpdf->AddPage('L');
             $header = $this->load->view('header', $data, true);
             $footer = $this->load->view('footer', $data, true);
-            $html=$this->load->view('format/requisitionView', $data, true);
+            $html=$this->load->view('canteen/quotationView', $data, true);
             $mpdf->setHtmlFooter($footer);
             $mpdf->WriteHTML($html);
             $mpdf->Output();
@@ -155,28 +152,28 @@ public function suggestions(){
            redirect("Logincontroller");
         }
       }
-    function excelload($requisition_id=FALSE){
-      $data['heading']='Requisition Form';
-      $data['info']=$this->Requisition_model->get_info($requisition_id);
-      $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-      $this->load->view('format/requisitionExcel', $data);
+    function excelload($quotation_id=FALSE){
+      $data['heading']='Quotation Form';
+      $data['info']=$this->Quotation_model->get_info($quotation_id);
+      $data['detail']=$this->Quotation_model->getDetails($quotation_id);
+      $this->load->view('canteen/quotationExcel', $data);
     }
-    function submit($requisition_id=FALSE){
+    function submit($quotation_id=FALSE){
       //$this->load->model('Communication');
-      $data['info']=$this->Requisition_model->get_info($requisition_id); 
+      $data['info']=$this->Quotation_model->get_info($quotation_id); 
       $department_id=$data['info']->department_id;
       $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
         WHERE department_id=$department_id")->row('dept_head_email');
-      $subject="Requisition Approval Notification";
+      $subject="Quotation Approval Notification";
       $message=$this->load->view('req_email_format', $data,true); 
      // $this->Communication->send($emailaddress,$subject,$message);
-      $check=$this->Requisition_model->submit($requisition_id);
+      $check=$this->Quotation_model->submit($quotation_id);
         if($check){ 
            $this->session->set_userdata('exception','Send successfully');
          }else{
            $this->session->set_userdata('exception','Send Failed');
         }
-      redirect("format/Requisition/lists");
+      redirect("canteen/Quotation/lists");
     }
 
    
