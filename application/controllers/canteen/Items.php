@@ -79,15 +79,13 @@ class Items extends My_Controller {
         $data['user_id']=23;
         $data['product_code_count']=$value->product_code_count;
         //print_r($data); exit();
-        $query=$this->db->insert('product_info',$data);
+        $query=$this->db->insert('canteen_product_info',$data);
         }
-       }
+    }
     function add(){
-        $data['heading']='Add Items Info 添加项目信息';
+        $data['heading']='Add Items Info  ';
         $data['clist']=$this->Look_up_model->getCategory(3);
         $data['culist']=$this->Look_up_model->clist();
-        $data['brlist']=$this->Look_up_model->getBrand();
-        $data['hlist']=$this->Applications_model->getAccountHead();
         $data['display']='canteen/additems';
         $this->load->view('admin/master',$data);
         
@@ -96,23 +94,14 @@ class Items extends My_Controller {
         $data['heading']='Edit Items Info 编辑项目信息';
         $data['info']=$this->items_model->get_info($product_id);
         $data['culist']=$this->Look_up_model->clist();
-        $data['clist']=$this->Look_up_model->getCategory(12);
-        $data['brlist']=$this->Look_up_model->getBrand();
-        $data['hlist']=$this->Applications_model->getAccountHead();
+        $data['clist']=$this->Look_up_model->getCategory(3);
         $data['display']='canteen/additems';
         $this->load->view('admin/master',$data);
 
     }
    
     function save($product_id=FALSE){
-       if($product_id==FALSE){
-          //$this->form_validation->set_rules('product_model','Model','trim|is_unique[product_info.product_model]');
-          $this->form_validation->set_rules('product_model','Model','trim');
-        }else{
-          $this->form_validation->set_rules('product_model','Model','trim');
-        }        
         $this->form_validation->set_rules('product_name','English Name','trim|required');
-        $this->form_validation->set_rules('china_name','Chinese  Name','trim');
         $this->form_validation->set_rules('category_id','Category','trim|required');
          if($product_id==FALSE){
           $this->form_validation->set_rules('product_code','ITEM CODE','trim');
@@ -121,22 +110,9 @@ class Items extends My_Controller {
         }
         $this->form_validation->set_rules('unit_id','Product Unit','trim|required');
         $this->form_validation->set_rules('product_description','Description','trim');
-        $this->form_validation->set_rules('stock_quantity','Stock Quatity','trim|required');
-        $this->form_validation->set_rules('minimum_stock','minimum Stock Qty','trim|required');
         $this->form_validation->set_rules('unit_price','Unit Price','trim|required');
-        $this->form_validation->set_rules('box_id','Box Name','trim');
-        $this->form_validation->set_rules('brand_id','Brand','trim');
-        $this->form_validation->set_rules('bd_or_cn','Country','trim');
          if ($this->form_validation->run() == TRUE) {
-            $stock_quantity=$this->input->post('stock_quantity');
-            if($product_id!=FALSE){
-              $beforeqty=$this->db->query("SELECT stock_quantity FROM  product_info p WHERE  p.product_type=2 AND p.product_id=$product_id")->row('stock_quantity');
-            $this->Look_up_model->storecrud("EDIT",$product_id,$stock_quantity,$beforeqty);
-            }
             $check=$this->items_model->save($product_id);
-            if($product_id==FALSE){
-              $this->Look_up_model->storecrud("ADD",$check,$stock_quantity);
-            }
             if($check &&!$product_id){
                $this->session->set_userdata('exception','Saved successfully');
                }elseif($check&&$product_id){
@@ -151,12 +127,10 @@ class Items extends My_Controller {
               $data['heading']='Edit Items Info';
               $data['info']=$this->items_model->get_info($product_id);  
             }
-            $data['clist']=$this->Look_up_model->getCategory(3);
-            $data['culist']=$this->Look_up_model->clist();
-            $data['brlist']=$this->Look_up_model->getBrand();
-            $data['hlist']=$this->Applications_model->getAccountHead();
-            $data['display']='canteen/additems';
-            $this->load->view('admin/master',$data);
+          $data['clist']=$this->Look_up_model->getCategory(3);
+          $data['culist']=$this->Look_up_model->clist();
+          $data['display']='canteen/additems';
+          $this->load->view('admin/master',$data);
          }
 
     }
@@ -172,7 +146,7 @@ class Items extends My_Controller {
    
     //////////////////AJAX FOR DELETIN PRODUCT/////////////
     function checkItemsUse($product_id){
-        $chk=$this->db->query("SELECT * FROM item_issue_detail 
+        $chk=$this->db->query("SELECT * FROM cantten_invoice_item_detail 
              WHERE product_id=$product_id")->result();
         if(count($chk)>0){
             echo "EXISTS";

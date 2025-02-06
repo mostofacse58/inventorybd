@@ -2,7 +2,7 @@
 class Bulkupload_model extends CI_Model{
      ////////////// save Excel ///////////
     function insertproduct($data) {
-      $this->db->insert('product_info',$data);
+      $this->db->insert('canteen_product_info',$data);
       return $this->db->insert_id();
     }
 
@@ -26,7 +26,7 @@ class Bulkupload_model extends CI_Model{
     function checkproduct($product_name,$category_name){
       $department_id=$this->input->post('department_id');
       $result=$this->db->query("SELECT p.product_id 
-        FROM product_info p,
+        FROM canteen_product_info p,
         category_info c 
         WHERE p.product_name='$product_name' 
         AND p.category_id=c.category_id

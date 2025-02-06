@@ -20,21 +20,7 @@
               </select>
             <span class="error-msg"><?php echo form_error("department_id"); ?></span>
         </div>
-              <label class="col-sm-1 control-label">Supplier </label>
-              <div class="col-sm-2">
-               <select class="form-control select2" name="supplier_id">
-              <option value="" selected="selected">Select Supplier Name 供应商名称</option>
-              <?php foreach ($slist as $rows) { ?>
-                <option value="<?php echo $rows->supplier_id; ?>" 
-                <?php if (isset($info))
-                    echo $rows->supplier_id == $info->supplier_id ? 'selected="selected"' : 0;
-                else
-                    echo $rows->supplier_id == set_value('supplier_id') ? 'selected="selected"' : 0;
-                ?>><?php echo $rows->supplier_name; ?></option>
-                    <?php } ?>
-                </select>
-              <span class="error-msg"><?php echo form_error("supplier_id"); ?></span>
-        </div>
+            
         <label class="col-sm-2 control-label">
         Select Excel File</label>
           <div class="col-sm-3">

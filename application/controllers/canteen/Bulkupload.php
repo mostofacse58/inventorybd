@@ -33,12 +33,12 @@ function save(){
     $totalrows = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();       
     $objWorksheet = $objPHPExcel->setActiveSheetIndex(0);
     $department_id=$this->input->post('department_id');
-    if($totalrows>3){
+    if($totalrows>2){
     for ($i = 3; $i <= $totalrows; $i++) {
       $product_name  = $objWorksheet->getCellByColumnAndRow(1, $i)->getValue();
-      $category_name  = $objWorksheet->getCellByColumnAndRow(3, $i)->getValue();
-      $product_code  = $objWorksheet->getCellByColumnAndRow(4, $i)->getValue();
-      $unit_price  = $objWorksheet->getCellByColumnAndRow(5, $i)->getValue();
+      $category_name  = $objWorksheet->getCellByColumnAndRow(2, $i)->getValue();
+      $product_code  = $objWorksheet->getCellByColumnAndRow(3, $i)->getValue();
+      $unit_price  = $objWorksheet->getCellByColumnAndRow(4, $i)->getValue();
       ////////////////Start/////////////
       if($product_name==''&&$category_name==''){
         $this->session->set_userdata('exception_err', "Please fill up all data currectly.");
@@ -48,57 +48,50 @@ function save(){
 
     for($i = 3; $i <= $totalrows; $i++) {
       $product_name  = $objWorksheet->getCellByColumnAndRow(1, $i)->getValue();
-      $category_name  = $objWorksheet->getCellByColumnAndRow(3, $i)->getValue();
-      $product_code  = $objWorksheet->getCellByColumnAndRow(4, $i)->getValue();
-      $unit_price  = $objWorksheet->getCellByColumnAndRow(5, $i)->getValue();
-      $unit_name  = $objWorksheet->getCellByColumnAndRow(6, $i)->getValue();
-      $stock  = $objWorksheet->getCellByColumnAndRow(7, $i)->getValue();
-      $minstock  = $objWorksheet->getCellByColumnAndRow(8, $i)->getValue();
-      $box_name  = $objWorksheet->getCellByColumnAndRow(9, $i)->getValue();
+      $category_name  = $objWorksheet->getCellByColumnAndRow(2, $i)->getValue();
+      $product_code  = $objWorksheet->getCellByColumnAndRow(3, $i)->getValue();
+      $unit_price  = $objWorksheet->getCellByColumnAndRow(4, $i)->getValue();
+      $unit_name  = $objWorksheet->getCellByColumnAndRow(5, $i)->getValue();
         /////////////////product////////////
       $productinfo=$this->Bulkupload_model->checkproduct($product_name,$category_name);
       if($productinfo!=0){
         $product_id=$productinfo;
       }else{
         $pdata=array();
-          $pdata['product_name']=$product_name;
-          $pdata['china_name']=$objWorksheet->getCellByColumnAndRow(2, $i)->getValue();
-          $pdata['category_id']=$this->Bulkupload_model->checkcat($category_name);
-          $pdata['department_id']=$department_id;
-          $pdata['unit_id']=$this->Bulkupload_model->checkUnit($unit_name);
-          $pdata['box_id']=$this->Bulkupload_model->checklocation($box_name);
+        $pdata['product_name']=$product_name;
+        $pdata['category_id']=$this->Bulkupload_model->checkcat($category_name);
+        $pdata['unit_price']=$unit_price;
+        $pdata['department_id']=$department_id;
+        $pdata['unit_id']=$this->Bulkupload_model->checkUnit($unit_name);
 	      if($product_code==''){
-	        $product_code_count=$this->db->query("SELECT max(product_code_count) as counts FROM product_info 
-	          WHERE department_id=$department_id and product_type=2")->row('counts');
+	        $product_code_count=$this->db->query("SELECT max(product_code_count) as counts FROM canteen_product_info 
+	          WHERE department_id=$department_id ")->row('counts');
 	        $random=strtoupper(substr(md5('ABCDSTSHJUHUHUHUIHUIHIU5454L'.mt_rand(0,1005)),0,4));
 
 	        $pdata['product_code']='BD'.$random.str_pad($product_code_count + 1, 10, '0', STR_PAD_LEFT);
 	        $pdata['product_code_count']=$product_code_count + 1;
-          }else{
-          	$pdata['product_code']=$product_code;
-          }
-          $pdata['product_model']=$pdata['product_code'];
-          $pdata['stock_quantity']=$stock;
-          $pdata['main_stock']=$stock;
-          $pdata['minimum_stock']=$minstock;
-          $pdata['product_type']=2;
-          $pdata['product_description']=$objWorksheet->getCellByColumnAndRow(10, $i)->getValue();
-          $pdata['machine_other']=2;
-          $product_id=$this->Bulkupload_model->insertproduct($pdata);
-          }
+        }else{
+        	$pdata['product_code']=$product_code;
+        }
+   
+        $pdata['product_description']=$objWorksheet->getCellByColumnAndRow(6, $i)->getValue();
+        $product_id=$this->Bulkupload_model->insertproduct($pdata);
+        }
       }
-unlink('./asset/excel/' . $file_name); 
-$this->session->set_userdata('exception', 'Upload successfully!');
+  unlink('./asset/excel/' . $file_name); 
+  $this->session->set_userdata('exception', 'Upload successfully!');
+  redirect("canteen/Bulkupload/addExcel");
+    }else{
+    $this->session->set_userdata('exception_err', "No data found.");
+    }
+  }else{
+   $this->session->set_userdata('exception_err', 'File is required');
+  }
+}
 redirect("canteen/Bulkupload/addExcel");
-}else{
-$this->session->set_userdata('exception_err', "No data found.");
-}
-}else{
- $this->session->set_userdata('exception_err', 'File is required');
-}
-}
 
 }
+
 
 
 }
