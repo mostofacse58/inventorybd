@@ -45,7 +45,6 @@ class Quotation extends My_Controller {
       $data['list']=$this->Quotation_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
       $data['heading']='Quotation Lists';
-      $data['dlist']=$this->Look_up_model->departmentList();
       $data['display']='canteen/quotation_lists';
       $this->load->view('admin/master',$data);
       } else {
@@ -56,7 +55,6 @@ class Quotation extends My_Controller {
     if($this->session->userdata('user_id')) {
       $data['heading']='Add Quotation';
       $data['display']='canteen/addquotation';
-      $data['flist']=$this->Import_model->getdata('shipping_file_style_info');
       $this->load->view('admin/master',$data);
     }else{
       redirect("Logincontroller");
@@ -65,9 +63,6 @@ class Quotation extends My_Controller {
   function edit($quotation_id){
     if ($this->session->userdata('user_id')) {
     $data['heading']='Edit Quotation';
-    $data['llist']=$this->Look_up_model->getlocation();
-    $data['flist']=$this->Import_model->getdata('shipping_file_style_info');
-    $data['dlist']=$this->Look_up_model->departmentList();
     $data['info']=$this->Quotation_model->get_info($quotation_id);
     $data['detail']=$this->Quotation_model->getDetails($quotation_id);
     $data['display']='canteen/addquotation';
@@ -75,7 +70,7 @@ class Quotation extends My_Controller {
     } else {
        redirect("Logincontroller");
     }
-    }
+  }
    function save($quotation_id=FALSE){
       $check=$this->Quotation_model->save($quotation_id);
       if($check && !$quotation_id){
@@ -96,47 +91,80 @@ class Quotation extends My_Controller {
         }
       redirect("canteen/Quotation/lists");
     }
-////////////////////////
-public function suggestions(){
-        $term = $this->input->get('term', true);
-        $responsible_department = $this->input->get('responsible_department', true);
-        if (strlen($term) < 1 || !$term) {
-            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
-        }
-        $rows = $this->Quotation_model->getQuotationProduct($responsible_department,$term);
-        if ($rows){
-            $c = str_replace(".", "", microtime(true));
-            $r = 0;
-            foreach ($rows as $row) {
-              $product_name="$row->product_name($row->product_code)";
-                $pr[] = array('id' => ($c + $r), 'product_id' => $row->product_id, 'label' => $row->product_name . " (" . $row->product_code . ")". " (Stock=" . $row->main_stock . ")", 'category_name' => $row->category_name ,'unit_name' => $row->unit_name,'product_name' =>$product_name ,'product_code' => $row->product_code, 'unit_price' => $row->unit_price,'image_link' => $row->product_image, 'stock' =>$row->main_stock);
-                $r++;
-            }
-            header('Content-Type: application/json');
-            die(json_encode($pr));
-            exit;
+    
+    public function getAllItems(){
+      $q_type = $this->input->post('q_type');
+      $data=date('Y-m-d');
+      if($q_type==1){
+        $detail=$this->db->query("SELECT a.*, product_description as specification,
+          unit_price as previous_price,
+          unit_price as market_price, 0 as operational_cost,0 as pricedifference,u.unit_name
+          FROM canteen_product_info a 
+          INNER JOIN product_unit u ON(a.unit_id=u.unit_id)
+          WHERE category_id=167  
+          ORDER BY product_id ASC")->result();
         }else{
-            $dsad='';
-            header('Content-Type: application/json');
-            die(json_encode($dsad));
-            exit;
+        $detail=$this->db->query("SELECT a.*,product_description as specification,
+          unit_price as previous_price,
+          unit_price as market_price, 0 as operational_cost,0 as pricedifference,u.unit_name
+          FROM canteen_product_info a 
+          INNER JOIN product_unit u ON(a.unit_id=u.unit_id)
+          WHERE  category_id=207  
+          ORDER BY product_id ASC")->result();
+      }
+      print_r($detail);
+      
+       $i=0;
+       $id=0;
+        if(isset($detail)):
+          foreach ($detail as  $value) {
+             $str='<tr id="row_' . $id . '"><td style="text-align:center">
+             <input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td> <td> '.$value->product_name.' </td>';
+            $str.= '<td>'.$value->specification.'</td>';
+
+            $str.= '<td> <label  style="width:98%;float:left">'.$value->unit_name.'</label></td>';
+
+            $str.= '<td> <input type="text" name="previous_price[]" value="'.$value->unit_price.'" readonly class="form-control"  placeholder="previous_price" style="width:60%;float:left;text-align:center"  id="previous_price_' .$id. '"> </td>';
+
+            $str.= '<td><input type="text"  onfocus="this.select();" name="market_price[]"  class="form-control" placeholder="market_price" 
+            value="'.$value->market_price.'" onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');" style="margin-bottom:5px;width:98%;text-align:center" id="market_price_'.$id.'"> </td>';
+
+            $str.= '<td><input type="text"  onfocus="this.select();" name="operational_cost[]"  class="form-control" placeholder="operational_cost" 
+            value="'.$value->operational_cost.'" onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');" style="margin-bottom:5px;width:98%;text-align:center" id="operational_cost_'.$id.'"> </td>';
+
+            $str.= '<td> <input type="text"  onfocus="this.select();" onselect name="profit[]"  class="form-control" placeholder="profit" 
+            value="0" onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');" style="margin-bottom:5px;width:98%;text-align:center" id="profit_'.$id.'"> </td>';
+
+            $str.= '<td><input type="text" readonly name="present_price[]"  class="form-control" placeholder="present_price" 
+            value="'.$value->unit_price.'" onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');" style="margin-bottom:5px;width:98%;text-align:center" id="present_price_'.$id.'"> </td>';
+
+            $str.='<td><input type="text" name="pricedifference[]" readonly class="form-control" placeholder="Rate" 
+                value="'.$value->pricedifference.'" style="margin-bottom:5px;width:98%;text-align:center" id="pricedifference_'.$id.'"></td> ';
+            $str.= '<td style"text-align:center"><button class="btn btn-danger btn-xs" onclick="return deleter('. $id .');" style="margin-top:5px;"><i class="fa fa-trash-o"></i></button></td></tr>';
+            echo $str;
+          $id++;
         }
+        endif;
     }
-    function view2($quotation_id=FALSE){
+
+
+    function view($quotation_id=FALSE){
+      $data['heading']='Quotation';
       $data['controller']=$this->router->fetch_class();
       $data['info']=$this->Quotation_model->get_info($quotation_id);
       $data['detail']=$this->Quotation_model->getDetails($quotation_id);
-      $data['display']='canteen/quotationView2';
+      $data['display']='canteen/quotationView';
       $this->load->view('admin/master',$data);
     }
-    function view($quotation_id=FALSE){
+
+  function viewpdf($quotation_id=FALSE){
     if ($this->session->userdata('user_id')) {
         $data['heading']='Quotation Form';
             $data['info']=$this->Quotation_model->get_info($quotation_id);
             $data['detail']=$this->Quotation_model->getDetails($quotation_id);
             $pdfFilePath='Quotation'.date('Y-m-d H:i').'.pdf';
             require 'vendor/autoload.php';
-            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 15, 'margin_right' => 15, 'margin_top' => 10, 'margin_bottom' => 18,]);
+            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 10, 'margin_bottom' => 15,]);
             $mpdf->useAdobeCJK = true;
             
             $mpdf->autoScriptToLang = true;
@@ -144,7 +172,7 @@ public function suggestions(){
             $mpdf->AddPage('L');
             $header = $this->load->view('header', $data, true);
             $footer = $this->load->view('footer', $data, true);
-            $html=$this->load->view('canteen/quotationView', $data, true);
+            $html=$this->load->view('canteen/quotationViewPdf', $data, true);
             $mpdf->setHtmlFooter($footer);
             $mpdf->WriteHTML($html);
             $mpdf->Output();
@@ -159,14 +187,6 @@ public function suggestions(){
       $this->load->view('canteen/quotationExcel', $data);
     }
     function submit($quotation_id=FALSE){
-      //$this->load->model('Communication');
-      $data['info']=$this->Quotation_model->get_info($quotation_id); 
-      $department_id=$data['info']->department_id;
-      $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
-        WHERE department_id=$department_id")->row('dept_head_email');
-      $subject="Quotation Approval Notification";
-      $message=$this->load->view('req_email_format', $data,true); 
-     // $this->Communication->send($emailaddress,$subject,$message);
       $check=$this->Quotation_model->submit($quotation_id);
         if($check){ 
            $this->session->set_userdata('exception','Send successfully');

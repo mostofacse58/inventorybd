@@ -528,7 +528,8 @@ $("#AddManualItem3").click(function(){
   var rstofamount=(sub_total-subTotal).toFixed(3);
   var nodeStr = '<tr id="row3_' + id3 + '"><td  style="text-align:center"><b></b></td>'+
     '<td td style="text-align:left"><select name="po_number[]" onchange="return checkpo(' + id3 + ');" required class="form-control select2" style="width:100%;"  id="po_number_' + id3 + '"> <option value="" selected="selected">Select</option>'+poselect+'</select> </td>' +
-    '<td><input type="text" name="pamount[]" value="' + rstofamount + '" class="form-control integerchk"  placeholder="Amount" style="width:98%;float:left;text-align:center" id="pamount_' + id3 + '"></td>' +
+    '<td><input type="text" name="pamount[]" value="' + rstofamount + '" class="form-control integerchk"  placeholder="Amount" style="width:98%;float:left;text-align:center" id="pamount_' + id3 + '" onblur="return checkPOAmount(' + id3 + ');" onkeyup="return checkPOAmount(' + id3 + ');"></td>' +
+
     '<td><input type="text" readonly name="actual_amount[]" value="0" class="form-control"  placeholder="actual_amount" style="width:98%;float:left;text-align:center" id="actual_amount_' + id3 + '"></td>' +
     '<td><input type="text" readonly name="pocurrency[]" value="" class="form-control"  placeholder="pocurrency" style="width:98%;float:left;text-align:center" id="pocurrency_' + id3 + '"></td>' +
     '<td><input type="text" readonly name="due_amount[]" value="0" class="form-control"  placeholder="due_amount" style="width:98%;float:left;text-align:center" id="due_amount_' + id3 + '"></td>' +
@@ -833,6 +834,22 @@ function TcalSum(){
     $("#dtotal_amount"+par1).val(dsubTotal.toFixed(2));
     departmentSum(par1);
   }
+  function checkPOAmount(par1){
+    var inputpoamount=parseFloat($.trim($("#pamount_" + par1).val()));
+    if($.trim(inputpoamount)==""|| typeof inputpoamount === "undefined"){
+      inputpoamount=0;
+    }
+    var dueamount=parseFloat($.trim($("#due_amount_" + par1).val()));
+    if($.trim(dueamount)==""|| typeof dueamount === "undefined"){
+      dueamount=0;
+    }
+    
+    if(inputpoamount>dueamount){
+        $("#alertMessageHTML").html("PO amount can not exceed due amount.!!");
+        $("#alertMessagemodal").modal("show");
+        $("#pamount_"+par1).val(0);
+    }
+  }
  
 
   function checkdepart(par1,par2){
@@ -915,6 +932,7 @@ function TcalSum(){
             due_amountp=due_amountp.toFixed(3);
             grn_amountp=grn_amountp.toFixed(3);
 
+            $("#pamount_"+ids3).val(due_amountp);
             $("#actual_amount_"+ids3).val(amountp);
             $("#due_amount_"+ids3).val(due_amountp);
             $("#pocurrency_"+ids3).val(data.pocurrency);

@@ -14,6 +14,7 @@ class Items_model extends CI_Model {
         
       }
     $department_id=$this->session->userdata('department_id');
+    $department_id=3;
       $query=$this->db->query("SELECT * FROM canteen_product_info p
         WHERE p.department_id=$department_id   $condition");
       $data = count($query->result());
@@ -22,6 +23,7 @@ class Items_model extends CI_Model {
 
     function lists($limit,$start) {
       $department_id=$this->session->userdata('department_id');
+      $department_id=3;
       $condition=' ';
       if($_POST){
         $category_id=$this->input->post('category_id');
@@ -37,7 +39,8 @@ class Items_model extends CI_Model {
       FROM  canteen_product_info p
       INNER JOIN category_info c ON(p.category_id=c.category_id)
       LEFT JOIN user u ON(u.id=p.user_id) 
-      WHERE p.department_id=$department_id  $condition
+      WHERE p.department_id=$department_id 
+       $condition
       ORDER BY p.product_id DESC LIMIT $start,$limit")->result();
     return $result;
   }
