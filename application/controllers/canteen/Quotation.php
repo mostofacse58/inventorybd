@@ -112,7 +112,6 @@ class Quotation extends My_Controller {
           WHERE  category_id=207  
           ORDER BY product_id ASC")->result();
       }
-      print_r($detail);
       
        $i=0;
        $id=0;
