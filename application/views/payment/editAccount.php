@@ -99,6 +99,9 @@
               <option value="GBP" <?php if (isset($info))
                   echo 'GBP'==$info->currency ? 'selected="selected"' : 0;
                   else echo 'GBP'==set_value('currency') ? 'selected="selected"' : 0; ?>>GBP</option>
+              <option value="EURO" <?php if (isset($info))
+                  echo 'EURO'==$info->currency ? 'selected="selected"' : 0;
+                  else echo 'EURO'==set_value('currency') ? 'selected="selected"' : 0; ?>>EURO</option>
               </select>
            <span class="error-msg"><?php echo form_error("currency");?></span>
          </div>

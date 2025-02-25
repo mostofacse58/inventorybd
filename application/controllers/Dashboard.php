@@ -9,28 +9,26 @@ class Dashboard extends My_Controller {
         $this->load->model('merch/Invoice_model');
      }
 	public function index(){
-    $department_id=$this->session->userdata('department_id');
-		$data['totalspares']=$this->db->query("SELECT COUNT(*) as ccc 
-      FROM product_info WHERE product_type=2 AND department_id=12 AND machine_other=1")->row('ccc');
-		$data['totalmachine']=$this->db->query("SELECT COUNT(*) as ccc 
-      FROM product_detail_info 
-			WHERE department_id=12 AND machine_other=1")->row('ccc');
-		$data['totalmachineactive']=$this->db->query("SELECT COUNT(*) as ccc 
-      FROM product_detail_info
-			WHERE department_id=12 AND detail_status=1 AND machine_other=1")->row('ccc');
-		$data['totalmachinedeactive']=$this->db->query("SELECT COUNT(*) as ccc 
-      FROM product_detail_info
-			WHERE department_id=12 AND detail_status=2 AND machine_other=1")->row('ccc');
-    $data['totalasset']=$this->db->query("SELECT COUNT(*) as ccc 
-      FROM product_detail_info
-      WHERE department_id=$department_id AND machine_other=2")->row('ccc');
-    $data['totalitems']=$this->db->query("SELECT COUNT(*) as ccc 
-      FROM product_info WHERE product_type=2 AND department_id=$department_id AND machine_other=2")->row('ccc');
-    
-    
-		$data['heading']='Dashboard';
-		$data['display']='admin/dashboard';
-		$this->load->view('admin/master',$data);
+      $department_id=$this->session->userdata('department_id');
+  		$data['totalspares']=$this->db->query("SELECT COUNT(*) as ccc 
+        FROM product_info WHERE product_type=2 AND department_id=12 AND machine_other=1")->row('ccc');
+  		$data['totalmachine']=$this->db->query("SELECT COUNT(*) as ccc 
+        FROM product_detail_info 
+  			WHERE department_id=12 AND machine_other=1")->row('ccc');
+  		$data['totalmachineactive']=$this->db->query("SELECT COUNT(*) as ccc 
+        FROM product_detail_info
+  			WHERE department_id=12 AND detail_status=1 AND machine_other=1")->row('ccc');
+  		$data['totalmachinedeactive']=$this->db->query("SELECT COUNT(*) as ccc 
+        FROM product_detail_info
+  			WHERE department_id=12 AND detail_status=2 AND machine_other=1")->row('ccc');
+      $data['totalasset']=$this->db->query("SELECT COUNT(*) as ccc 
+        FROM product_detail_info
+        WHERE department_id=$department_id AND machine_other=2")->row('ccc');
+      $data['totalitems']=$this->db->query("SELECT COUNT(*) as ccc 
+        FROM product_info WHERE product_type=2 AND department_id=$department_id AND machine_other=2")->row('ccc');
+  		$data['heading']='Dashboard';
+  		$data['display']='admin/dashboard';
+  		$this->load->view('admin/master',$data);
 	}
   public function profile(){
         if ($this->session->userdata('user_id')){

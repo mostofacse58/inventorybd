@@ -146,7 +146,6 @@ class Courier extends My_Controller {
         $data['courier_id']=$courier_id;
         $file_name='COURIER'.date('Ymdhi')."-$courier_id".'.pdf';
          $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME'])."/pdf/".$file_name.".pdf";
-        
         $this->load->library('mpdf');
         $mpdf = new mPDF('bn','A4','','','15','15','15','18');
         $html=$this->load->view('cc/courierPdf', $data, true);
@@ -162,9 +161,9 @@ class Courier extends My_Controller {
         }
       }
     public function submit($courier_id=FALSE){
-        $department_id=$this->session->userdata('department_id');
-        $dept_head_email=$this->db->query("SELECT * FROM department_info
-          WHERE department_id=$department_id")->row('dept_head_email');
+        // $department_id=$this->session->userdata('department_id');
+        // $dept_head_email=$this->db->query("SELECT * FROM department_info
+        //   WHERE department_id=$department_id")->row('dept_head_email');
         ////////////////////////////////////////
         $data['info']=$this->Courier_model->get_info($courier_id);
         $data['detail']=$this->Courier_model->get_detail($courier_id);
@@ -173,33 +172,34 @@ class Courier extends My_Controller {
         $this->db->where('courier_id', $courier_id);
         $this->db->update('courier_master',$data2);
         ///////////////////
-        $file_name='COURIER'.date('Ymdhi')."-$courier_id".'.pdf';
-         $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME'])."/pdf/".$file_name;
-        $this->load->library('mpdf');
-        $mpdf = new mPDF('bn','A4','','','15','15','15','18');
-        $html=$this->load->view('cc/courierPdf', $data, true);
-        $mpdf->pagenumPrefix = '  Page ';
-        $mpdf->pagenumSuffix = ' - ';
-        $mpdf->nbpgPrefix = ' out of ';
-        $mpdf->nbpgSuffix = '';
-        $mpdf->setFooter('{DATE H:i:s j/m/Y}');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output($pdfFilePath,'F');
-        ////////////////////EMAIL SECTION///////////////////
-        $this->load->library('email');
-        $config['protocol'] = 'mail';
-        $config['mailtype'] = 'html';
-        $config['charset'] = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $this->email->initialize($config);
-        $this->email->from("onlinecourier@vlmbd.com","Online Courier Control System.");
-        $this->email->to($dept_head_email);
-        $this->email->subject("Courier Control Approval Notification");
-        $message=$this->load->view('cc/email_body', $data,true);
-        $this->email->message($message);
-        $this->email->attach('Pdf/'.$file_name);
-        $this->email->send();
-        $this->email->clear(TRUE);
+        // $file_name='COURIER'.date('Ymdhi')."-$courier_id".'.pdf';
+        //  $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . str_replace('index.php', '', $_SERVER['SCRIPT_NAME'])."/pdf/".$file_name;
+        // $this->load->library('mpdf');
+        // $mpdf = new mPDF('bn','A4','','','15','15','15','18');
+        // $html=$this->load->view('cc/courierPdf', $data, true);
+        // $mpdf->pagenumPrefix = '  Page ';
+        // $mpdf->pagenumSuffix = ' - ';
+        // $mpdf->nbpgPrefix = ' out of ';
+        // $mpdf->nbpgSuffix = '';
+        // $mpdf->setFooter('{DATE H:i:s j/m/Y}');
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output($pdfFilePath,'F');
+        // ////////////////////EMAIL SECTION///////////////////
+        // $this->load->library('email');
+        // $config['protocol'] = 'mail';
+        // $config['mailtype'] = 'html';
+        // $config['charset'] = 'utf-8';
+        // $config['wordwrap'] = TRUE;
+        // $this->email->initialize($config);
+        // $this->email->from("onlinecourier@vlmbd.com","Online Courier Control System.");
+        // $this->email->to($dept_head_email);
+        // $this->email->subject("Courier Control Approval Notification");
+        // $message=$this->load->view('cc/email_body', $data,true);
+        // $this->email->message($message);
+        // $this->email->attach('Pdf/'.$file_name);
+        // $this->email->send();
+        // $this->email->clear(TRUE);
+        // /////////////
         $this->session->set_userdata('exception','Submit successfully');
       redirect("cc/Courier/lists");
     }

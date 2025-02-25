@@ -202,27 +202,27 @@ public function suggestions(){
     }
     function view($spares_use_id=FALSE){
     if ($this->session->userdata('user_id')) {
-        $data['heading']='Invoice Spares ';
-            $data['info']=$this->usingspares_model->get_info($spares_use_id);
-            $data['flist']=$this->Look_up_model->getFloorLine();
-            $data['detail']=$this->usingspares_model->getDetails($spares_use_id);
-            $pdfFilePath='sparesInvoice'.date('Y-m-d H:i').'.pdf';
-            $this->load->library('mpdf');
-            $mpdf = new mPDF('bn','A4','','','5','5','10','18');
-            $mpdf->useAdobeCJK = true;
-            
-            $mpdf->autoScriptToLang = true;
-            $mpdf->autoLangToFont = true;
-            $header = $this->load->view('header', $data, true);
-            $html=$this->load->view('me/viewSparesUsing', $data, true);
-            $mpdf->setHtmlHeader($header);
-            $mpdf->pagenumPrefix = '  Page ';
-            $mpdf->pagenumSuffix = ' - ';
-            $mpdf->nbpgPrefix = ' out of ';
-            $mpdf->nbpgSuffix = '';
-            $mpdf->setFooter('{DATE H:i:s j/m/Y}{PAGENO}{nbpg}');
-            $mpdf->WriteHTML($html);
-            $mpdf->Output();
+          $data['heading']='Invoice Spares ';
+          $data['info']=$this->usingspares_model->get_info($spares_use_id);
+          $data['flist']=$this->Look_up_model->getFloorLine();
+          $data['detail']=$this->usingspares_model->getDetails($spares_use_id);
+          $pdfFilePath='sparesInvoice'.date('Y-m-d H:i').'.pdf';
+
+          require 'vendor/autoload.php';
+          $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 5, 'margin_right' => 5, 'margin_top' => 10, 'margin_bottom' => 18,]);
+          $mpdf->useAdobeCJK = true;
+          $mpdf->autoScriptToLang = true;
+          $mpdf->autoLangToFont = true;
+          $header = $this->load->view('header', $data, true);
+          $html=$this->load->view('me/viewSparesUsing', $data, true);
+          $mpdf->setHtmlHeader($header);
+          $mpdf->pagenumPrefix = '  Page ';
+          $mpdf->pagenumSuffix = ' - ';
+          $mpdf->nbpgPrefix = ' out of ';
+          $mpdf->nbpgSuffix = '';
+          $mpdf->setFooter('{DATE H:i:s j/m/Y}{PAGENO}{nbpg}');
+          $mpdf->WriteHTML($html);
+          $mpdf->Output();
         } else {
            redirect("Logincontroller");
         }
