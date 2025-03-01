@@ -56,7 +56,7 @@ body{
 </div>
  <div style="width:100%;overflow:hidden;text-align:center;margin-top: 0px;">
 <p style="line-height: 20px;padding: 0px 5px;font-size: 18px" >
-  <b>Budget for <?php 
+  <b>Budget Adjustment for <?php 
 if(isset($info)) {$date = date('Y-m',strtotime($info->for_month." +-1 month")); }else {$date = date('Y-m');}
                  $onemonth = date('Y-m',strtotime($date." +1 month"));
                  $twomonth = date('Y-m',strtotime($date." +2 month"));
