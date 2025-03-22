@@ -125,6 +125,7 @@ Add New PI
               <i class="fa fa-eye tiny-icon"></i>View </a></li>
               <li> <a href="<?php echo base_url()?>dashboard/viewpipdf/<?php echo $row->pi_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>PDF</a></li>
               <li> <a href="<?php echo base_url()?>dashboard/downloadpiExcel/<?php echo $row->pi_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>Excel</a></li>
+              
               <?php if($row->pi_status==5){ ?>
             <!--   <li> <a href="<?php echo base_url()?>format/Pi/approved/<?php echo $row->pi_id;?>">
               <i class="fa fa-arrow-circle-o-right tiny-icon"></i>Approve 批准</a></li>

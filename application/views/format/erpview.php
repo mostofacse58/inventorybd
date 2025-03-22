@@ -139,7 +139,12 @@ hr{margin: 5px}
     <th style="text-align: left" > 
       Purchase Category购买类别: <?php if(isset($info)) echo $info->purchase_category; ?> </th>
   </tr>
- 
+  <tr>
+    <th style="text-align: left" > 
+      Customer 顾客: <?php if(isset($info)) echo $info->customer; ?> </th>
+    <th style="text-align: left" > 
+      Season 季节: <?php if(isset($info)) echo $info->season; ?> </th>
+  </tr>
 </table>
 <?php $updates=$this->db->query("SELECT * FROM pi_update_info WHERE pi_id=$info->pi_id")->result();
   if(count($updates)>0){
@@ -174,6 +179,8 @@ foreach ($updates as $value){
     <th style="width:8%;text-align:center;">PO NO </th>
     <th style="width:8%;text-align:center;">ERP ITEM CODE</th>
     <th style="width:8%;text-align:center;">FILE NO</th>
+    <th style="width:12%;text-align:center;">Customer<br>(备注)</th>
+    <th style="width:12%;text-align:center;">Season<br>(备注)</th>
   </tr>
   <?php
   if(isset($detail)){
@@ -222,6 +229,8 @@ foreach ($updates as $value){
     <td class="tg-s6z2"><?php echo "$value->po_no"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->erp_item_code"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->file_no"; ?></td>
+    <td class="tg-s6z2"><?php echo "$info->customer"; ?></td>
+    <td class="tg-s6z2"><?php echo "$info->season"; ?></td>
   </tr>
    <?php }
  } ?>
@@ -239,6 +248,8 @@ foreach ($updates as $value){
       echo number_format($totalamount,2).' HKD'; 
     else 
       echo number_format($totalamount2,2).' '.$cnc; ?> </th>
+    <th class="tg-s6z2"></th>
+    <th class="tg-s6z2"></th>
     <th class="tg-s6z2"></th>
     <th class="tg-s6z2"></th>
     <th class="tg-s6z2"></th>

@@ -134,6 +134,12 @@ foreach ($lists as $value1){
     <th style="text-align: left" > 
       Product Type 產品類型: <?php if(isset($info)) echo $info->product_type; ?> </th>
   </tr>
+  <tr>
+    <th style="text-align: left" > 
+      Customer 顾客: <?php if(isset($info)) echo $info->customer; ?> </th>
+    <th style="text-align: left" > 
+      Season 季节: <?php if(isset($info)) echo $info->season; ?> </th>
+  </tr>
 </table>
 <?php $updates=$this->db->query("SELECT * FROM pi_update_info WHERE pi_id=$info->pi_id")->result();
   if(count($updates)>0){

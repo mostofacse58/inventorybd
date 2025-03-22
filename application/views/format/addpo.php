@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label">Product Type <span style="color:red;">  *</span></label>
+        <label class="col-sm-2 control-label">Product Type <span style="color:red;">  *</span></label>
         <div class="col-sm-2">
           <select class="form-control select2" name="product_type" id="product_type" >
             <option value="PRODUCT" 
@@ -119,9 +119,17 @@
             <div class="col-sm-1">
               <a href="javascript:;" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#partyModal"><i class="fa fa-plus"></i></a>
         </div>  
-        <label class="col-sm-2 control-label overseas">Shipment Mode <span style="color:red;">  *</span></label>
+      </div>
+      
+      <div class="form-group">
+          <label class="col-sm-2 control-label local">Subject<span style="color:red;">  *</span></label>
+           <div class="col-sm-4 local">
+           <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject" value="<?php if(isset($info)) echo $info->subject; else echo set_value('subject'); ?>"> 
+           <span class="error-msg"><?php echo form_error("subject");?></span>
+         </div> 
+         <label class="col-sm-2 control-label overseas">Shipment Mode <span style="color:red;">  *</span></label>
          <div class="col-sm-2 overseas">
-            <select name="mode_of_shipment" class="form-control select2" id="mode_of_shipment">
+            <select name="mode_of_shipment" class="form-control select2" id="mode_of_shipment" style="width: 100%">
               <option value="By Ship" <?php if(isset($info))
               if('By Ship'==$info->mode_of_shipment) echo 'selected="selected"';
                else echo 'By Ship'==set_value('mode_of_shipment')? 'selected="selected"':0; ?> >By Ship</option>
@@ -142,15 +150,8 @@
                else echo 'Service'==set_value('mode_of_shipment')? 'selected="selected"':0; ?> >Service</option>
           </select>
          <span class="error-msg"><?php echo form_error("mode_of_shipment");?></span>
-       </div>                                                    
-      </div><!-- ///////////////////// -->
-      <div class="form-group">
-          <label class="col-sm-1 control-label local">Subject<span style="color:red;">  *</span></label>
-           <div class="col-sm-6 local">
-           <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject" value="<?php if(isset($info)) echo $info->subject; else echo set_value('subject'); ?>"> 
-           <span class="error-msg"><?php echo form_error("subject");?></span>
-         </div> 
-         <label class="col-sm-1 control-label ">
+       </div> 
+         <label class="col-sm-2 control-label">
             To:<span style="color:red;">  </span></label>
           <div class="col-sm-4">
           <select class="form-control select2" name="company_id" id="company_id" style="width: 100%" required="">  
@@ -168,7 +169,7 @@
             </div>        
       </div><!-- ///////////////////// -->
       <div class="form-group local">
-        <label class="col-sm-1 control-label">Dear<span style="color:red;">  *</span></label>
+        <label class="col-sm-2 control-label">Dear<span style="color:red;">  *</span></label>
            <div class="col-sm-2">
            <input type="text" name="dear_name" id="dear_name" class="form-control" placeholder="Name" value="<?php if(isset($info)) echo $info->dear_name; else echo set_value('dear_name'); ?>">
            <span class="error-msg"><?php echo form_error("dear_name");?></span>
@@ -179,6 +180,35 @@
            <span class="error-msg"><?php echo form_error("body_content");?></span>
          </div>         
       </div><!-- ///////////////////// -->
+      <div class="form-group">
+          <label class="col-sm-2 control-label">Customer<span style="color:red;">  </span></label>
+           <div class="col-sm-2">
+           <select class="form-control select2" name="customer" id="customer">
+               <option value="" selected="selected">Select 选择</option>
+              <option value="MK"  <?php if (isset($info)) echo "MK" == $info->customer ? 'selected="selected"' : 0; else echo "MK" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>MK</option>
+              <option value="COACH" <?php if (isset($info)) echo "COACH" == $info->customer ? 'selected="selected"' : 0; else echo "COACH" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>COACH</option>
+              <option value="MIMCO" <?php if (isset($info)) echo "MIMCO" == $info->customer ? 'selected="selected"' : 0; else echo "MIMCO" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>MIMCO</option>
+              <option value="KATE SPADE" <?php if (isset($info))   echo "KATE SPADE" == $info->customer ? 'selected="selected"' : 0; else echo "KATE SPADE" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>KATE SPADE</option>
+              <option value="LE" <?php if (isset($info)) echo "LE" == $info->customer ? 'selected="selected"' : 0; else echo "LE" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>LE</option>
+              <option value="TEFAR" <?php if (isset($info)) echo "TEFAR" == $info->customer ? 'selected="selected"' : 0; else echo "TEFAR" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>TEFAR</option>
+              <option value="MK-M" <?php if (isset($info)) echo "MK-M" == $info->customer ? 'selected="selected"' : 0; else echo "MK-M" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>MK-M</option>
+              <option value="VERA" <?php if (isset($info)) echo "VERA" == $info->customer ? 'selected="selected"' : 0; else echo "VERA" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>VERA</option>
+              <option value="FOSSIL" <?php if (isset($info)) echo "FOSSIL" == $info->customer ? 'selected="selected"' : 0; else echo "FOSSIL" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>FOSSIL</option>
+            </select>
+          </div>
+          <label class="col-sm-2 control-label">Season<span style="color:red;">  </span></label>
+           <div class="col-sm-2">
+            <input type="text" name="season" id="season" class="form-control" placeholder="season" value="<?php if(isset($info->season)) echo $info->season; else echo set_value('season'); ?>" >
+         </div>
     <div class="form-group">
       <label class="col-sm-2 control-label" style="margin-top: 10px">SCAN CODE or Search 搜索Item<span style="color:red;">  </span></label>
         <div class="col-sm-8">
@@ -206,6 +236,7 @@
 <tr>
   <th style="width:3%;text-align:center">SN</th>
   <th style="width:10%;text-align:center">Item code</th>
+  <th style="width:8%;text-align:center;">ERP ITEM CODE</th>
   <th style="width:20%;text-align:center">Item Name</th>
   <th style="width:15%;text-align:center"> Specification</th>
   <th style="width:6%;text-align:center;">Qty</th>
@@ -225,10 +256,9 @@
     foreach ($detail as  $value){
       $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td>';
       $str.='<td><textarea type="text" name="product_code[]" readonly class="form-control"  placeholder="Material Code"   style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '">'.$value->product_code.'</textarea> </td>';
-
+      $str.='<td><input type="text" name="erp_item_code[]" class="form-control" placeholder="ERP CODE" style="margin-bottom:5px;width:98%;text-align:center" id="erp_item_code_' .$id. '" value="'.$value->erp_item_code.'"></td>';
       $str.='<td><textarea type="text" name="product_name[]" readonly class="form-control" placeholder="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '">'.$value->product_name.'</textarea></td>';
       $str.='<td><textarea type="text" name="specification[]"  class="form-control"  style="margin-bottom:5px;width:98%" id="specification_'  .$id. '">'.$value->specification.'</textarea></td>';
-
       $str.='<td> <input type="text" name="quantity[]" value="'.$value->quantity.'" onblur="return checkQuantity('.$id. ');" onClick="this.select();" onkeyup="return checkQuantity('.$id. ');" class="form-control"  placeholder="Quantity" style="width:98%;float:left;text-align:center"  id="quantity_'.$id. '"> </td>';
 
       $str.='<td><input type="text" name="unit_name[]" readonly class="form-control" style="margin-bottom:5px;width:98%;text-align:center" value="'.$value->unit_name.'"  id="unit_name_' .$id.'"></td>' ;
@@ -236,6 +266,7 @@
 
       $str.='<td> <input type="text" name="sub_total_amount[]" readonly class="form-control" placeholder="Sub Total" style="margin-bottom:5px;width:98%;text-align:center" value="'.$value->sub_total_amount.'" id="sub_total_amount_'.$id.'"/> </td>';
       $str.='<td><input type="text" name="pi_no[]" class="form-control" placeholder="PI NO" style="margin-bottom:5px;width:98%;text-align:center" id="pi_no_' .$id. '" value="'.$value->pi_no.'"></td>';
+      $str.='<td><input type="text" name="file_no[]" class="form-control" placeholder="FILE NO" style="margin-bottom:5px;width:98%;text-align:center" id="file_no_' .$id. '" value="'.$value->file_no.'"></td>';
       $str.='<td><textarea name="remarks[]" class="form-control" placeholder="Remarks"  style="margin-bottom:0px;width:98%;padding: 2px 9px;" rows="2" id="remarks_'.$id.'">'.$value->remarks.'</textarea> </td>';
       $str.='<td style="text-align:center"><span class="btn btn-danger btn-xs" onclick="return deleter('.$id.');" style="margin-top:5px;"><i class="fa fa-trash-o"></i></span></td></tr>';
       echo $str;
@@ -435,21 +466,19 @@ function getSuppItem(){
 <?php } ?>
 $(document).ready(function(){
   var po_type=$("#po_type").val(); 
-      if(po_type=='BD WO')
-      {
+      if(po_type=='BD WO'){
         $(".overseas").hide();
         $(".local").show();
-      }else  {
+      }else{
         $(".local").hide();
         $(".overseas").show();
       }
   $("#po_type").change(function(){
     var po_type=$("#po_type").val(); 
-      if(po_type=='BD WO')
-      {
+      if(po_type=='BD WO'){
         $(".overseas").hide();
         $(".local").show();
-      }else  {
+      }else{
         $(".local").hide();
         $(".overseas").show();
       }
@@ -568,6 +597,8 @@ $(document).ready(function(){
           //////////////////////////////
            var nodeStr = '<tr id="row_' + id + '"><td  style="text-align:center"><input type="hidden" value="'+ui.item.product_id+'" name="product_id[]"  id="product_id_' + id + '"/><b></b></td>'+
             '<td> <textarea type="text" readonly name="product_code[]" class="form-control" placeholder="Material Code" style="margin-bottom:5px;width:98%" id="product_code_' + id + '">'+ui.item.product_code+'</textarea></td>' +
+            '<td> <input type="text" name="erp_item_code[]" class="form-control" placeholder="ERP CODE" style="margin-bottom:5px;width:98%;text-align:center" id="erp_item_code_' + id + '" value="'+ui.item.erp_item_code+'"> </td>'+
+
             '<td> <textarea type="text" name="product_name[]" readonly class="form-control" placeholder="Product Name" style="margin-bottom:5px;width:98%" id="product_name_' + id + '">'+ui.item.product_name+'</textarea></td>'+
             '<td> <textarea type="text" name="specification[]" class="form-control" placeholder="specification" value="" style="margin-bottom:5px;width:98%" id="specification_' + id + '"></textarea></td>'+
             '<td> <input type="text" name="quantity[]" value="0" onblur="return checkQuantity(' + id + ');" onClick="this.select();" onkeyup="return checkQuantity(' + id + ');" class="form-control"  placeholder="Quantity" style="width:98%;float:left;text-align:center"  id="quantity_' + id + '"/> </td>' +
@@ -576,10 +607,10 @@ $(document).ready(function(){
 
             '<td> <input type="text" name="sub_total_amount[]" readonly class="form-control" placeholder="Sub Total" style="margin-bottom:5px;width:98%;text-align:center" value="'+ui.item.unit_price+'" id="sub_total_amount_' + id + '"/> </td>' +
             '<td> <input type="text" name="pi_no[]" class="form-control" placeholder="PI NO" style="margin-bottom:5px;width:98%;text-align:center" id="pi_no_' + id + '"/> </td>'+
+            '<td> <input type="text" name="file_no[]" class="form-control" placeholder="FILE NO" style="margin-bottom:5px;width:98%;text-align:center" id="file_no_' + id + '" value=""> </td>'+
             '<td class="remarks"><textarea  name="remarks[]" class="form-control" placeholder="Remarks"  style="margin-bottom:0px;width:98%;padding: 2px 9px;" rows="1" id="remarks_' + id + '"></textarea> </td>' +
             ' <td style="text-align:center"> <span class="btn btn-danger btn-xs" onclick="return deleter(' + id + ');" style="margin-top:5px;"><i class="fa fa-trash-o"></i> </span> </td> </tr>';
           $("#form-table tbody").append(nodeStr);
-
           updateRowNo();
           id++;
         $("#add_item").val('');
@@ -722,6 +753,7 @@ $(document).ready(function(){
       $('input[name=mode_of_shipment]').css('border', '1px solid #ccc');      
     }
   }
+  
   if(pay_term ==''){
     error_status=true;
     $('select[name=pay_term]').css('border', '1px solid #f00');

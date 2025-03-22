@@ -25,9 +25,10 @@ class Requisitionreport extends My_Controller {
         $data['product_code']=$this->input->post('product_code');
         $data['requisition_status']=$this->input->post('requisition_status');
         $data['take_department_id']=$this->input->post('take_department_id');
+        $data['responsible_department']=$this->input->post('responsible_department');
         $data['from_date']=alterDateFormat($this->input->post('from_date'));
         $data['to_date']=alterDateFormat($this->input->post('to_date'));
-        $data['resultdetail']=$this->Requisitionreport_model->reportrResult($data['requisition_status'],$data['requisition_no'],$data['product_code'],$data['take_department_id'],$data['from_date'],$data['to_date']);
+        $data['resultdetail']=$this->Requisitionreport_model->reportrResult($data['requisition_status'],$data['take_department_id'],$data['responsible_department'],$data['requisition_no'],$data['product_code'],$data['from_date'],$data['to_date']);
         $data['display']='commonr/requisitionreport';
         $this->load->view('admin/master',$data);
         }else{
@@ -35,9 +36,9 @@ class Requisitionreport extends My_Controller {
         $this->load->view('admin/master',$data);
         }
     }
-    function downloadExcel($take_department_id=FALSE,$requisition_status,$requisition_no=FALSE,$product_code=FALSE,$from_date=FALSE,$to_date=FALSE) {
+    function downloadExcel($requisition_status,$take_department_id,$requisition_no,$responsible_department,$product_code=FALSE,$from_date=FALSE,$to_date=FALSE) {
         $data['heading']='Requisition Report ';
-        $data['resultdetail']=$this->Requisitionreport_model->reportrResult($requisition_status,$requisition_no,$product_code,$take_department_id,$from_date,$to_date);
+        $data['resultdetail']=$this->Requisitionreport_model->reportrResult($requisition_status,$take_department_id,$responsible_department,$requisition_no,$product_code,$from_date,$to_date);
         $this->load->view('commonr/requisitionreportExcel',$data);
     }
     function getBox(){

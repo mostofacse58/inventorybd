@@ -10,7 +10,7 @@
 </div>
 </div>
 </div>
-            <!-- /.box-header -->
+    <!-- /.box-header -->
       <div class="box-body">
         <form class="form-horizontal" action="<?php echo base_url();?>format/Deptrequisnapp/lists" method="GET" enctype="multipart/form-data">
         <div class="box-body">
@@ -119,6 +119,7 @@
                 <i class="fa fa-eye tiny-icon"></i>View pdf 视图 </a></li>
                 <li> <a href="<?php echo base_url()?>format/Deptrequisnapp/viewpihtmlonly/<?php echo $row->pi_id;?>">
               <i class="fa fa-eye tiny-icon"></i>View </a></li>
+              
             <?php if($row->pi_status==2){ ?>
               <li> <a href="<?php echo base_url()?>format/Deptrequisnapp/approved/<?php echo $row->pi_id;?>">
                 <i class="fa fa-check tiny-icon"></i>Confirm 确认</a></li>

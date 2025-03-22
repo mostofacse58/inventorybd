@@ -301,3 +301,29 @@ UPDATE `stock_master_detail` SET `FIFO_CODE` = 'L2409291547460003' WHERE `produc
 UPDATE item_issue_detail SET `FIFO_CODE` = 'L2409291547460003' WHERE `product_id` = 6886 AND FIFO_CODE='L2409291547460001';
 UPDATE purchase_detail SET `FIFO_CODE` = 'L2409291547460003' WHERE `product_id` = 6886 AND FIFO_CODE='L2409291547460001';
 
+
+
+ALTER TABLE `product_info` ADD `erp_code` VARCHAR(250) NULL DEFAULT NULL AFTER `product_code`;
+ALTER TABLE `pi_item_details` ADD `erp_code` VARCHAR(150) NULL DEFAULT NULL AFTER `product_code`;
+ALTER TABLE `po_pline` ADD `erp_code` VARCHAR(150) NULL DEFAULT NULL AFTER `product_code`;
+
+ALTER TABLE `product_info` ADD `erp_item_code` VARCHAR(50) NULL DEFAULT NULL AFTER `product_code`; 
+
+UPDATE `product_info` SET  `erp_item_code`='' WHERE 1;
+UPDATE `pi_item_details` SET  `erp_item_code`='' WHERE 1;
+UPDATE `po_pline` SET  `erp_item_code`='' WHERE 1;
+
+ALTER TABLE `product_info` CHANGE `erp_code` `erp_item_code` VARCHAR(50) CHARACTER 
+SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `po_pline` CHANGE `erp_code` `erp_item_code` VARCHAR(50) CHARACTER 
+SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+
+
+ALTER TABLE `po_pline` ADD `customer` VARCHAR(50) NULL DEFAULT NULL AFTER `location`, ADD `saeson` VARCHAR(50) NULL DEFAULT NULL AFTER `customer`;
+ALTER TABLE `pi_item_details` ADD `customer` VARCHAR(50) NULL DEFAULT NULL AFTER `file_no`, ADD `season` VARCHAR(50) NULL DEFAULT NULL AFTER `customer`;
+
+ALTER TABLE `pi_master` ADD `customer` VARCHAR(50) NULL DEFAULT NULL AFTER `reject_note`, ADD `season` VARCHAR(50) NULL DEFAULT NULL AFTER `customer`;
+ALTER TABLE `po_pline` CHANGE `saeson` `season` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;

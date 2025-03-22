@@ -25,10 +25,10 @@
 <?php if(isset($resultdetail)){ ?>
 <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>commonr/requisitionreport/downloadExcel<?php 
  if($take_department_id!='') echo "/$take_department_id"; else echo "/All";
+ if($responsible_department!='') echo "/$responsible_department"; else echo "/All";
  if($requisition_status!='') echo "/$requisition_status"; else echo "/All"; 
  if($requisition_no!='') echo "/$requisition_no"; else echo "/All";
  if($product_code!='') echo "/$product_code"; else echo "/All";
- 
  echo "/$from_date/$to_date";  ?>">
 <i class="fa fa-file-excel-o"></i>
 Download Excel
@@ -78,14 +78,29 @@ Download Excel
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">For Department <span style="color:red;">  *</span></label>
+            <label class="col-sm-2 control-label">From Department <span style="color:red;">  *</span></label>
+           <div class="col-sm-2">
+            <select class="form-control select2" name="responsible_department" id="responsible_department">> 
+              <option value="All" selected="selected">All</option>
+              <?php foreach ($dlist as $rows) { ?>
+              <option value="<?php echo $rows->department_id; ?>" 
+                <?php if (isset($responsible_department))
+                  echo $rows->department_id == $responsible_department ? 'selected="selected"' : 0;
+                else
+                  echo $rows->department_id == set_value('responsible_department') ? 'selected="selected"' : 0;
+                ?>><?php echo $rows->department_name; ?></option>
+                <?php } ?>
+              </select>
+           <span class="error-msg"><?php echo form_error("take_department_id");?></span>
+         </div>
+         <label class="col-sm-2 control-label">To Department <span style="color:red;">  *</span></label>
            <div class="col-sm-2">
             <select class="form-control select2" name="take_department_id" id="take_department_id">> 
               <option value="All" selected="selected">All</option>
               <?php foreach ($dlist as $rows) { ?>
               <option value="<?php echo $rows->department_id; ?>" 
-                <?php if (isset($info))
-                  echo $rows->department_id == $info->take_department_id ? 'selected="selected"' : 0;
+                <?php if (isset($take_department_id))
+                  echo $rows->department_id == $take_department_id ? 'selected="selected"' : 0;
                 else
                   echo $rows->department_id == set_value('take_department_id') ? 'selected="selected"' : 0;
                 ?>><?php echo $rows->department_name; ?></option>
@@ -93,7 +108,9 @@ Download Excel
               </select>
            <span class="error-msg"><?php echo form_error("take_department_id");?></span>
          </div>
-             <label class="col-sm-1 control-label">From Date</label>
+         </div>
+          <div class="form-group">
+             <label class="col-sm-2 control-label">From Date</label>
               <div class="col-sm-2">
                 <input type="text" name="from_date" readonly  class="form-control date"  placeholder="From Date" value="<?php if (isset($info))
                     echo $info->from_date;

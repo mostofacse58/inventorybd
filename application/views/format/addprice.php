@@ -9,7 +9,7 @@
 .tg .tg-s6z2{text-align:center}
 .tg .tg-baqh{text-align:center;vertical-align:top}
 hr{margin: 5px}
-.tg1  {border-collapse:collapse;border-spacing:0;width:100%}
+.tg1  {border-collapse:collapse;border-spacing:0;width:130%}
 .tg1 td{
   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
   font-size:12px;padding:2px;overflow:hidden;word-break:normal;line-height: 18px;overflow: hidden;}
@@ -63,10 +63,12 @@ hr{margin: 5px}
 <?php } ?>
 <br>
 <form class="form-horizontal" action="<?php echo base_url(); ?>format/Purhrequisn/save<?php if (isset($info)) echo "/$info->pi_id"; ?>" method="POST" enctype="multipart/form-data" onsubmit="return formsubmit();">
-<table class="tg"  style="overflow: hidden;">
+<div class="table-responsive table-bordered">
+<table class="tg table"  style="overflow: hidden;">
   <tr>
     <th style="width:3%;text-align:center;">SN(序号)</th>
     <th style="width:8%;text-align:center;">Material code<br>(物料编码)</th>
+    <th style="width:10%;text-align:center;">ERP ITEM CODE</th>
     <th style="width:10%;text-align:center;">Material Name<br>(物料名称)</th>
     <th style="width:8%;text-align:center;">Specification<br>(规格)</th>
     <th style="width:6%;text-align:center;">Material Picture<br>(物料图片)</th>
@@ -77,7 +79,7 @@ hr{margin: 5px}
     <th style="width:6%;text-align:center;">Currency Rate in HKD <br>货币</th>
     <th style="width:10%;text-align:center;">Supplier</th>
     <th style="width:8%;text-align:center;">PO NO </th>
-    <th style="width:10%;text-align:center;">ERP ITEM CODE</th>
+    
     <th style="width:8%;text-align:center;">FILE NO</th>
   </tr>
   <?php
@@ -106,6 +108,8 @@ hr{margin: 5px}
   <tr>
     <td class="tg-s6z2"><?php echo $i++; ?></td>
     <td class="tg-s6z2"><?php echo $value->product_code;  ?></td>
+    <td class="tg-s6z2">
+      <input type="text" class="form-control"  value="<?php echo "$value->erp_item_code"; ?>" name="erp_item_code[]" id="erp_item_code_<?php echo $m; ?>"></td>
     <td class="">
       <?php echo $value->product_name; if($value->china_name!='') echo "($value->china_name)"; ?></td>
     <td class=""><?php echo $value->specification; ?></td>
@@ -137,9 +141,7 @@ hr{margin: 5px}
     <td class="tg-s6z2">
       <input type="text" class="form-control"  value="<?php echo "$value->po_no"; ?>" name="po_no[]" id="po_no_<?php echo $m; ?>"></td>
     <td class="tg-s6z2">
-      <input type="text" class="form-control"  value="<?php echo "$value->erp_item_code"; ?>" name="erp_item_code[]" id="erp_item_code_<?php echo $m; ?>"></td>
-    <td class="tg-s6z2">
-      <input type="text" class="form-control"  value="<?php echo "$value->file_no"; ?>" name="file_no[]" id="file_no_<?php echo $m; ?>"></td>
+      <input style="width: 100px" type="text" class="form-control"  value="<?php echo "$value->file_no"; ?>" name="file_no[]" id="file_no_<?php echo $m; ?>"></td>
 
   </tr>
    <?php 
@@ -159,6 +161,7 @@ hr{margin: 5px}
     <th class="tg-s6z2"></th>
   </tr>
 </table>
+</div>
 <p style="text-align: left;width: 50%;float: left;overflow: hidden;">
 <?php if($info->reject_note!=''){?>
 

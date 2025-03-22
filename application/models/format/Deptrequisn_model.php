@@ -127,6 +127,8 @@ class Deptrequisn_model extends CI_Model {
         $data['for_department_id']=$this->input->post('for_department_id');
         $data['other_note']=$this->input->post('other_note');
         $data['purchase_category']=$this->input->post('purchase_category');
+        $data['customer']=$this->input->post('customer');
+        $data['season']=$this->input->post('season');
         $data['responsible_department']=15;
         $data['create_date']=date('Y-m-d');
         ////////////////////////////////////////

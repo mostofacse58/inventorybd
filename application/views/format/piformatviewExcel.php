@@ -76,6 +76,12 @@ hr{margin: 5px}
     <th style="text-align: left" > 
       Product Type 產品類型: <?php if(isset($info)) echo $info->product_type; ?> </th>
   </tr>
+  <tr>
+    <th style="text-align: left" > 
+      Customer 顾客: <?php if(isset($info)) echo $info->customer; ?> </th>
+    <th style="text-align: left" > 
+      Season 季节: <?php if(isset($info)) echo $info->season; ?> </th>
+  </tr>
   
 </table>
 <br>
@@ -97,6 +103,11 @@ hr{margin: 5px}
     <th style="width:7%;text-align:center;">Unit price<br> 单价</th>
     <th style="width:7%;text-align:center;">Amount <br>总金额</th>
     <th style="width:4%;text-align:center;">Currency <br>货币</th>
+    <th style="width:12%;text-align:center;">Customer<br>(备注)</th>
+    <th style="width:12%;text-align:center;">Season<br>(备注)</th>
+    <th style="width:8%;text-align:center;">PO NO </th>
+    <th style="width:8%;text-align:center;">ERP ITEM CODE</th>
+    <th style="width:8%;text-align:center;">FILE NO</th>
     <th style="width:12%;text-align:center;">Remarks<br>(备注)</th>
   </tr>
   <?php
@@ -141,6 +152,11 @@ hr{margin: 5px}
     <td class="tg-s6z2"><?php echo "$value->unit_price"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->amount"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->currency"; ?></td>
+    <td class="tg-s6z2"><?php echo "$info->customer"; ?></td>
+    <td class="tg-s6z2"><?php echo "$info->season"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->po_no"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->erp_item_code"; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->file_no"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->remarks"; ?></td>
   </tr>
    <?php }
@@ -161,6 +177,12 @@ hr{margin: 5px}
     else  echo number_format($totalamount2,2).' '.$cnc; ?> </th>
     <th class="tg-s6z2"></th>
     <th class="tg-s6z2"></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+
   </tr>
 </table>
 <p style="text-align: right;">

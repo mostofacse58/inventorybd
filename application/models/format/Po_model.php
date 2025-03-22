@@ -222,6 +222,8 @@ class Po_model extends CI_Model {
         $data['total_amount']=$this->input->post('total_amount');
         $data['term_condition']=$this->input->post('term_condition');
         $data['credit_days']=$this->input->post('credit_days');
+        $data['customer']=$this->input->post('customer');
+        $data['season']=$this->input->post('season');
         $data['department_id']=15;
         $data['created_by']=$this->session->userdata('user_id');
         $data['create_date']=date('Y-m-d');
@@ -236,6 +238,8 @@ class Po_model extends CI_Model {
         $quantity=$this->input->post('quantity');
         $sub_total_amount=$this->input->post('sub_total_amount');
         $remarks=$this->input->post('remarks');
+        $erp_item_code=$this->input->post('erp_item_code');
+        $file_no=$this->input->post('file_no');
         ////////////////////
        
         // if($this->input->post('po_type')=='BD WO'){
@@ -267,6 +271,8 @@ class Po_model extends CI_Model {
            $data1['product_id']=$value;
            $data1['po_id']=$po_id;
            $data1['product_code']=$product_code[$i];
+           $data1['erp_item_code']=$erp_item_code[$i];
+           $data1['file_no']=$file_no[$i];
            $data1['po_number']=$po_number;
            $data1['supplier_id']=$data['supplier_id'];
            $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
@@ -280,7 +286,6 @@ class Po_model extends CI_Model {
            }else{
             $data1['pi_id']=NULL;
            }
-           
            $data1['quantity']=$quantity[$i];
            $data1['unit_name']=$unit_name[$i];
            $data1['unit_price']=$unit_price[$i];
@@ -302,6 +307,8 @@ class Po_model extends CI_Model {
            $data1['po_number']=$info->po_number;
            $data1['supplier_id']=$data['supplier_id'];
            $data1['product_code']=$product_code[$i];
+           $data1['erp_item_code']=$erp_item_code[$i];
+           $data1['file_no']=$file_no[$i];
            $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
            $data1['specification']=str_replace('"',"Inch",$specification[$i]);
            $data1['pi_no']=$pi_no[$i];

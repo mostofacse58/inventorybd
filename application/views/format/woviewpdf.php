@@ -3,23 +3,23 @@
 <style type="text/css">
 body {
    padding: 3px;
-   font-size:13px;
+   font-size:12px;
    font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
     }
 .tg  {border-collapse:collapse;border-spacing:0;width:100%}
 .tg td{
   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
-  font-size:12px;padding:2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+  font-size:10px;padding:2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 .tg th{
   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
-  font-size:12px;font-weight:normal;padding:2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+  font-size:10px;font-weight:normal;padding:2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 .tg .tg-s6z2{text-align:center}
 .tg .tg-baqh{text-align:center;vertical-align:top}
 hr{margin: 5px}
 .tg1  {border-collapse:collapse;border-spacing:0;width:100%}
 .tg1 td{
   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
-  font-size:12px;padding:2px;overflow:hidden;word-break:normal;line-height: 18px;overflow: hidden;
+  font-size:10px;padding:2px;overflow:hidden;word-break:normal;line-height: 18px;overflow: hidden;
 }
 </style>
 </header>
@@ -42,25 +42,35 @@ hr{margin: 5px}
   <?php }else{ ?>
     Service Order <br>服務訂單
   <?php } ?>
-    
-         
-       </b>
+  </b>
 </p>
 </div>
 
 <table style="width: 100%">
   <?php if($info->po_type=='BD WO'){ ?>
+
   <tr>
-    <td style="width:50%;text-align: left"> 
-      To, </td>
-    <td style="width:50%;text-align: right;" > 
-      WO NO  采购单号: <?php if(isset($info)) echo $info->po_number; ?> </td>
+    <td style="width:10%;text-align: left"> 
+      To, 
+    </td>
+    <td style="width:40%;text-align: right;" > 
+    </td>
+    <td style="width:10%;text-align: left"> 
+      WO NO  采购单号:
+    </td>
+    <td style="width:40%;text-align: right;" > 
+       <?php if(isset($info)) echo $info->po_number; ?> 
+    </td>
   </tr>
+
   <tr>
-    <td style="text-align: left"> 
-       <?php if(isset($info)) echo $info->supplier_name; ?> </td>
+    <td style="text-align: left" colspan="2"> 
+       <?php if(isset($info)) echo $info->supplier_name; ?> 
+     </td>
+     <td>Date日期:</td>
     <td style="text-align: right;" > 
-      Date日期: <?php if(isset($info)) echo findDate($info->po_date); ?> </td>
+       <?php if(isset($info)) echo findDate($info->po_date); ?> 
+    </td>
   </tr>
   <tr>
     <td style="text-align: left"> 
@@ -70,7 +80,7 @@ hr{margin: 5px}
   </tr>
   <tr>
     <td style="text-align: left"> 
-       Phone:<?php if(isset($info)) echo $info->phone_no; ?> </td>
+    Phone:<?php if(isset($info)) echo $info->phone_no; ?> </td>
     <td style="text-align: right;" >
     Product Type 產品類型: <?php if(isset($info)) echo $info->product_type; ?> 
        </td>
@@ -82,10 +92,10 @@ hr{margin: 5px}
      </td>
     <td style="width:38%;text-align: left" valign="top"> 
       <?php if(isset($info)) echo $info->po_date; ?> </td>
-    <td style="width:10%;text-align: right;"  valign="top"> 
+    <td style="width:12%;text-align: left;"  valign="top"> 
       Issuer: 
       </td>
-    <td style="width:40%;text-align: right;" valign="top">
+    <td style="width:38%;text-align: left;" valign="top">
       <?php if(isset($info)) echo "Ventura (HK) Trading Limited"; ?> </td>
   </tr>
   <tr>
@@ -93,28 +103,29 @@ hr{margin: 5px}
        Page: 
     </td>
     <td style="text-align: left" valign="top"> 
-     
     </td>
     <td style="text-align: left" valign="top"> 
       Attention: 
       </td>
     <td style="text-align: left" valign="top">
-      <?php if(isset($info)) echo $info->user_name; ?> Tel :<?php echo $info->mobile; ?> </td>
+      <?php if(isset($info)) echo "Md. Shakhawat Hossen BITON"; ?> Tel-<?php echo "01787670281"; ?> </td>
   </tr>
 
   <tr>
-   <td style="text-align: left" valign="top"> 
+    <td style="text-align: left" valign="top"> 
        Supplier:
-       </td>
+    </td>
     <td style="text-align: left" valign="top"> 
-     <?php if(isset($info)) echo "$info->company_name <br>$info->company_address"; ?> </td>
+     <?php if(isset($info)) echo "$info->company_name <br>$info->company_address"; ?> 
+   </td>
     <td style="text-align: left" valign="top"> 
-       Ship To 
-       </td>
+       Ship To:
+    </td>
     <td style="text-align: left" valign="top"> 
-      :<?php echo $info->ship_to; ?> </td>
+      <?php echo $info->ship_to; ?> 
+    </td>
   </tr>
-<tr>
+  <tr>
     <td style="text-align: left" valign="top"> 
      Attention:
      </td>
@@ -124,17 +135,18 @@ hr{margin: 5px}
       Tel: 
       </td>
     <td style="text-align: left" valign="top"> 
-      <?php if(isset($info)) echo "01787670282"; ?> </td>
+      <?php if(isset($info)) echo "01787670282"; ?> 
+    </td>
   </tr>
   <tr>
     <td style="text-align: left" valign="top"> 
      E-mail:
-     </td>
+    </td>
     <td style="text-align: left" valign="top"> 
       <?php if(isset($info)) echo $info->email_address; ?> </td>
     <td style="text-align: left" valign="top"> 
       Bill To:
-      </td>
+    </td>
     <td style="text-align: left" valign="top"> 
       <?php if(isset($info)) echo "The Well Leatherware Mfy Ltd"; ?> </td>
   </tr>
@@ -169,6 +181,13 @@ hr{margin: 5px}
     <th style="width:7%;text-align:center;">Unit price<br> (单价) <br> <?php if(isset($info)) echo $info->currency; ?></th>
     <th style="width:7%;text-align:center;">Sub Total <br>(总金额) <br><?php if(isset($info)) echo $info->currency; ?></th>
     <th style="width:4%;text-align:center;">PI NO <br>(申请单号)</th>
+    <?php if($info->for_department_id==17){ ?>
+    <th style="width:8%;text-align:center;">FILE NO</th>
+    <th style="width:8%;text-align:center;">Customer<br>(半棵罗勒)</th>
+    <th style="width:8%;text-align:center;">Season<br>(季节)</th>
+    <?php } ?>
+
+
   </tr>
 </thead>
 <tbody>
@@ -181,7 +200,7 @@ hr{margin: 5px}
 	  ?>
   <tr>
     <td class="tg-s6z2"><?php echo $i++; ?></td>
-    <td class=""><?php echo $value->product_code;  ?></td>
+    <td class=""><?php if($value->erp_item_code!='') echo $value->erp_item_code; else echo $value->product_code;  ?></td>
     <td class=""><?php echo $value->product_name; if($value->china_name!='') echo "($value->china_name)";  ?></td>
     <td class=""><?php echo $value->specification;  ?></td>
     <td class="textcenter">
@@ -196,6 +215,11 @@ hr{margin: 5px}
     <td class="tg-s6z2"><?php echo $value->unit_price; ?></td>
     <td class="tg-s6z2"><?php echo number_format($value->sub_total_amount,2); ?></td>
     <td class="tg-s6z2"><?php echo "$value->pi_no"; ?></td>
+    <?php if($info->for_department_id==17){ ?>
+    <td class="tg-s6z2"><?php echo "$value->file_no"; ?></td>
+    <td class="tg-s6z2"><?php echo "$info->customer"; ?></td>
+    <td class="tg-s6z2"><?php echo "$info->season"; ?></td>
+  <?php } ?>
   </tr>
    <?php }
     } ?>
@@ -206,19 +230,28 @@ hr{margin: 5px}
     <th class="tg-s6z2"></th>
     <th class="tg-s6z2"><?php echo "$info->subtotal"; ?></th>
     <th class="tg-s6z2"></th>
-    <th class="tg-s6z2"></th>
+    <?php if($info->for_department_id==17){ ?>
+      <th class="tg-s6z2" colspan="3"></th>
+    <?php } ?>
+
   </tr>
   <tr>
     <th sty colspan="8" style="text-align: right;" >Discount Amount</th>
     <th class="tg-s6z2"><?php echo "$info->discount_amount"; ?></th>
     <th class="tg-s6z2"></th>
-    <th class="tg-s6z2"></th>
+    <?php if($info->for_department_id==17){ ?>
+      <th class="tg-s6z2" colspan="3"></th>
+    <?php } ?>
+
   </tr>
   <tr>
     <th sty colspan="8" style="text-align: right;" >Grand Total Amount</th>
     <th class="tg-s6z2"><?php echo "$info->total_amount"; ?></th>
     <th class="tg-s6z2"></th>
-    <th class="tg-s6z2"></th>
+    <?php if($info->for_department_id==17){ ?>
+      <th class="tg-s6z2" colspan="3"></th>
+    <?php } ?>
+    
   </tr>
 </tbody>
 </table>

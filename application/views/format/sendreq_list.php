@@ -129,8 +129,10 @@ Add New PI
           <i class="fa fa-eye tiny-icon"></i>View PDF</a></li>
         <li> <a href="<?php echo base_url()?>dashboard/downloadpiExcel/<?php echo $row->pi_id;?>" target="_blank">
           <i class="fa fa-eye tiny-icon"></i>View Excel</a></li>
-          <li> <a href="<?php echo base_url()?>format/Deptrequisn/viewpihtmlonly/<?php echo $row->pi_id;?>">
+        <li> <a href="<?php echo base_url()?>format/Deptrequisn/viewpihtmlonly/<?php echo $row->pi_id;?>">
               <i class="fa fa-eye tiny-icon"></i>View </a></li>
+        <li> <a href="<?php echo base_url()?>format/Deptrequisn/erpview/<?php echo $row->pi_id;?>">
+              <i class="fa fa-eye tiny-icon"></i>ERP View </a></li>
         <?php if($row->pi_status==1){ ?>
         <li> <a href="<?php echo base_url()?>format/Deptrequisn/submit/<?php echo $row->pi_id;?>">
           <i class="fa fa-arrow-circle-o-right tiny-icon"></i>Submit</a></li>

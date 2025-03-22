@@ -92,13 +92,9 @@
           <label class="col-sm-2 control-label">Product Type <span style="color:red;">  *</span></label>
           <div class="col-sm-2">
             <select class="form-control select2" name="product_type" id="product_type">
-              <option value="PRODUCT" 
-                <?php if (isset($info))
-                    echo "PRODUCT" == $info->product_type ? 'selected="selected"' : 0; else echo "PRODUCT" == set_value('product_type') ? 'selected="selected"' : 0;
+              <option value="PRODUCT"  <?php if (isset($info)) echo "PRODUCT" == $info->product_type ? 'selected="selected"' : 0; else echo "PRODUCT" == set_value('product_type') ? 'selected="selected"' : 0;
                 ?>>PRODUCT</option>
-              <option value="SERVICE" 
-                <?php if (isset($info))
-                    echo "SERVICE" == $info->product_type ? 'selected="selected"' : 0; else echo "SERVICE" == set_value('product_type') ? 'selected="selected"' : 0;
+              <option value="SERVICE" <?php if (isset($info)) echo "SERVICE" == $info->product_type ? 'selected="selected"' : 0; else echo "SERVICE" == set_value('product_type') ? 'selected="selected"' : 0;
                 ?>>SERVICE</option>
             </select>
             <span class="error-msg"><?php echo form_error("product_type");?></span>
@@ -107,9 +103,39 @@
            <div class="col-sm-3">
            <input type="text" name="other_note" id="other_note" class="form-control" placeholder="Note" value="<?php if(isset($info->other_note)) echo $info->other_note; else echo set_value('other_note'); ?>">
            <span class="error-msg"><?php echo form_error("other_note");?></span>
-         </div>         
-        
+         </div> 
         </div><!-- ///////////////////// -->
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Customer<span style="color:red;">  </span></label>
+           <div class="col-sm-2">
+           <select class="form-control select2" name="customer" id="customer">
+               <option value="" selected="selected">Select 选择</option>
+              <option value="MK"  <?php if (isset($info)) echo "MK" == $info->customer ? 'selected="selected"' : 0; else echo "MK" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>MK</option>
+              <option value="COACH" <?php if (isset($info)) echo "COACH" == $info->customer ? 'selected="selected"' : 0; else echo "COACH" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>COACH</option>
+              <option value="MIMCO" <?php if (isset($info)) echo "MIMCO" == $info->customer ? 'selected="selected"' : 0; else echo "MIMCO" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>MIMCO</option>
+              <option value="KATE SPADE" <?php if (isset($info))   echo "KATE SPADE" == $info->customer ? 'selected="selected"' : 0; else echo "KATE SPADE" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>KATE SPADE</option>
+              <option value="LE" <?php if (isset($info)) echo "LE" == $info->customer ? 'selected="selected"' : 0; else echo "LE" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>LE</option>
+              <option value="TEFAR" <?php if (isset($info)) echo "TEFAR" == $info->customer ? 'selected="selected"' : 0; else echo "TEFAR" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>TEFAR</option>
+              <option value="MK-M" <?php if (isset($info)) echo "MK-M" == $info->customer ? 'selected="selected"' : 0; else echo "MK-M" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>MK-M</option>
+              <option value="VERA" <?php if (isset($info)) echo "VERA" == $info->customer ? 'selected="selected"' : 0; else echo "VERA" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>VERA</option>
+              <option value="FOSSIL" <?php if (isset($info)) echo "FOSSIL" == $info->customer ? 'selected="selected"' : 0; else echo "FOSSIL" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>FOSSIL</option>
+            </select>
+          </div>
+          <label class="col-sm-2 control-label">Season<span style="color:red;">  </span></label>
+           <div class="col-sm-2">
+            <input type="text" name="season" id="season" class="form-control" placeholder="season" value="<?php if(isset($info->season)) echo $info->season; else echo set_value('season'); ?>" >
+         </div> 
+          
+         </div>
     <?php if($this->session->userdata('stock_holder')==1){ ?>
     <div class="form-group">
       <label class="col-sm-2 control-label" style="margin-top: 14px">SCAN CODE or Search 搜索Item<span style="color:red;">  </span></label>

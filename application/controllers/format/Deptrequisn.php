@@ -295,4 +295,12 @@ function viewpihtmlonly($pi_id=FALSE){
     $query=$this->db->update('pi_master',$data);
     redirect("format/Deptrequisn/lists");
   }
+  function erpview($pi_id=FALSE){
+    $data['controller']=$this->router->fetch_class(); 
+    $data['heading']='Purchase Indent';
+    $data['info']=$this->Deptrequisn_model->get_info($pi_id);
+    $data['detail']=$this->Deptrequisn_model->getDetails($pi_id);
+    $data['display']='format/erpview';
+    $this->load->view('admin/master',$data);     
+  }
 }
