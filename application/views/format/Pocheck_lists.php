@@ -27,7 +27,7 @@
 </div>
 <!-- /.box-header -->
 <div class="box-body">
-  <form class="form-horizontal" action="<?php echo base_url();?>format/Apo/lists" method="GET" enctype="multipart/form-data">
+  <form class="form-horizontal" action="<?php echo base_url();?>format/Pocheck/lists" method="GET" enctype="multipart/form-data">
   <div class="box-body">
     <div class="form-group">
     <label class="col-sm-1 control-label">PO. NO </label>
@@ -79,7 +79,7 @@
       </div>
       <div class="col-sm-3">
         <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
-        <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Apo/lists">All</a>
+        <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Pocheck/lists">All</a>
     </div>
   </div>
   </div>
@@ -121,11 +121,11 @@
       <td class="text-center"><?php echo $row->supplier_name; ?></td>
       <td class="text-center"><?php echo $row->total_amount; ?></td>
       <td class="text-center">
-      <span class="btn btn-xs btn-<?php echo ($row->po_status==3||$row->po_status==8)?"danger":"success";?>">
+      <span class="btn btn-xs btn-<?php echo ($row->po_status==2||$row->po_status==8)?"danger":"success";?>">
         <?php 
         if($row->po_status==1) echo "Draft";
         elseif($row->po_status==2) echo "Pending";
-        elseif($row->po_status==3) echo "Pending";
+        elseif($row->po_status==3) echo "Checked";
         elseif($row->po_status==4) echo "Approved";
         elseif($row->po_status==8) echo "Cancel";
         ?>
@@ -138,12 +138,12 @@
         <i class="fa fa-gear tiny-icon"></i><span class="caret"></span>
         </button>
         <ul class="dropdown-menu pull-right" role="menu">
-          <li><a href="<?php echo base_url()?>format/Apo/viewforapproved/<?php echo $row->po_id;?>">
-            <i class="fa fa-eye tiny-icon"></i>View <?php if($row->po_status==3) echo "& Approved"; ?> </a></li>
+          <li><a href="<?php echo base_url()?>format/Pocheck/viewforapproved/<?php echo $row->po_id;?>">
+            <i class="fa fa-eye tiny-icon"></i>View <?php if($row->po_status==2) echo "& Check"; ?> </a></li>
           <li> <a href="<?php echo base_url()?>dashboard/viewpopdf/<?php echo $row->po_id;?>" target="_blank">
             <i class="fa fa-eye tiny-icon"></i>PDF</a></li>
           <?php if($this->session->userdata('user_type')==1){ ?>
-           <li> <a href="<?php echo base_url()?>format/Apo/returns/<?php echo $row->po_id;?>">
+           <li> <a href="<?php echo base_url()?>format/Pocheck/returns/<?php echo $row->po_id;?>">
                 <i class="fa fa-undo  tiny-icon"> </i> Return </a></li>
           <?php } ?>
         </ul>

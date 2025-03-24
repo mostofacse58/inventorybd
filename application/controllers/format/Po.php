@@ -82,12 +82,16 @@
         $data['heading']='Add PO';
         $info=$this->Deptrequisn_model->get_info($pi_id);
         $data['for_department_id']=$info->department_id;
+        $data['customer']=$info->customer;
+        $data['season']=$info->season;
         $data['clist']=$this->Look_up_model->clist();
         $data['ptlist']=$this->Look_up_model->getPOType();
         $data['slist']=$this->Look_up_model->getSupplier();
         $data['dlist']=$this->Look_up_model->departmentList();
         $data['plist']=$this->Look_up_model->payment_term();
         $data['detail']=$this->Po_model->getPIDetails($pi_id);
+        //$data['info']=$this->Po_model->get_info($pi_id);
+        //print_r($data['info']); exit;
         $data['blist']=$this->Look_up_model->getBranch();
         $data['suppcheck']='YES';
         $data['display']='format/addpo';
@@ -106,6 +110,8 @@
         $data['blist']=$this->Look_up_model->getBranch();
         $data['info']=$this->Po_model->get_info($po_id);
         $data['for_department_id']=$data['info']->for_department_id;
+        $data['customer']=$data['info']->customer;
+        $data['season']=$data['info']->season;
         $data['dlist']=$this->Look_up_model->departmentList();
         $data['slist']=$this->Look_up_model->getSupplier();
         $data['plist']=$this->Look_up_model->payment_term();
@@ -207,6 +213,10 @@
       $supplier_id = $this->input->post('supplier_id');
       $department_id = $this->input->post('for_department_id');
       $product_type = $this->input->post('product_type');
+      $sinfo=$this->db->query("SELECT *
+        FROM supplier_info 
+        WHERE supplier_id=$supplier_id  ")->row();
+
       $detail=$this->db->query("SELECT prd.*
         FROM pi_item_details  prd,pi_master pm 
         WHERE prd.supplier_id=$supplier_id 
@@ -215,7 +225,11 @@
         AND pm.product_type='$product_type' 
         AND  prd.supplier_id NOT IN(SELECT po.supplier_id FROM po_pline po
         WHERE po.product_id=prd.product_id AND prd.pi_no=po.pi_no) ")->result();
-      echo count($detail);
+
+      $data['count']=count($detail);
+      $data['attention_name']=$sinfo->attention_name;
+      $data['supplier_code']=$sinfo->supplier_code;
+      echo  json_encode($data);
      
     }
     
@@ -241,7 +255,9 @@
         foreach ($detail as  $value) {
           $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td>';
         $str.='<td><textarea type="text" readonly name="product_code[]" class="form-control"  placeholder="Material Code  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '">'.$value->product_code.'</textarea> </td>';
-        $str.='<td><input type="text" name="erp_item_code[]" class="form-control" placeholder="ERP CODE" style="margin-bottom:5px;width:98%;text-align:center" id="erp_item_code_' .$id. '" value="'.$value->erp_item_code.'"></td>';
+
+        $str.='<td><textarea type="text" name="erp_item_code[]" readonly class="form-control" placeholder="ERP CODE" style="margin-bottom:5px;width:98%;text-align:center" id="erp_item_code_' .$id. '" >'.$value->erp_item_code.'</textarea></td>';
+
         $str.='<td><textarea type="text" name="product_name[]" readonly class="form-control" placeholder="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '">'.$value->product_name.'</textarea></td>';
         $str.='<td><textarea type="text" name="specification[]"  class="form-control"  style="margin-bottom:5px;width:98%" id="specification_'  .$id. '">'.$value->specification.'</textarea></td>';
         $str.='<td> <input type="text" name="quantity[]" value="'.$value->purchased_qty.'" onblur="return checkQuantity('.$id. ');" onClick="this.select();" onkeyup="return checkQuantity('.$id. ');" class="form-control"  placeholder="Quantity" style="width:98%;float:left;text-align:center"  id="quantity_'.$id. '"> </td>';
@@ -269,15 +285,16 @@
       $subject="PO/WO Approval Notification";
       $message=$this->load->view('po_approval_email', $data,true); 
       //$this->Communication->send($emailaddress,$subject,$message);
-    ////////////////////////
-    $check=$this->Po_model->submit($po_id);
-      if($check){ 
-        $this->session->set_userdata('exception','Send successfully');
-       }else{
-        $this->session->set_userdata('exception','Send Failed');
-      }
-    redirect("format/Po/lists");
+      ////////////////////////
+      $check=$this->Po_model->submit($po_id);
+        if($check){ 
+          $this->session->set_userdata('exception','Send successfully');
+         }else{
+          $this->session->set_userdata('exception','Send Failed');
+        }
+       redirect("format/Po/lists");
     }
+    
     function aknoledgement($po_id=FALSE){
     //   $this->load->model('Communication');
     //   $data['info']=$this->Po_model->get_info($po_id); 

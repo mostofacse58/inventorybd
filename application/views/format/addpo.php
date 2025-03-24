@@ -1,4 +1,6 @@
 <script src="<?php echo base_url('asset/js/plugins/datepicker/bootstrap-datepicker.js'); ?>"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
 <div class="row">
     <div class="col-md-12">
         <div class="box box-info">
@@ -102,7 +104,7 @@
         </div>
          <label class="col-sm-2 control-label ">Supplier 供应商名称<span style="color:red;">  *</span></label>
           <div class="col-sm-4">
-          <select class="form-control select2" name="supplier_id" id="supplier_id" style="width: 100%" required  onchange="return getSuppItem();"> 
+          <select class="form-control select2" name="supplier_id" id="supplier_id" style="width: 100%" required  <?php  if(!isset($suppcheck)){  ?> onchange="return getSuppItem();" <?php } ?>> 
             <option value="" selected="selected">Select 选择</option>
             <?php foreach ($slist as $rows) { ?>
               <option value="<?php echo $rows->supplier_id; ?>" 
@@ -168,47 +170,49 @@
               <span class="error-msg"><?php echo form_error("company_id"); ?></span>
             </div>        
       </div><!-- ///////////////////// -->
-      <div class="form-group local">
-        <label class="col-sm-2 control-label">Dear<span style="color:red;">  *</span></label>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Dear/Attention<span style="color:red;">  *</span></label>
            <div class="col-sm-2">
            <input type="text" name="dear_name" id="dear_name" class="form-control" placeholder="Name" value="<?php if(isset($info)) echo $info->dear_name; else echo set_value('dear_name'); ?>">
            <span class="error-msg"><?php echo form_error("dear_name");?></span>
          </div>
-          <label class="col-sm-1 control-label">Body <span style="color:red;">  *</span></label>
-           <div class="col-sm-6"> 
+          <label class="col-sm-1 control-label local">Body <span style="color:red;">  *</span></label>
+           <div class="col-sm-6 local"> 
            <textarea type="text" name="body_content" id="body_content" rows="1" class="form-control" placeholder="Body"><?php if(isset($info->body_content)) echo $info->body_content; else echo set_value('body_content'); ?></textarea>
            <span class="error-msg"><?php echo form_error("body_content");?></span>
          </div>         
       </div><!-- ///////////////////// -->
       <div class="form-group">
+        <input type="hidden" name="supplier_code" id="supplier_code" value="<?php if(isset($info->supplier_code)) echo $info->supplier_code; else echo set_value('supplier_code'); ?>">
           <label class="col-sm-2 control-label">Customer<span style="color:red;">  </span></label>
            <div class="col-sm-2">
            <select class="form-control select2" name="customer" id="customer">
                <option value="" selected="selected">Select 选择</option>
-              <option value="MK"  <?php if (isset($info)) echo "MK" == $info->customer ? 'selected="selected"' : 0; else echo "MK" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="MK"  <?php if (isset($customer)) echo "MK" == $customer ? 'selected="selected"' : 0; else echo "MK" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>MK</option>
-              <option value="COACH" <?php if (isset($info)) echo "COACH" == $info->customer ? 'selected="selected"' : 0; else echo "COACH" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="COACH" <?php if (isset($customer)) echo "COACH" == $customer ? 'selected="selected"' : 0; else echo "COACH" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>COACH</option>
-              <option value="MIMCO" <?php if (isset($info)) echo "MIMCO" == $info->customer ? 'selected="selected"' : 0; else echo "MIMCO" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="MIMCO" <?php if (isset($customer)) echo "MIMCO" == $customer ? 'selected="selected"' : 0; else echo "MIMCO" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>MIMCO</option>
-              <option value="KATE SPADE" <?php if (isset($info))   echo "KATE SPADE" == $info->customer ? 'selected="selected"' : 0; else echo "KATE SPADE" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="KATE SPADE" <?php if (isset($customer))   echo "KATE SPADE" == $customer ? 'selected="selected"' : 0; else echo "KATE SPADE" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>KATE SPADE</option>
-              <option value="LE" <?php if (isset($info)) echo "LE" == $info->customer ? 'selected="selected"' : 0; else echo "LE" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="LE" <?php if (isset($customer)) echo "LE" == $customer ? 'selected="selected"' : 0; else echo "LE" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>LE</option>
-              <option value="TEFAR" <?php if (isset($info)) echo "TEFAR" == $info->customer ? 'selected="selected"' : 0; else echo "TEFAR" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="TEFAR" <?php if (isset($customer)) echo "TEFAR" == $customer ? 'selected="selected"' : 0; else echo "TEFAR" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>TEFAR</option>
-              <option value="MK-M" <?php if (isset($info)) echo "MK-M" == $info->customer ? 'selected="selected"' : 0; else echo "MK-M" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="MK-M" <?php if (isset($customer)) echo "MK-M" == $customer ? 'selected="selected"' : 0; else echo "MK-M" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>MK-M</option>
-              <option value="VERA" <?php if (isset($info)) echo "VERA" == $info->customer ? 'selected="selected"' : 0; else echo "VERA" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="VERA" <?php if (isset($customer)) echo "VERA" == $customer ? 'selected="selected"' : 0; else echo "VERA" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>VERA</option>
-              <option value="FOSSIL" <?php if (isset($info)) echo "FOSSIL" == $info->customer ? 'selected="selected"' : 0; else echo "FOSSIL" == set_value('customer') ? 'selected="selected"' : 0;
+              <option value="FOSSIL" <?php if (isset($customer)) echo "FOSSIL" == $customer ? 'selected="selected"' : 0; else echo "FOSSIL" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>FOSSIL</option>
             </select>
           </div>
           <label class="col-sm-2 control-label">Season<span style="color:red;">  </span></label>
            <div class="col-sm-2">
-            <input type="text" name="season" id="season" class="form-control" placeholder="season" value="<?php if(isset($info->season)) echo $info->season; else echo set_value('season'); ?>" >
+            <input type="text" name="season" id="season" class="form-control" placeholder="season" value="<?php if(isset($season)) echo $season; else echo set_value('season'); ?>" >
          </div>
+       </div>
     <div class="form-group">
       <label class="col-sm-2 control-label" style="margin-top: 10px">SCAN CODE or Search 搜索Item<span style="color:red;">  </span></label>
         <div class="col-sm-8">
@@ -236,7 +240,7 @@
 <tr>
   <th style="width:3%;text-align:center">SN</th>
   <th style="width:10%;text-align:center">Item code</th>
-  <th style="width:8%;text-align:center;">ERP ITEM CODE</th>
+  <th style="width:10%;text-align:center;">ERP ITEM CODE</th>
   <th style="width:20%;text-align:center">Item Name</th>
   <th style="width:15%;text-align:center"> Specification</th>
   <th style="width:6%;text-align:center;">Qty</th>
@@ -244,6 +248,7 @@
   <th style="width:6%;text-align:center;">Unit Price</th>
   <th style="width:6%;text-align:center;">Sub Total</th>
   <th style="width:8%;text-align:center;">PI Ref.</th>
+  <th style="width:8%;text-align:center;">File</th>
   <th style="width:10%;text-align:center;">Remarks</th>
   <th style="width:5%;text-align:center">
     <i class="fa fa-trash-o"></i></th></tr>
@@ -256,8 +261,11 @@
     foreach ($detail as  $value){
       $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td>';
       $str.='<td><textarea type="text" name="product_code[]" readonly class="form-control"  placeholder="Material Code"   style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '">'.$value->product_code.'</textarea> </td>';
-      $str.='<td><input type="text" name="erp_item_code[]" class="form-control" placeholder="ERP CODE" style="margin-bottom:5px;width:98%;text-align:center" id="erp_item_code_' .$id. '" value="'.$value->erp_item_code.'"></td>';
+
+      $str.='<td><textarea type="text" name="erp_item_code[]" readonly class="form-control" placeholder="ERP CODE" style="margin-bottom:5px;width:98%;text-align:left" id="erp_item_code_' .$id. '">'.$value->erp_item_code.'</textarea></td>';
+
       $str.='<td><textarea type="text" name="product_name[]" readonly class="form-control" placeholder="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '">'.$value->product_name.'</textarea></td>';
+
       $str.='<td><textarea type="text" name="specification[]"  class="form-control"  style="margin-bottom:5px;width:98%" id="specification_'  .$id. '">'.$value->specification.'</textarea></td>';
       $str.='<td> <input type="text" name="quantity[]" value="'.$value->quantity.'" onblur="return checkQuantity('.$id. ');" onClick="this.select();" onkeyup="return checkQuantity('.$id. ');" class="form-control"  placeholder="Quantity" style="width:98%;float:left;text-align:center"  id="quantity_'.$id. '"> </td>';
 
@@ -426,6 +434,7 @@ if(isset($info)){
 <?php  } ?>
 
 <?php  if(!isset($suppcheck)){  ?>
+
 function getSuppItem(){
       var supplier_id=$("#supplier_id").val();
       var for_department_id=$("#for_department_id").val();
@@ -445,17 +454,21 @@ function getSuppItem(){
 
         }
       });
+
       $.ajax({
         type:"post",
         url:"<?php echo base_url()?>"+'format/Po/getcount',
         data:{supplier_id:supplier_id,
         for_department_id:for_department_id,
         product_type:product_type
-
       },
         success:function(data){
-           id=data;
-           totalSum();
+          data1=JSON.parse(data);
+          id=data1.count;
+          //$('#for_department_id').val(data1.for_department_id).change();
+          $("#dear_name").val(data1.attention_name);
+          $("#supplier_code").val(data1.supplier_code);
+          totalSum();
         }
       });
     }else{

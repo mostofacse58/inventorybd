@@ -130,7 +130,7 @@ foreach ($lists as $value1){
   </tr>
   <tr>
     <th style="text-align: left" > 
-      Customer 顾客: <?php if(isset($info)) echo $info->customer; ?> </th>
+      Customer 客户: <?php if(isset($info)) echo $info->customer; ?> </th>
     <th style="text-align: left" > 
       Season 季节: <?php if(isset($info)) echo $info->season; ?> </th>
   </tr>

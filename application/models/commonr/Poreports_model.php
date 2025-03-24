@@ -23,7 +23,7 @@ class Poreports_model extends CI_Model {
       INNER JOIN po_master pm ON(pd.po_id=pm.po_id)
       WHERE 1
       $condition
-      ORDER BY pm.po_date ASC ")->result();
+      ORDER BY pm.po_number ASC ")->result();
     return $result;
 	}
  

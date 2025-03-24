@@ -40,6 +40,10 @@ class Supplier extends My_Controller {
     function save($supplier_id=FALSE){
         $this->form_validation->set_rules('supplier_name','Supplier Name','trim|required');
         $this->form_validation->set_rules('phone_no','Phone No','trim|required');
+        $this->form_validation->set_rules('attention_name','attention name','trim');
+        $this->form_validation->set_rules('tin','tin','trim');
+        $this->form_validation->set_rules('bin','bin','trim');
+        $this->form_validation->set_rules('supplier_code','supplier code','trim');
         $this->form_validation->set_rules('mobile_no','Mobile No','trim');
         $this->form_validation->set_rules('email_address','Email Address','trim');
         $this->form_validation->set_rules('company_address','Address','trim');

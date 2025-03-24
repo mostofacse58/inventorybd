@@ -1,10 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Apo extends My_Controller {
+class Pocheck extends My_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('format/Purhrequisn_model');
         $this->load->model('format/Po_model');
-        $this->load->model('format/Apo_model');
+        $this->load->model('format/Pocheck_model');
      }
     
     function lists(){
@@ -13,10 +12,10 @@ class Apo extends My_Controller {
     if($this->input->post('perpage')!='') $perpage=$this->input->post('perpage'); else $perpage=25;
       ////////////////////////////////////
       $this->load->library('pagination');
-      $config['base_url']=base_url().'format/Apo/lists/';
+      $config['base_url']=base_url().'format/Pocheck/lists/';
       $config['suffix'] = '?' . http_build_query($_GET, '', "&");
       $config["uri_segment"] = 4;
-      $config['total_rows'] = $this->Apo_model->get_count();
+      $config['total_rows'] = $this->Pocheck_model->get_count();
       $total_rows=$config['total_rows'];
       $config['per_page'] = $perpage;
       $choice = $config["total_rows"] / $config["per_page"];
@@ -44,12 +43,12 @@ class Apo extends My_Controller {
       $data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
       $pagination = $this->pagination->create_links();
       $data['pagination']='<p>We have ' . $total_rows . ' records in ' . $choice . ' pages ' . $pagination . '</p>';      
-      $data['lists']=$this->Apo_model->lists($config["per_page"],$data['page'] );
+      $data['lists']=$this->Pocheck_model->lists($config["per_page"],$data['page'] );
       $data['dlist']=$this->Look_up_model->departmentList();
       $data['slist']=$this->Look_up_model->getSupplier();
       ////////////////////////////////////////
       $data['heading']='PO/WO Lists';
-      $data['display']='format/apo_lists';
+      $data['display']='format/Pocheck_lists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");
@@ -57,7 +56,7 @@ class Apo extends My_Controller {
   }
 
 function viewforapproved($po_id=FALSE){
-      $data['show']=3;
+      $data['show']=2;
       $data['info']=$this->Po_model->get_info($po_id);
       $data['detail']=$this->Po_model->getDetails($po_id);
       $data['heading']='PO/WO Information';
@@ -66,7 +65,7 @@ function viewforapproved($po_id=FALSE){
   }
   
  function approved($po_id=FALSE){
-    $this->load->model('Communication');
+    //$this->load->model('Communication');
     // $data['info']=$this->Po_model->get_info($po_id); 
     // $department_id=$data['info']->responsible_department;
     // $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
@@ -74,24 +73,24 @@ function viewforapproved($po_id=FALSE){
     // $subject="PI Receive Notification";
     // $message=$this->load->view('for_received_email', $data,true); 
     // $this->Communication->send($emailaddress,$subject,$message);
-    $check=$this->Apo_model->approved($po_id);
+    $check=$this->Pocheck_model->approved($po_id);
       if($check){ 
-         $this->session->set_userdata('exception','Approved successfully');
+         $this->session->set_userdata('exception','Check successfully');
        }else{
          $this->session->set_userdata('exception','Failed');
       }
-    redirect("format/Apo/lists");
+    redirect("format/Pocheck/lists");
   }
 
   
   function returns($po_id=FALSE){
-    $check=$this->Apo_model->returns($po_id);
+    $check=$this->Pocheck_model->returns($po_id);
       if($check){ 
         $this->session->set_userdata('exception','Return successfully');
        }else{
         $this->session->set_userdata('exception','Failed');
       }
-    redirect("format/Apo/lists");
+    redirect("format/Pocheck/lists");
   }
    
 }

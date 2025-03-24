@@ -206,13 +206,13 @@ class Po_model extends CI_Model {
         $data['for_department_id']=$this->input->post('for_department_id');
         if($this->input->post('po_type')=='BD WO'){
           $data['subject']=$this->input->post('subject');
-          $data['dear_name']=$this->input->post('dear_name');
           $data['body_content']=$this->input->post('body_content');
           $data['location']="BHRO1";
         }else{
           $data['mode_of_shipment']=$this->input->post('mode_of_shipment');
           $data['location']="BRW";
         }
+        $data['dear_name']=$this->input->post('dear_name');
         $data['company_id']=$this->input->post('company_id');
         $data['pay_term']=$this->input->post('pay_term');
         $data['currency']=$this->input->post('currency');
@@ -224,6 +224,7 @@ class Po_model extends CI_Model {
         $data['credit_days']=$this->input->post('credit_days');
         $data['customer']=$this->input->post('customer');
         $data['season']=$this->input->post('season');
+        $supplier_code=$this->input->post('supplier_code');
         $data['department_id']=15;
         $data['created_by']=$this->session->userdata('user_id');
         $data['create_date']=date('Y-m-d');
@@ -240,8 +241,8 @@ class Po_model extends CI_Model {
         $remarks=$this->input->post('remarks');
         $erp_item_code=$this->input->post('erp_item_code');
         $file_no=$this->input->post('file_no');
+        
         ////////////////////
-       
         // if($this->input->post('po_type')=='BD WO'){
         //   $data1['location']="BHRO1";
         // }else{
@@ -267,11 +268,23 @@ class Po_model extends CI_Model {
         $query=$this->db->insert('po_master',$data);
          $data1['po_number']=$po_number;
         $po_id=$this->db->insert_id();
+
         foreach ($product_id as $value) {
-           $data1['product_id']=$value;
-           $data1['po_id']=$po_id;
-           $data1['product_code']=$product_code[$i];
-           $data1['erp_item_code']=$erp_item_code[$i];
+          $data1['product_id']=$value;
+          $data1['po_id']=$po_id;
+          $data1['product_code']=$product_code[$i];
+          if($this->input->post('po_type')=='BD WO'){
+            $data1['erp_item_code']=$erp_item_code[$i];
+          }else{
+            $originalcode=$product_code[$i];
+            if($supplier_code!=''){
+              $replacement = "M545"; // Your dynamic code
+              $updatedcode = preg_replace('/^([^-]+)-[^-]+-/', '$1-' . $supplier_code . '-', $originalcode);
+              $data1['erp_item_code']=$updatedcode;
+            }else{
+              $data1['erp_item_code']=$originalcode;
+            }
+          }
            $data1['file_no']=$file_no[$i];
            $data1['po_number']=$po_number;
            $data1['supplier_id']=$data['supplier_id'];
@@ -307,7 +320,18 @@ class Po_model extends CI_Model {
            $data1['po_number']=$info->po_number;
            $data1['supplier_id']=$data['supplier_id'];
            $data1['product_code']=$product_code[$i];
-           $data1['erp_item_code']=$erp_item_code[$i];
+           if($this->input->post('po_type')=='BD WO'){
+            $data1['erp_item_code']=$erp_item_code[$i];
+          }else{
+            $originalcode=$product_code[$i];
+            if($supplier_code!=''){
+              $replacement = "M545"; // Your dynamic code
+              $updatedcode = preg_replace('/^([^-]+)-[^-]+-/', '$1-' . $supplier_code . '-', $originalcode);
+              $data1['erp_item_code']=$updatedcode;
+            }else{
+              $data1['erp_item_code']=$originalcode;
+            }
+          }
            $data1['file_no']=$file_no[$i];
            $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
            $data1['specification']=str_replace('"',"Inch",$specification[$i]);
@@ -366,8 +390,14 @@ class Po_model extends CI_Model {
    return $result;
   }
   function submit($po_id) {
+    $info=$this->db->query("SELECT *
+      FROM po_master
+      WHERE po_id='$po_id' ")->row();
+    $status=3;
+    if($info->po_type=='BD PO')
+    $status=2;
     $this->db->WHERE('po_id',$po_id);
-    $query=$this->db->Update('po_master',array('po_status'=>2));
+    $query=$this->db->Update('po_master',array('po_status'=>$status));
     return $query;
   }
   function aknoledgements($po_id) {

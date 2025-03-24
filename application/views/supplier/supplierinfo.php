@@ -23,10 +23,14 @@ Add Supplier
                 <tr>
                   <th style="width:15%;">Supplier Name 供应商名称</th>
                   <th style="text-align:center;width:15%">Address</th>
+                  <th style="width:10%;text-align:center">Attention </th>
                   <th style="width:10%;text-align:center">Phone No</th>
                   <th style="text-align:center;width:10%">Mobile No. 手机号码。</th>
                   <th style="text-align:center;width:10%">Email Address</th>
                   <th style="text-align:center;width:10%">Payment Term </th>
+                  <th style="text-align:center;width:6%">Code</th>
+                  <th style="text-align:center;width:10%">BIN Number</th>
+                  <th style="text-align:center;width:10%">TIN Number</th>
                   <th style="text-align:center;width:10%">VAT Number</th>
                   <th  style="text-align:center;width:5%">Actions 行动</th>
               </tr>
@@ -38,22 +42,20 @@ Add Supplier
                     ?>
                   <tr>
                     <td><?php echo $row->supplier_name;?></td>
-                    <td style="text-align:center">
-                      <?php echo $row->company_address; ; ?></td>
-                    <td style="text-align:center">
-                      <?php echo $row->phone_no; ?></td> 
-                    <td style="text-align:center">
-                    <?php echo $row->mobile_no;  ?></td>
-                    <td style="text-align:center">
-                    <?php echo $row->email_address;  ?></td>
-                    <td style="text-align:center">
-                    <?php echo $row->payment_terms;  ?>
+                    <td style="text-align:center"> <?php echo $row->company_address; ; ?></td>
+                    <td style="text-align:center"><?php echo $row->attention_name; ?></td>
+                    <td style="text-align:center"><?php echo $row->phone_no; ?></td> 
+                    <td style="text-align:center"><?php echo $row->mobile_no;  ?></td>
+                    <td style="text-align:center"><?php echo $row->email_address;  ?></td>
+                    <td style="text-align:center"><?php echo $row->payment_terms;  ?>
                      <?php if($row->payment_term_file!='') {       ?>
                       <a href="<?php echo base_url(); ?>Supplier/Download/<?php echo $row->payment_term_file; ?>">Download</a>
                     <?php } ?>
                     </td>
-                    <td style="text-align:center">
-                    <?php echo $row->vat_number;  ?>
+                    <td style="text-align:center"><?php echo $row->supplier_code;  ?>
+                    <td style="text-align:center"><?php echo $row->bin;  ?>
+                    <td style="text-align:center"><?php echo $row->tin;  ?>
+                    <td style="text-align:center"><?php echo $row->vat_number;  ?>
                     <?php if($row->vat_number_file!='') {       ?>
                       <a href="<?php echo base_url(); ?>Supplier/Download/<?php echo $row->vat_number_file; ?>">Download</a>
                     <?php } ?>                      

@@ -20,19 +20,29 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Supplier Name 供应商名称 <span style="color:red;">  *</span></label>
                   <div class="col-sm-4">
-                    <input type="text" name="supplier_name" class="form-control" placeholder="Supplier Name 供应商名称" value="<?php if(isset($info->supplier_name)) echo $info->supplier_name; else echo set_value('supplier_name'); ?>">
+                    <input type="text" name="supplier_name" class="form-control" placeholder="Supplier Name 供应商名称" value="<?php if(isset($info->supplier_name)) echo $info->supplier_name; else echo set_value('supplier_name'); ?>" required>
                    <span class="error-msg"><?php echo form_error("supplier_name");?></span>
+                  </div>
+                  <label class="col-sm-2 control-label">Attention <span style="color:red;">  *</span></label>
+                  <div class="col-sm-4">
+                    <input type="text" name="attention_name" class="form-control" placeholder="Attention" value="<?php if(isset($info->attention_name)) echo $info->attention_name; else echo set_value('attention_name'); ?>">
+                   <span class="error-msg"><?php echo form_error("attention_name");?></span>
                   </div>
               
                 </div>
                 <div class="form-group">
+                  <label class="col-sm-2 control-label">Supplier Code <span style="color:red;">  </span> </label>
+                  <div class="col-sm-2">
+                    <input type="text" name="supplier_code" class="form-control"  placeholder="supplier_code" value="<?php if(isset($info->supplier_code)) echo $info->supplier_code; else echo set_value('supplier_code'); ?>">
+                   <span class="error-msg"><?php echo form_error("supplier_code");?></span>
+                  </div>
                   <label class="col-sm-2 control-label">Phone No <span style="color:red;">  *</span></label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <input type="text" name="phone_no" class="form-control" placeholder="Phone No" value="<?php if(isset($info->phone_no)) echo $info->phone_no; else echo set_value('phone_no'); ?>">
                    <span class="error-msg"><?php echo form_error("phone_no");?></span>
                   </div>
                   <label class="col-sm-2 control-label">Mobile No. 手机号码。 <span style="color:red;">  </span> </label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <input type="text" name="mobile_no" class="form-control"  placeholder="Mobile No. 手机号码。" value="<?php if(isset($info->mobile_no)) echo $info->mobile_no; else echo set_value('mobile_no'); ?>">
                    <span class="error-msg"><?php echo form_error("mobile_no");?></span>
                   </div>
@@ -49,6 +59,19 @@
                    <span class="error-msg"><?php echo form_error("company_address");?></span>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">BIN <span style="color:red;">  </span></label>
+                  <div class="col-sm-4">
+                    <input type="text" name="bin" class="form-control" placeholder="BIN" value="<?php if(isset($info->bin)) echo $info->bin; else echo set_value('bin'); ?>">
+                   <span class="error-msg"><?php echo form_error("bin");?></span>
+                  </div>
+                  <label class="col-sm-2 control-label">TIN<span style="color:red;">  </span> </label>
+                  <div class="col-sm-4">
+                    <input type="text" name="tin" class="form-control"  placeholder="TIN" value="<?php if(isset($info->tin)) echo $info->tin; else echo set_value('tin'); ?>">
+                   <span class="error-msg"><?php echo form_error("tin");?></span>
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Payment terms </label>
                   <div class="col-sm-4">

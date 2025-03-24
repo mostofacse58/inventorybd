@@ -133,8 +133,8 @@ Add New PO
         <?php 
         if($row->po_status==1) echo "Draft";
         elseif($row->po_status==2) echo "Submit";
-        elseif($row->po_status==3) echo "Approved";
-        elseif($row->po_status==4) echo "Certified";
+        elseif($row->po_status==3) echo "Checked";
+        elseif($row->po_status==4) echo "Approved";
         elseif($row->po_status==5) echo "Approved";
         elseif($row->po_status==6) echo "Received";
         elseif($row->po_status==8) echo "Cancel";

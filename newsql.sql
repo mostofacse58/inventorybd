@@ -6,6 +6,9 @@ WHERE `po_number` = 'BDWA000879';
 DELETE FROM `bd_po_summary` WHERE PO_NUMBER IN (SELECT PO_NUMBER FROM payment_po_amount)
 
 
+UPDATE `po_master` SET `po_status`=4 WHERE `po_status`=3;
+UPDATE `po_master` SET `po_status`=3 WHERE `po_status`=2;
+
 
 
 SELECT C.*,(C.stock_quantity+pur_qty-issue_qty-tpm_qty) as ddd 

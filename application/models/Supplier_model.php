@@ -39,6 +39,10 @@ class Supplier_model extends CI_Model {
                 $data['vat_number_file']=$upload_info['file_name'];
             }
         }
+        $data['attention_name']=$this->input->post('attention_name');
+        $data['tin']=$this->input->post('tin');
+        $data['bin']=$this->input->post('bin');
+        $data['supplier_code']=$this->input->post('supplier_code');
         $data['payment_terms']=$this->input->post('payment_terms');
         $data['vat_number']=$this->input->post('vat_number');
         $data['supplier_name']=$this->input->post('supplier_name');

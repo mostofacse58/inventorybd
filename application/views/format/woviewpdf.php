@@ -116,7 +116,7 @@ hr{margin: 5px}
        Supplier:
     </td>
     <td style="text-align: left" valign="top"> 
-     <?php if(isset($info)) echo "$info->company_name <br>$info->company_address"; ?> 
+     <?php if(isset($info)) echo "$info->supplier_name <br>$info->company_address"; ?> 
    </td>
     <td style="text-align: left" valign="top"> 
        Ship To:
@@ -130,7 +130,7 @@ hr{margin: 5px}
      Attention:
      </td>
     <td style="text-align: left" valign="top">
-     <?php if(isset($info)) echo $info->supplier_name; ?> </td>
+     <?php if(isset($info)) echo $info->dear_name; ?> </td>
     <td style="text-align: left" valign="top"> 
       Tel: 
       </td>
@@ -183,7 +183,7 @@ hr{margin: 5px}
     <th style="width:4%;text-align:center;">PI NO <br>(申请单号)</th>
     <?php if($info->for_department_id==17){ ?>
     <th style="width:8%;text-align:center;">FILE NO</th>
-    <th style="width:8%;text-align:center;">Customer<br>(半棵罗勒)</th>
+    <th style="width:8%;text-align:center;">Customer<br>(客户)</th>
     <th style="width:8%;text-align:center;">Season<br>(季节)</th>
     <?php } ?>
 
@@ -219,7 +219,7 @@ hr{margin: 5px}
     <td class="tg-s6z2"><?php echo "$value->file_no"; ?></td>
     <td class="tg-s6z2"><?php echo "$info->customer"; ?></td>
     <td class="tg-s6z2"><?php echo "$info->season"; ?></td>
-  <?php } ?>
+    <?php } ?>
   </tr>
    <?php }
     } ?>
@@ -302,41 +302,39 @@ hr{margin: 5px}
 
 <br>
 <br>
+
 <table class="tg1" style="overflow: hidden;">
   <tr>
   <td>&nbsp;</td>
   <td></td>
   <td></td>
   <td></td>
-  <td></td>
 </tr>
   <tr>
-  <td style="width:33%;text-align:left;">
-    <?php if($info->po_status>=1) echo "$info->user_name"; ?></td>
-  <td style="width:33%;text-align:center;">
-    <?php if($info->po_status>=3) echo "$info->approved_by"; ?></td>
-
-  <td style="width:33%;text-align:right;">
-  <?php if($info->po_status>=4) echo "$info->receive_by"; ?></td>
+  <td style="width:25%;text-align:left;">  <?php if($info->po_status>=1) echo "$info->user_name"; ?></td>
+  <td style="width:25%;text-align:center;">  <?php if($info->po_status>=3) echo "$info->checked_by"; ?></td>
+  <td style="width:25%;text-align:center;"> <?php if($info->po_status>=4) echo "$info->approved_by"; ?></td>
+  <td style="width:25%;text-align:right;"> </td>
   </tr>
  <tr>
-  <td style="width:33%;text-align:left;">
-    <?php if($info->po_status>=1) echo findDate($info->create_date); ?></td>
-  <td style="width:33%;text-align:center;">
-    <?php if($info->po_status>=3) echo findDate($info->approved_date); ?></td>
-  <td style="width:33%;text-align:right;">
-  <?php echo findDate($info->acknow_date); ?></td>
+  <td style="text-align:left;"> <?php if($info->po_status>=1) echo findDate($info->create_date); ?></td>
+  <td style="text-align:center;"> <?php if($info->po_status>=3) echo findDate($info->checked_datetime); ?></td>
+  <td style="text-align:center;"> <?php if($info->po_status>=4) echo findDate($info->approved_date); ?></td>
+  <td style="text-align:right;"> <?php echo findDate($info->acknow_date); ?></td>
   </tr> 
   <tr>
   <td style="text-align:left;font-size: 15px;line-height: 5px">---------------</td>
+  <td style="text-align:center;font-size: 15px;line-height: 5px">----------------</td>
   <td style="text-align:center;font-size: 15px;line-height: 5px">----------------</td>
   <td style="text-align:right;font-size: 15px;line-height: 5px">----------------</td>
   </tr>
   <tr>
   <td style="text-align:left;">Prepared by(部门申请人)</td>
+  <td style="text-align:center;">Checked by(已审核)</td>
   <td style="text-align:center;">Approved by(部门审批人)</td>
   <td style="text-align:right;">Received by(收到的)</td>
   </tr>
 </table>
+
 </body>
 <html>

@@ -217,7 +217,7 @@ public function getPOwiseitem(){
     $po_number=str_replace(" ","",$po_number);
     $detail=$this->db->query("SELECT pm.* ,prd.*,prd.quantity as po_qty    
       FROM po_pline prd,po_master pm
-      WHERE pm.po_id=prd.po_id AND pm.po_status=3
+      WHERE pm.po_id=prd.po_id AND pm.po_status=4
       AND pm.po_number='$po_number' 
       AND pm.for_department_id=$department_id
       ORDER BY prd.product_code ASC ")->result();

@@ -1,5 +1,5 @@
 <?php
-class Apo_model extends CI_Model {
+class Pocheck_model extends CI_Model {
   public function get_count(){
     $condition=' ';
     if($_GET){
@@ -34,7 +34,10 @@ class Apo_model extends CI_Model {
           LEFT JOIN department_info d1 ON(pm.for_department_id=d1.department_id) 
           INNER JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)
           LEFT JOIN user u ON(u.id=pm.created_by) 
-          WHERE pm.department_id=15  AND pm.po_status>1 AND pm.po_status!=5
+          WHERE pm.department_id=15  
+          AND pm.po_status>1 
+          AND pm.po_status!=5
+          AND pm.po_type='BD PO'
           $condition
           GROUP BY pm.po_id");
      }else{
@@ -46,7 +49,9 @@ class Apo_model extends CI_Model {
           INNER JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)
           LEFT JOIN user u ON(u.id=pm.created_by) 
           WHERE pm.department_id=15 
-          AND pm.po_status>1 AND pm.po_status!=5  
+          AND pm.po_status>1 
+          AND pm.po_status!=5  
+          AND pm.po_type='BD PO'
           $condition");
          }
      $data = count($query->result());
@@ -87,7 +92,9 @@ class Apo_model extends CI_Model {
         INNER JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)
         LEFT JOIN user u ON(u.id=pm.created_by) 
         WHERE pm.department_id=15  
-        AND pm.po_status>1 AND pm.po_status!=5
+        AND pm.po_status>1 
+        AND pm.po_status!=5
+        AND pm.po_type='BD PO'
         $condition
         GROUP BY pm.po_id
       ORDER BY pm.po_id DESC 
@@ -101,7 +108,9 @@ class Apo_model extends CI_Model {
         INNER JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)
         LEFT JOIN user u ON(u.id=pm.created_by) 
         WHERE pm.department_id=15  
-        AND pm.po_status>1 AND pm.po_status!=5
+        AND pm.po_status>1 
+        AND pm.po_status!=5
+        AND pm.po_type='BD PO'
         $condition
         ORDER BY pm.po_id DESC 
         LIMIT $start,$limit")->result();
@@ -121,10 +130,11 @@ class Apo_model extends CI_Model {
   //////////////////////////////////
  function approved($po_id) {
     $data=array();
-    $data['po_status']=4;
+    $data['po_status']=3;
     $data['approved_date']=date('Y-m-d');
-    $data['approved_date_time']=date('Y-m-d H:i:s');
-    $data['approved_by']=$this->session->userdata('user_id');
+    $data['checked_datetime']=date('Y-m-d H:i:s');
+    $data['checked_id']=$this->session->userdata('user_id');
+    $data['checked_by']=$this->session->userdata('user_name');
     $this->db->WHERE('po_id',$po_id);
     $query=$this->db->Update('po_master',$data);
     return $query;
