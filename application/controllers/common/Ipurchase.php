@@ -200,7 +200,7 @@ public function getPOInfo(){
       FROM  po_master pm 
       INNER JOIN supplier_info s ON(s.supplier_id=pm.supplier_id)
       WHERE pm.po_number='$po_number' 
-      AND pm.po_status!=5 AND pm.po_status=3
+      AND pm.po_status!=5 AND pm.po_status=4
       AND pm.for_department_id=$department_id")->row();
 
   if(count($info)>0){

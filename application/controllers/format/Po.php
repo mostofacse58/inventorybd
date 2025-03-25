@@ -10,10 +10,9 @@
        }
       
   function lists(){
-        if($this->session->userdata('user_id')) {
         $data=array();
         if($this->input->post('perpage')!='') $perpage=$this->input->post('perpage'); 
-        else $perpage=10;
+        else $perpage=15;
         ////////////////////////////////////
         $this->load->library('pagination');
         $config['base_url']=base_url().'format/Po/lists/';
@@ -54,9 +53,7 @@
         $data['heading']='PO/WO Lists';
         $data['display']='format/po_lists';
         $this->load->view('admin/master',$data);
-        } else {
-          redirect("Logincontroller");
-        }
+      
     }
 
   function add(){
@@ -156,6 +153,7 @@
        }
       redirect("format/Po/lists");
     }
+
     function savediscount($po_id=FALSE){
       $check=$this->Po_model->savediscount($po_id);
       if($check){

@@ -265,95 +265,95 @@ class Po_model extends CI_Model {
                FROM po_master WHERE 1")->row('reference_no');
           $reference_no ='BDPO'.date('m').str_pad($reference_no + 1, 6, '0', STR_PAD_LEFT);
           $data['reference_no']=$reference_no;
-        $query=$this->db->insert('po_master',$data);
-         $data1['po_number']=$po_number;
-        $po_id=$this->db->insert_id();
-
-        foreach ($product_id as $value) {
-          $data1['product_id']=$value;
-          $data1['po_id']=$po_id;
-          $data1['product_code']=$product_code[$i];
-          if($this->input->post('po_type')=='BD WO'){
-            $data1['erp_item_code']=$erp_item_code[$i];
-          }else{
-            $originalcode=$product_code[$i];
-            if($supplier_code!=''){
-              $replacement = "M545"; // Your dynamic code
-              $updatedcode = preg_replace('/^([^-]+)-[^-]+-/', '$1-' . $supplier_code . '-', $originalcode);
-              $data1['erp_item_code']=$updatedcode;
-            }else{
-              $data1['erp_item_code']=$originalcode;
-            }
-          }
-           $data1['file_no']=$file_no[$i];
+          $query=$this->db->insert('po_master',$data);
            $data1['po_number']=$po_number;
-           $data1['supplier_id']=$data['supplier_id'];
-           $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
-           $data1['specification']=str_replace('"',"Inch",$specification[$i]);
-           $data1['pi_no']=trim($pi_no[$i]);
-           $chkpi_no=trim($pi_no[$i]);
-           $dd=$this->db->query("SELECT IFNULL(pi_id,0) as pi_id
-               FROM pi_master WHERE pi_no='$chkpi_no' ")->row('pi_id');
-           if(count($dd)>0){
-             $data1['pi_id']=$dd;
-           }else{
-            $data1['pi_id']=NULL;
-           }
-           $data1['quantity']=$quantity[$i];
-           $data1['unit_name']=$unit_name[$i];
-           $data1['unit_price']=$unit_price[$i];
-           $data1['sub_total_amount']=$sub_total_amount[$i];
-           $data1['remarks']=$remarks[$i];
-           $query=$this->db->insert('po_pline',$data1);
-           $i++;
-         }
-        }else{
-          $this->db->WHERE('po_id',$po_id);
-          $query=$this->db->UPDATE('po_master',$data);
-          $this->db->WHERE('po_id',$po_id);
-          $this->db->delete('po_pline');
-          $info=$this->get_info($po_id);
-          $i=0;
+          $po_id=$this->db->insert_id();
+
           foreach ($product_id as $value) {
-           $data1['product_id']=$value;
-           $data1['po_id']=$po_id;
-           $data1['po_number']=$info->po_number;
-           $data1['supplier_id']=$data['supplier_id'];
-           $data1['product_code']=$product_code[$i];
-           if($this->input->post('po_type')=='BD WO'){
-            $data1['erp_item_code']=$erp_item_code[$i];
-          }else{
-            $originalcode=$product_code[$i];
-            if($supplier_code!=''){
-              $replacement = "M545"; // Your dynamic code
-              $updatedcode = preg_replace('/^([^-]+)-[^-]+-/', '$1-' . $supplier_code . '-', $originalcode);
-              $data1['erp_item_code']=$updatedcode;
+            $data1['product_id']=$value;
+            $data1['po_id']=$po_id;
+            $data1['product_code']=$product_code[$i];
+            if($this->input->post('po_type')=='BD WO'){
+              $data1['erp_item_code']=$erp_item_code[$i];
             }else{
-              $data1['erp_item_code']=$originalcode;
+              $originalcode=$product_code[$i];
+              if($supplier_code!=''){
+                $replacement = $supplier_code; // Your dynamic code
+                $updatedcode = preg_replace('/^([^-]+)-[^-]+-/', '$1-' . $supplier_code . '-', $originalcode);
+                $data1['erp_item_code']=$updatedcode;
+              }else{
+                $data1['erp_item_code']=$originalcode;
+              }
             }
-          }
-           $data1['file_no']=$file_no[$i];
-           $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
-           $data1['specification']=str_replace('"',"Inch",$specification[$i]);
-           $data1['pi_no']=$pi_no[$i];
-           $chkpi_no=$pi_no[$i];
-           $dd=array();
-           $dd=$this->db->query("SELECT IFNULL(pi_id,0) as pi_id
-               FROM pi_master 
-               WHERE pi_no='$chkpi_no' 
-               ORDER BY pi_id ASC")->row();
-           if(count($dd)>0)
-           $data1['pi_id']=$dd->pi_id;
-           $data1['quantity']=$quantity[$i];
-           $data1['unit_name']=$unit_name[$i];
-           $data1['unit_price']=$unit_price[$i];
-           $data1['sub_total_amount']=$sub_total_amount[$i];
-           $data1['remarks']=$remarks[$i];
-           $query=$this->db->insert('po_pline',$data1);
-           $i++;
-         }
-      } 
-      return $query;
+             $data1['file_no']=$file_no[$i];
+             $data1['po_number']=$po_number;
+             $data1['supplier_id']=$data['supplier_id'];
+             $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
+             $data1['specification']=str_replace('"',"Inch",$specification[$i]);
+             $data1['pi_no']=trim($pi_no[$i]);
+             $chkpi_no=trim($pi_no[$i]);
+             $dd=$this->db->query("SELECT IFNULL(pi_id,0) as pi_id
+                 FROM pi_master WHERE pi_no='$chkpi_no' ")->row('pi_id');
+             if(count($dd)>0){
+               $data1['pi_id']=$dd;
+             }else{
+              $data1['pi_id']=NULL;
+             }
+             $data1['quantity']=$quantity[$i];
+             $data1['unit_name']=$unit_name[$i];
+             $data1['unit_price']=$unit_price[$i];
+             $data1['sub_total_amount']=$sub_total_amount[$i];
+             $data1['remarks']=$remarks[$i];
+             $query=$this->db->insert('po_pline',$data1);
+             $i++;
+           }
+          }else{
+            $this->db->WHERE('po_id',$po_id);
+            $query=$this->db->UPDATE('po_master',$data);
+            $this->db->WHERE('po_id',$po_id);
+            $this->db->delete('po_pline');
+            $info=$this->get_info($po_id);
+            $i=0;
+            foreach ($product_id as $value) {
+             $data1['product_id']=$value;
+             $data1['po_id']=$po_id;
+             $data1['po_number']=$info->po_number;
+             $data1['supplier_id']=$data['supplier_id'];
+             $data1['product_code']=$product_code[$i];
+             if($this->input->post('po_type')=='BD WO'){
+              $data1['erp_item_code']=$erp_item_code[$i];
+            }else{
+              $originalcode=$product_code[$i];
+              if($supplier_code!=''){
+                $replacement = $supplier_code; // Your dynamic code
+                $updatedcode = preg_replace('/^([^-]+)-[^-]+-/', '$1-' . $supplier_code . '-', $originalcode);
+                $data1['erp_item_code']=$updatedcode;
+              }else{
+                $data1['erp_item_code']=$originalcode;
+              }
+            }
+             $data1['file_no']=$file_no[$i];
+             $data1['product_name']=str_replace('"',"Inch",$product_name[$i]); 
+             $data1['specification']=str_replace('"',"Inch",$specification[$i]);
+             $data1['pi_no']=$pi_no[$i];
+             $chkpi_no=$pi_no[$i];
+             $dd=array();
+             $dd=$this->db->query("SELECT IFNULL(pi_id,0) as pi_id
+                 FROM pi_master 
+                 WHERE pi_no='$chkpi_no' 
+                 ORDER BY pi_id ASC")->row();
+             if(count($dd)>0)
+             $data1['pi_id']=$dd->pi_id;
+             $data1['quantity']=$quantity[$i];
+             $data1['unit_name']=$unit_name[$i];
+             $data1['unit_price']=$unit_price[$i];
+             $data1['sub_total_amount']=$sub_total_amount[$i];
+             $data1['remarks']=$remarks[$i];
+             $query=$this->db->insert('po_pline',$data1);
+             $i++;
+           }
+        } 
+        return $query;
     }
     function savediscount($po_id) {
         $data=array();
