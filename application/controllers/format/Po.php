@@ -1,6 +1,6 @@
-  <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
   class Po extends My_Controller {
-  function __construct(){
+      function __construct(){
           parent::__construct();
           $this->load->model('format/Purhrequisn_model');
           $this->load->model('format/Po_model');
@@ -178,7 +178,7 @@
         $for_department_id = $this->input->get('for_department_id', true);
         $product_type = $this->input->get('product_type', true);
         if (strlen($term) < 1 || !$term) {
-            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
+          die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
         }
         $rows = $this->Look_up_model->getdepartmentwiseItem2($for_department_id,$product_type,$term);
         if ($rows){
@@ -276,7 +276,7 @@
     
     
     function submit($po_id=FALSE){
-      $this->load->model('Communication');
+      //$this->load->model('Communication');
       $data['info']=$this->Po_model->get_info($po_id); 
       $department_id=$data['info']->department_id;
       $emailaddress="roc.tan@bdventura.com";

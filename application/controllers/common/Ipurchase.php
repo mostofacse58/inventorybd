@@ -202,7 +202,6 @@ public function getPOInfo(){
       WHERE pm.po_number='$po_number' 
       AND pm.po_status!=5 AND pm.po_status=4
       AND pm.for_department_id=$department_id")->row();
-
   if(count($info)>0){
     $data=array('check'=>'YES','currency'=>$info->currency,'cnc_rate_in_hkd'=>$info->cnc_rate_in_hkd,'supplier_id'=>$info->supplier_id,'for_department_id'=>$info->for_department_id,'po_id'=>$info->po_id);
   }else{

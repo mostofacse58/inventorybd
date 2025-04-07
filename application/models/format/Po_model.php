@@ -285,6 +285,7 @@ class Po_model extends CI_Model {
                 $data1['erp_item_code']=$originalcode;
               }
             }
+            /////////////////////
              $data1['file_no']=$file_no[$i];
              $data1['po_number']=$po_number;
              $data1['supplier_id']=$data['supplier_id'];
@@ -371,7 +372,8 @@ class Po_model extends CI_Model {
       $this->db->WHERE('po_id',$po_id);
       $query=$this->db->delete('po_master');
       return $query;
-     }
+    }
+
     function approved($po_id) {
       $this->db->WHERE('po_id',$po_id);
       $query=$this->db->Update('po_master',array('po_status'=>2));
