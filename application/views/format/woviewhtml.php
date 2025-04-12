@@ -283,7 +283,37 @@ hr{margin: 5px}
 
 <br>
 <br>
-<table class="tg1" style="overflow: hidden;">
+<?php if($info->po_type=='BD WO'){   ?>
+  <table class="tg1" style="overflow: hidden;">
+  <tr>
+  <td>&nbsp;</td>
+  <td></td>
+  <td></td>
+</tr>
+  <tr>
+  <td style="width:33%;text-align:left;">  <?php if($info->po_status>=1) echo "$info->user_name"; ?></td>
+  <td style="width:33%;text-align:center;"> <?php if($info->po_status>=4) echo "$info->approved_by"; ?></td>
+  <td style="width:34%;text-align:right;"> </td>
+  </tr>
+ <tr>
+  <td style="text-align:left;"> <?php if($info->po_status>=1) echo findDate($info->create_date); ?></td>
+  <td style="text-align:center;"> <?php if($info->po_status>=4) echo findDate($info->approved_date); ?></td>
+  <td style="text-align:right;"> <?php echo findDate($info->acknow_date); ?></td>
+  </tr> 
+  <tr>
+  <td style="text-align:left;font-size: 15px;line-height: 5px">---------------</td>
+  <td style="text-align:center;font-size: 15px;line-height: 5px">----------------</td>
+  <td style="text-align:right;font-size: 15px;line-height: 5px">----------------</td>
+  </tr>
+  <tr>
+  <td style="text-align:left;">Prepared by(部门申请人)</td>
+  <td style="text-align:center;">Approved by(部门审批人)</td>
+  <td style="text-align:right;">Received by(收到的)</td>
+  </tr>
+</table>
+
+<?php }else{ ?>
+  <table class="tg1" style="overflow: hidden;">
   <tr>
   <td>&nbsp;</td>
   <td></td>
@@ -315,6 +345,9 @@ hr{margin: 5px}
   <td style="text-align:right;">Received by(收到的)</td>
   </tr>
 </table>
+
+<?php } ?>
+
   <div class="box-footer">
   
   <div class="col-sm-12" style="text-align: center;">

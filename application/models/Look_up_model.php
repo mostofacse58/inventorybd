@@ -159,7 +159,7 @@ class Look_up_model extends CI_Model {
     if($this->session->userdata('user_id')==1){
       $user_id=$this->session->userdata('user_id');
       $result=$this->db->query("SELECT p.po_number FROM po_master p
-      WHERE p.po_status=3 AND p.user_id=$user_id
+      WHERE p.po_status=4 AND p.user_id=$user_id
       AND p.total_amount>(SELECT IFNULL(SUM(a.pamount),0) as ammount 
       FROM payment_po_amount a 
       WHERE a.po_number=p.po_number  
@@ -168,7 +168,7 @@ class Look_up_model extends CI_Model {
       $result=$this->db->query("SELECT d.* FROM 
 
       (SELECT p.po_number FROM po_master p
-      WHERE p.for_department_id=$department_id AND p.po_status=3
+      WHERE p.for_department_id=$department_id AND p.po_status=4
       AND p.total_amount>(SELECT IFNULL(SUM(a.pamount),0) as ammount 
       FROM payment_po_amount a 
       WHERE a.po_number=p.po_number  $condition)

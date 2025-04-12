@@ -92,6 +92,7 @@ Add New PO
   </div>
   <!-- /.box-body -->
 </form>
+
 <div class="table-responsive table-bordered">
 <table id="examplse1" class="table table-bordered table-striped" style="width:100%;border:#000" >
     <thead>
@@ -133,6 +134,7 @@ Add New PO
         <?php 
         if($row->po_status==1) echo "Draft";
         elseif($row->po_status==2) echo "Submit";
+        elseif($row->po_status==3&&$row->po_type=='BD WO') echo "Submit";
         elseif($row->po_status==3) echo "Checked";
         elseif($row->po_status==4) echo "Approved";
         elseif($row->po_status==5) echo "Approved";

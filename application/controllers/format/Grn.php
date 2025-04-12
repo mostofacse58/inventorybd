@@ -144,7 +144,7 @@ public function getPOInfo(){
       FROM  po_master pm 
       INNER JOIN supplier_info s ON(s.supplier_id=pm.supplier_id)
       WHERE pm.po_number='$po_number' 
-      AND pm.po_status!=5 AND pm.po_status=3 ")->row();
+      AND pm.po_status!=5 AND pm.po_status=4 ")->row();
 
   $detail=$this->db->query("SELECT pm.* ,prd.*,
       (SELECT IFNULL(SUM(pud.quantity),0) 
