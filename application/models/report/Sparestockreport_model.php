@@ -59,6 +59,9 @@ class Sparestockreport_model extends CI_Model {
         return $result;
           
   }
+
+  ///////////////////////////////////
+  
   function checkLastDate($product_id){
         $info=$this->db->query("SELECT p.purchase_date
             FROM purchase_detail pd,purchase_master p
