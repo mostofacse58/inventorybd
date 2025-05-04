@@ -1,14 +1,16 @@
 /***** LOGIN Styles *****/
-
 body.signin {
-   
+  /*background-image: url('bg1.jpg');*/
+  background: rgba(0, 0, 0, 0) url("loginbackground.jpg") no-repeat scroll center center / cover ;
+    font-family: 'PT Sans Narrow', sans-serif;
+    height: 100%;
 }
+
 .content_section{
 	/*background-image: url('bg1.jpg');*/
 	background-color:  #d2d6de none repeat scroll 0 0 ;
     font-family: 'PT Sans Narrow', sans-serif;
     align-items: center;
-background: #d2d6de none repeat scroll 0 0 ;
 display: flex;
 height: 100vh;
 position: relative;

@@ -1,3 +1,24 @@
+SELECT p.dispose_request_id,
+d.submission_type,
+d.disposition_from,
+d.disposition_to,
+dep.department_name,
+p.product_name,
+p.product_type,
+p.is_commercial,
+p.quantity,
+p.unit,
+p.quantity_gross,
+p.unit_gross,
+d.date_approved_by_safety_force,
+ia.updated_at as ia_approved_date
+FROM dispose_products p 
+INNER JOIN dispose_requests d ON(d.id=p.dispose_request_id)
+INNER JOIN department_info dep ON(d.department_id=dep.department_id)
+INNER JOIN dispose_request_to_ia ia ON(ia.dispose_request_id=p.dispose_request_id)
+WHERE 1
+
+
 
 DELETE FROM `bd_po_summary` WHERE `PO_NUMBER` IN(SELECT PO_NUMBER FROM payment_po_amount)
 
@@ -285,7 +306,7 @@ SELECT po.*,
   FROM purchase_detail pd 
   WHERE pd.po_number=po.po_number AND pd.status!=5) as total_grn_unq_qty
 FROM  po_master po 
-WHERE  1
+WHERE  po.po_date>'2023-012-31'
 ORDER BY po.po_id ASC
 
 

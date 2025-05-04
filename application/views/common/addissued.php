@@ -1,5 +1,5 @@
 <style>
-   table.table-bordered tbody tr td{
+    table.table-bordered tbody tr td{
         border-bottom: 1px solid #e2e2e2;
     }
     table.table-bordered tbody tr td:last-child{
@@ -48,13 +48,13 @@
 var count = 1
 $(function () {
   $(document).on('click','input[type=number]',function(){ this.select(); });
-      $('.date').datepicker({
-          "format": "dd/mm/yyyy",
-          "todayHighlight": true,
-          "endDate": '0d',
-          "autoclose": true
-      });
+    $('.date').datepicker({
+        "format": "dd/mm/yyyy",
+        "todayHighlight": true,
+        "endDate": '0d',
+        "autoclose": true
     });
+  });
 ///////////////////////////////////////////
 function getprwiseitem(){
   var requisition_no=$("#requisition_no").val();

@@ -127,9 +127,9 @@
 		</div>
 	</div>
 </div>
-		</section>
-		<!-- LOGIN SECTION END -->
-              </form>
+</section>
+<!-- LOGIN SECTION END -->
+</form>
 <script>
 $(document).ready (function(){
  $("#danger-alert").alert();
@@ -147,8 +147,9 @@ $(document).ready (function(){
   color: red;
   margin: 0 0 10px;
 }
-</style>	
-	</body>
+</style>
+	
+</body>
 </html>
 
 

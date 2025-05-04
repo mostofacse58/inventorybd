@@ -1,9 +1,11 @@
 
-body{
-	background:#EEEEEE;
-	color:#000000;
-	font-family:"Lato","sans-serif";
+body.signin {
+	/*background-image: url('bg1.jpg');*/
+	background: rgba(0, 0, 0, 0) url("loginbackground.jpg") no-repeat scroll center center / cover ;
+    font-family: 'PT Sans Narrow', sans-serif;
+    height: 100%;
 }
+
 a{
 	color: #006A4E;
 }
