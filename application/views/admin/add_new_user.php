@@ -54,7 +54,7 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-4 control-label">Designation <span style="color:red;">  *</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control select2" name="post_id" id="post_id">
+                            <select class="form-control select2" name="post_id" id="post_id" required>
                               <option value="">Select Designation</option>
                               <?php foreach ($postlist as $value) {  ?>
                                 <option value="<?php echo $value->post_id; ?>"
@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-4 control-label">Department <span style="color:red;">  *</span></label>
                         <div class="col-sm-8">
-                            <select class="form-control select2" name="department_id" id="department_id">
+                            <select class="form-control select2" name="department_id" id="department_id" required>
                               <option value="0">Select Department</option>
                               <?php foreach ($dlist as $value) {  ?>
                                 <option value="<?php echo $value->department_id; ?>"
