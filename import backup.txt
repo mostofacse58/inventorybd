@@ -1,0 +1,4 @@
+mysql -u vlmbdcom_application -p vlmbdcom_inventory < /home/vlmbdcom/public_html/inventory_backup.sql
+
+
+x1Gkqinhx1RyVent321

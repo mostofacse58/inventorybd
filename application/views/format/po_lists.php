@@ -162,10 +162,12 @@ Add New PO
         <li> <a href="<?php echo base_url()?>format/Po/edit/<?php echo $row->po_id;?>">
           <i class="fa fa-edit tiny-icon"></i>Edit 编辑</a></li>
         <?php } ?>
-        <?php if($row->po_status==3){ ?>
+
+        <?php if($row->po_status==4){ ?>
         <li> <a href="<?php echo base_url()?>format/Po/adddiscount/<?php echo $row->po_id;?>">
           <i class="fa fa-edit tiny-icon"></i>Add Dicount</a></li>
         <?php } ?>
+
         <?php if($row->po_status==1){ ?>
         <?php if($this->session->userdata('delete')=='YES'){ ?>
         <li><a href="#" class="delete" data-pod="<?php echo $row->po_id;?>"><i class="fa fa-trash-o tiny-icon"></i>Delete 删除</a></li>
