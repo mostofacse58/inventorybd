@@ -53,6 +53,7 @@ class Verified extends My_Controller {
       }else{
       $data['pi_status']=4;
       }
+      $data['pi_type']=$this->input->get('pi_type');
       $data['pencount']=$this->verified_model->statuscount(4);
       $data['vercount']=$this->verified_model->statuscount(5);
       $data['reccount']=$this->verified_model->statuscount(6);

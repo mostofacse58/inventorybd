@@ -410,7 +410,7 @@ class Look_up_model extends CI_Model {
     }
     function getBranch(){
       $result=$this->db->query("SELECT * FROM company_info 
-      ORDER BY id ASC")->result();
+        ORDER BY id ASC")->result();
       return $result;
     }
     function getFloor(){
@@ -419,14 +419,14 @@ class Look_up_model extends CI_Model {
       return $result;
   }
 	 function departmentList(){
-	 	$department_id=$this->session->userdata('department_id');
+	   	$department_id=$this->session->userdata('department_id');
       $result=$this->db->query("SELECT * FROM department_info  
             WHERE 1 
             ORDER BY department_name ASC")->result();
       return $result;
 	 }
    function departmentList2(){
-    $department_id=$this->session->userdata('department_id');
+      $department_id=$this->session->userdata('department_id');
       $result=$this->db->query("SELECT * FROM department_info  
             WHERE 1 
             ORDER BY department_id ASC")->result();

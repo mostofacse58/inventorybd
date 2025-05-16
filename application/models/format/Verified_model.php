@@ -12,9 +12,13 @@ class Verified_model extends CI_Model {
         $condition=$condition."  AND pm.department_id='$department_id' ";
       }
       if($this->input->get('pi_status')!='All'){
-          $pi_status=$this->input->get('pi_status');
-          $condition=$condition."  AND pm.pi_status='$pi_status' ";
-        }
+        $pi_status=$this->input->get('pi_status');
+        $condition=$condition."  AND pm.pi_status='$pi_status' ";
+      }
+      if($this->input->get('pi_type')!='All'){
+        $pi_type=$this->input->get('pi_type');
+        $condition=$condition."  AND pm.pi_type='$pi_type' ";
+      }
      }else{
          $condition=$condition."  AND pm.pi_status=4";
      }
@@ -43,6 +47,10 @@ class Verified_model extends CI_Model {
           if($this->input->get('pi_status')!='All'){
             $pi_status=$this->input->get('pi_status');
             $condition=$condition."  AND pm.pi_status='$pi_status' ";
+          }
+          if($this->input->get('pi_type')!='All'){
+            $pi_type=$this->input->get('pi_type');
+            $condition=$condition."  AND pm.pi_type='$pi_type' ";
           }
         }else{
          $condition=$condition."  AND pm.pi_status=4 ";

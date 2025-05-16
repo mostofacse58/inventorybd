@@ -92,7 +92,7 @@ $(function () {
               </select>
            <span class="error-msg"><?php echo form_error("pa_type");?></span>
          </div>
-         <label class="col-sm-1 control-label">
+           <label class="col-sm-1 control-label">
             Currency<span style="color:red;">*</span></label>
            <div class="col-sm-2">
             <select class="form-control select2" name="currency" id="currency" style="width: 100%" required> 

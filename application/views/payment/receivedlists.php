@@ -25,7 +25,7 @@
   <form class="form-horizontal" action="<?php echo base_url();?>payment/Received/lists" method="GET" enctype="multipart/form-data">
   <div class="box-body">
     <div class="form-group">
-    <label class="col-sm-2 control-label">Application. NO </label>
+    <label class="col-sm-1 control-label">Application. NO </label>
       <div class="col-sm-2">
         <input class="form-control" name="applications_no" id="applications_no" value="<?php echo set_value('applications_no'); ?>" placeholder="NO">
       <span class="error-msg"><?php echo form_error("applications_no");?></span>
@@ -43,7 +43,7 @@
           </select>                    
           <span class="error-msg"><?php echo form_error("supplier_id");?></span>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <select class="form-control select2" name="department_id" id="department_id"  onchange='this.form.submit()'>
             <option value="All" <?php echo 'All'==set_value('department_id')? 'selected="selected"':0; ?>>All Department</option>
             <?php 
@@ -55,6 +55,30 @@
           </select>                    
           <span class="error-msg"><?php echo form_error("department_id");?></span>
         </div>
+         <div class="col-sm-2">
+            <select class="form-control select2" name="currency" id="currency" style="width: 100%" required> 
+            <option value="All" selected="selected">Currency </option>
+              <option value="BDT" <?php if (isset($currency))
+                  echo 'BDT'==$currency ? 'selected="selected"' : 0;
+                  else echo 'BDT'==set_value('currency') ? 'selected="selected"' : 0; ?>>BDT</option>
+              <option value="RMB" <?php if (isset($currency))
+                  echo 'RMB'==$currency ? 'selected="selected"' : 0;
+                  else echo 'RMB'==set_value('currency') ? 'selected="selected"' : 0; ?>>RMB</option>
+              <option value="HKD" <?php if (isset($currency))
+                  echo 'HKD'==$currency ? 'selected="selected"' : 0;
+                  else echo 'HKD'==set_value('currency') ? 'selected="selected"' : 0; ?>>HKD</option>
+              <option value="USD" <?php if (isset($currency))
+                  echo 'USD'==$currency ? 'selected="selected"' : 0;
+                  else echo 'USD'==set_value('currency') ? 'selected="selected"' : 0; ?>>USD</option>
+              <option value="GBP" <?php if (isset($currency))
+                  echo 'GBP'==$currency ? 'selected="selected"' : 0;
+                  else echo 'GBP'==set_value('currency') ? 'selected="selected"' : 0; ?>>GBP</option>
+              <option value="EURO" <?php if (isset($currency))
+                  echo 'EURO'==$currency ? 'selected="selected"' : 0;
+                  else echo 'EURO'==set_value('currency') ? 'selected="selected"' : 0; ?>>EURO</option>
+              </select>
+           <span class="error-msg"><?php echo form_error("currency");?></span>
+         </div>
       </div>
       <div class="form-group">
       <label class="col-sm-2 control-label">Date</label>

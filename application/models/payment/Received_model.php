@@ -22,9 +22,13 @@ class Received_model extends CI_Model {
         $condition.=" AND pm.applications_date BETWEEN '$from_date' AND '$to_date'";
       }
      if($this->input->get('status')!='All'){
-          $status=$this->input->get('status');
-          $condition=$condition."  AND pm.status='$status' ";
-        }
+        $status=$this->input->get('status');
+        $condition=$condition."  AND pm.status='$status' ";
+      }
+      if($this->input->get('currency')!='All'){
+        $currency=$this->input->get('currency');
+        $condition=$condition."  AND pm.currency='$currency' ";
+      }
      }
     $department_id=$this->session->userdata('department_id');
     $query=$this->db->query("SELECT pm.*
@@ -56,10 +60,14 @@ class Received_model extends CI_Model {
         $to_date=alterDateFormat($this->input->get('to_date'));
         $condition.=" AND pm.applications_date BETWEEN '$from_date' AND '$to_date'";
       }
-     if($this->input->get('status')!='All'){
-          $status=$this->input->get('status');
-          $condition=$condition."  AND pm.status='$status' ";
-        }
+      if($this->input->get('status')!='All'){
+        $status=$this->input->get('status');
+        $condition=$condition."  AND pm.status='$status' ";
+      }
+      if($this->input->get('currency')!='All'){
+        $currency=$this->input->get('currency');
+        $condition=$condition."  AND pm.currency='$currency' ";
+      }
      }
   $department_id=$this->session->userdata('department_id');
     $result=$this->db->query("SELECT pm.*,

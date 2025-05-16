@@ -45,16 +45,17 @@ class Checked extends My_Controller {
       $data['lists']=$this->Checked_model->lists($config["per_page"],$data['page'] );
       $data['dlist']=$this->Look_up_model->departmentList();
       $data['palist']=$this->Look_up_model->getSupplier();
+      $data['currency']=$this->input->get('currency');
       ////////////////////////////////////////
       $data['heading']='Payment Application Lists';
       $data['display']='payment/checklists';
       $this->load->view('admin/master',$data);
   }
   function downloadExcel() {
-        $data['heading']='PA ';
-        $data['lists']=$this->Checked_model->reportrResult();
-        $this->load->view('payment/checklistsExcel',$data);
-    }
+    $data['heading']='PA ';
+    $data['lists']=$this->Checked_model->reportrResult();
+    $this->load->view('payment/checklistsExcel',$data);
+  }
 
 
   function view($payment_id=FALSE){

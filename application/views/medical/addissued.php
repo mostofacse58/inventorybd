@@ -403,7 +403,7 @@ $(document).ready(function(){
               <option value="">Select Injury</option>
               <?php foreach ($ilist as $value) {  ?>
                 <option value="<?php echo $value->injury_id; ?>"
-                  <?php  if(isset($info)) echo $value->location_id==$info->injury_id? 'selected="selected"':0; else echo set_select('injury_id',$value->injury_id);?>>
+                  <?php  if(isset($info)) echo $value->injury_id==$info->injury_id? 'selected="selected"':0; else echo set_select('injury_id',$value->injury_id);?>>
                   <?php echo $value->injury_name; ?></option>
                 <?php } ?>
             </select>

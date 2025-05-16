@@ -21,8 +21,8 @@ Add New PI
       <div class="box-body">
         <form class="form-horizontal" action="<?php echo base_url();?>format/verified/lists" method="GET" enctype="multipart/form-data">
         <div class="box-body">
-          <label class="col-sm-2 control-label">
-           PI. NO <span style="color:red;">  </span></label>
+          <label class="col-sm-1 control-label">
+             PI. NO <span style="color:red;">  </span></label>
             <div class="col-sm-2">
               <input class="form-control" name="pi_no" id="pi_no" value="<?php if(isset($pi_no)) echo $pi_no; ?>" placeholder="NO">
             <span class="error-msg"><?php echo form_error("pi_no");?></span>
@@ -43,7 +43,7 @@ Add New PI
                   Approved(<?php echo $appcount; ?>)</option>
               </select>
              <span class="error-msg"><?php echo form_error("pi_status");?></span>
-            </div>
+          </div>
           <div class="col-sm-3">
             <select class="form-control select2" name="department_id" id="department_id"  onchange='this.form.submit()'>
             <option value="All" <?php echo 'All'==set_value('department_id')? 'selected="selected"':0; ?>>All Department</option>
@@ -55,6 +55,18 @@ Add New PI
             <?php }  ?>
           </select>                    
           <span class="error-msg"><?php echo form_error("department_id");?></span>
+          </div>
+          <div class="col-sm-2">
+              <select class="form-control select2" required name="pi_type" id="pi_type">
+                <option value="All" <?php echo 'All'==set_value('pi_type')? 'selected="selected"':0; ?>>All</option>
+                <option value="1"
+                <?php  if(isset($pi_type)) echo 1==$pi_type? 'selected="selected"':0; else echo set_select('pi_type',1);?>>
+                  Safety Stock</option>
+                <option value="2"
+                <?php  if(isset($pi_type)) echo 2==$pi_type? 'selected="selected"':0; else echo set_select('pi_type',2);?>>
+                  Asset</option>
+              </select>
+             <span class="error-msg"><?php echo form_error("pi_status");?></span>
           </div>
           <div class="col-sm-2">
             <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
