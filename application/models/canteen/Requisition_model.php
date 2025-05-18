@@ -43,14 +43,14 @@ class Requisition_model extends CI_Model {
             $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
           }
          }
-        $result=$this->db->query("SELECT pm.*,pt.department_name,u.user_name,
-          d.department_name as responsible_department_name       
+        $result=$this->db->query("SELECT pm.*,pt.department_name,u.user_name
           FROM  canteen_requisition_master pm 
           LEFT JOIN department_info pt ON(pm.department_id=pt.department_id)
-          LEFT JOIN department_info d ON(pm.responsible_department=d.department_id) 
           LEFT JOIN user u ON(u.id=pm.requested_by) 
-          WHERE pm.department_id=$department_id  $condition
-          ORDER BY pm.requisition_id DESC, pm.requisition_status ASC LIMIT $start,$limit")->result();
+          WHERE pm.department_id=$department_id  
+          $condition
+          ORDER BY pm.requisition_id DESC, pm.requisition_status ASC 
+          LIMIT $start,$limit")->result();
         return $result;
     }
     function get_info($requisition_id){
@@ -58,14 +58,12 @@ class Requisition_model extends CI_Model {
          $result=$this->db->query("SELECT pm.*,pt.department_name,
           u.user_name as requested_by,h.user_name as dept_head,
           a.user_name as approved_by,
-          d.department_name as responsible_department_name       
           FROM  canteen_requisition_master pm 
           LEFT JOIN department_info pt ON(pm.department_id=pt.department_id)
-          LEFT JOIN department_info d ON(pm.responsible_department=d.department_id)
           LEFT JOIN user h ON(h.id=pm.dept_head) 
           LEFT JOIN user a ON(a.id=pm.approved_by) 
           LEFT JOIN user u ON(u.id=pm.requested_by)
-          WHERE pm.requisition_id=$requisition_id  AND pm.general_or_tpm=1")->row();
+          WHERE pm.requisition_id=$requisition_id ")->row();
         return $result;
     }
     function save($requisition_id) {
@@ -157,7 +155,7 @@ class Requisition_model extends CI_Model {
        FROM canteen_product_info p
         INNER JOIN category_info c ON(p.category_id=c.category_id)
         INNER JOIN product_unit u ON(p.unit_id=u.unit_id)
-        WHERE p.product_code LIKE '%$term%' OR p.product_name LIKE '%$term%' 
+        WHERE (p.product_code LIKE '%$term%' OR p.product_name LIKE '%$term%') 
         ORDER BY p.product_name ASC")->result();
       return $result;
   }
