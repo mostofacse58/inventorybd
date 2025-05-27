@@ -1,5 +1,5 @@
 <?php
-class Requisition_model extends CI_Model {
+class Requisitionrec_model extends CI_Model {
 	public function get_count(){
     $condition=' ';
     if(isset($_GET)){
@@ -20,7 +20,7 @@ class Requisition_model extends CI_Model {
     $department_id=$this->session->userdata('department_id');
       $data=$this->db->query("SELECT count(*) as counts  
         FROM  canteen_requisition_master pm 
-          WHERE pm.department_id=$department_id 
+          WHERE 1
           $condition")->row('counts');
       return $data;
     }
@@ -49,7 +49,7 @@ class Requisition_model extends CI_Model {
           LEFT JOIN department_info pt ON(pm.department_id=pt.department_id)
           LEFT JOIN user u ON(u.id=pm.requested_by) 
           LEFT JOIN supplier_info s ON(pm.supplier_id=s.supplier_id) 
-          WHERE pm.department_id=$department_id  
+          WHERE 1
           $condition
           ORDER BY pm.requisition_id DESC, pm.requisition_status ASC 
           LIMIT $start,$limit")->result();
@@ -97,7 +97,6 @@ class Requisition_model extends CI_Model {
       $specification=$this->input->post('specification');
       $product_code=$this->input->post('product_code');
       $product_name=$this->input->post('product_name');
-      $unit_price=$this->input->post('unit_price');
       $required_qty=$this->input->post('required_qty');
       $remarks=$this->input->post('remarks');
       $i=0;
@@ -119,8 +118,6 @@ class Requisition_model extends CI_Model {
          $data1['requisition_id']=$requisition_id;
          $data1['product_code']=$product_code[$i];
          $data1['product_name']=$product_name[$i];
-         $data1['unit_price']=$unit_price[$i];
-         $data1['amount']=$unit_price[$i]*$required_qty[$i];
          $data1['specification']=$specification[$i];
          $data1['required_qty']=$required_qty[$i];
          $data1['remarks']=$remarks[$i];
@@ -148,24 +145,28 @@ class Requisition_model extends CI_Model {
         ORDER BY p.product_name ASC")->result();
    return $result;
   }
- function getRequisitionProduct($for_canteen,$term) {
-      if($for_canteen==1) $category_id=167; else $category_id=207; 
-      $result=$this->db->query("SELECT p.*,c.category_name,u.unit_name
-       FROM canteen_product_info p
-        INNER JOIN category_info c ON(p.category_id=c.category_id)
-        INNER JOIN product_unit u ON(p.unit_id=u.unit_id)
-        WHERE p.category_id=$category_id 
-        AND (p.product_code LIKE '%$term%' OR p.product_name LIKE '%$term%') 
-        ORDER BY p.product_name ASC")->result();
-      return $result;
-  }
+ 
     
-   function submit($requisition_id) {
+   function received($requisition_id) {
       $data=array();
-      $data['requisition_status']=2;
-      $data['submited_date_time']=date('Y-m-d  h:i:s a');
+      $data['received_by']=$this->session->userdata('user_name');
+      $data['requisition_status']=3;
+      $data['received_date']=date('Y-m-d  h:i:s a');
       $this->db->WHERE('requisition_id',$requisition_id);
       $query=$this->db->Update('canteen_requisition_master',$data);
+      $result=$this->db->query("SELECT sd.*
+        FROM canteen_requisition_item_details 
+        WHERE sd.requisition_id=$requisition_id
+        ORDER BY sd.product_id ASC")->result();
+      foreach ($result as $row1){
+        $datas=array();
+        $datas['unit_price']=$row1->unit_price;
+        $datas['last_receive_date']=date('Y-m-d');
+        $this->db->WHERE('product_id',$row1->product_id);
+        $this->db->Update('canteen_product_info',$datas);
+      }
+
+
       return $query;
   }
   

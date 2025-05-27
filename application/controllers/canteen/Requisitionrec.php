@@ -1,8 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Requisition extends My_Controller {
+class Requisitionrec extends My_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('canteen/Requisition_model');
+        $this->load->model('canteen/Requisitionrec_model');
      }
     
     function lists(){
@@ -14,7 +15,7 @@ class Requisition extends My_Controller {
       $config['base_url']=base_url().'canteen/Requisition/lists/';
       $config['suffix'] = '?' . http_build_query($_GET, '', "&");
       $config["uri_segment"] = 4;
-      $config['total_rows'] = $this->Requisition_model->get_count();
+      $config['total_rows'] = $this->Requisitionrec_model->get_count();
       $config['per_page'] = $perpage;
       $choice = $config["total_rows"] / $config["per_page"];
       $config["num_links"] = 2;
@@ -42,7 +43,7 @@ class Requisition extends My_Controller {
       $total_rows=$config['total_rows'];
       $pagination = $this->pagination->create_links();
       $data['pagination']='<p>We have ' . $total_rows . ' records in ' . $choice . ' pages ' . $pagination . '</p>';
-      $data['list']=$this->Requisition_model->lists($config["per_page"],$data['page'] );
+      $data['list']=$this->Requisitionrec_model->lists($config["per_page"],$data['page'] );
       ////////////////////////////////////////
       $data['heading']='Requisition Lists';
       $data['slist']=$this->Look_up_model->getSupplier();
@@ -51,86 +52,13 @@ class Requisition extends My_Controller {
       $data['requisition_no']=$this->input->get('requisition_no');
       $data['from_date']=$this->input->get('from_date');
       $data['to_date']=$this->input->get('to_date');
-      $data['display']='canteen/requisition_lists';
+      $data['display']='canteen/requisitionrec_lists';
       $this->load->view('admin/master',$data);
       } else {
         redirect("Logincontroller");
       }
   }
-  function add(){
-    if($this->session->userdata('user_id')) {
-      $data['heading']='Add Requisition';
-      $data['slist']=$this->Look_up_model->getSupplier();
-      $data['display']='canteen/addrequisition';
-      $this->load->view('admin/master',$data);
-    }else{
-      redirect("Logincontroller");
-    }
-  }
-  function edit($requisition_id){
-    if ($this->session->userdata('user_id')) {
-    $data['heading']='Edit Requisition';
-    $data['slist']=$this->Look_up_model->getSupplier();
-    $data['info']=$this->Requisition_model->get_info($requisition_id);
-    $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-    $data['display']='canteen/addrequisition';
-    $this->load->view('admin/master',$data);
-    } else {
-       redirect("Logincontroller");
-    }
-    }
-   function save($requisition_id=FALSE){
-      $check=$this->Requisition_model->save($requisition_id);
-      if($check && !$requisition_id){
-       $this->session->set_userdata('exception','Saved successfully');
-       }elseif($check&& $requisition_id){
-           $this->session->set_userdata('exception','Update successfully');
-       }else{
-         $this->session->set_userdata('exception','Submission Failed');
-       }
-      redirect("canteen/Requisition/lists");
-    }
-    function delete($requisition_id=FALSE){
-      $check=$this->Requisition_model->delete($requisition_id);
-        if($check){ 
-           $this->session->set_userdata('exception','Delete successfully');
-         }else{
-           $this->session->set_userdata('exception','Delete Failed');
-        }
-      redirect("canteen/Requisition/lists");
-    }
-////////////////////////
-public function suggestions(){
-        $term = $this->input->get('term', true);
-        if (strlen($term) < 1 || !$term) {
-            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
-        }
-        $for_canteen=$this->input->get('for_canteen');
-        $rows = $this->Requisition_model->getRequisitionProduct($for_canteen,$term);
-        
-        if ($rows){
-            $c = str_replace(".", "", microtime(true));
-            $r = 0;
-            foreach ($rows as $row) {
-              $product_name="$row->product_name($row->product_code)";
-                $pr[] = array('id' => ($c + $r), 'product_id' => $row->product_id, 
-                  'label' => $row->product_name . " (" . $row->product_code . ")", 'category_name' => $row->category_name ,
-                  'unit_name' => $row->unit_name,'product_name' =>$product_name ,
-                  'product_code' => $row->product_code, 
-                  'unit_price' => $row->unit_price,
-                  'image_link' => $row->product_image);
-                $r++;
-            }
-            header('Content-Type: application/json');
-            die(json_encode($pr));
-            exit;
-        }else{
-            $dsad='';
-            header('Content-Type: application/json');
-            die(json_encode($dsad));
-            exit;
-        }
-    }
+
     function view2($requisition_id=FALSE){
       $data['controller']=$this->router->fetch_class();
       $data['info']=$this->Requisition_model->get_info($requisition_id);
@@ -161,20 +89,15 @@ public function suggestions(){
            redirect("Logincontroller");
         }
       }
-    function excelload($requisition_id=FALSE){
-      $data['heading']='Requisition Form';
-      $data['info']=$this->Requisition_model->get_info($requisition_id);
-      $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-      $this->load->view('canteen/requisitionExcel', $data);
-    }
-    function submit($requisition_id=FALSE){
-      $check=$this->Requisition_model->submit($requisition_id);
+ 
+    function received($requisition_id=FALSE){
+      $check=$this->Requisitionrec_model->received($requisition_id);
         if($check){ 
-           $this->session->set_userdata('exception','Send successfully');
+           $this->session->set_userdata('exception','Receive successfully');
          }else{
            $this->session->set_userdata('exception','Send Failed');
         }
-      redirect("canteen/Requisition/lists");
+      redirect("canteen/Requisitionrec/lists");
     }
 
    

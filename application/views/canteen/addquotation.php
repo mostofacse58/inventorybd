@@ -139,7 +139,7 @@ $(document).ready(function(){
       <!-- /.box-header -->
         <form class="form-horizontal" action="<?php echo base_url(); ?>canteen/Quotation/save<?php if (isset($info)) echo "/$info->quotation_id"; ?>" method="POST" enctype="multipart/form-data" onsubmit="return formsubmit();">
          <div class="box-body">
-            <div class="form-group">
+          <div class="form-group">
           <label class="col-sm-1 control-label">Type   <span style="color:red;">  *</span></label>
            <div class="col-sm-2">
             <select class="form-control" name="q_type" id="q_type" required="">

@@ -20,7 +20,7 @@ $(document).on('click','input[type=number]',function(){ this.select(); });
 <h5><?php echo ucwords($heading); ?></h5>
 <div class="widget-control pull-right">
 <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" 
-href="<?php echo base_url(); ?>canteen/Ipurchase/add">
+href="<?php echo base_url(); ?>canteen/Invoice/add">
 <i class="fa fa-plus"></i>
 Add New
 </a>
@@ -28,9 +28,10 @@ Add New
 </div>
 </div>
 </div>
-            <!-- /.box-header -->
+  <!-- /.box-header -->
   <div class="box-body">
-    <form class="form-horizontal" action="<?php echo base_url();?>canteen/Ipurchase/lists" method="GET" enctype="multipart/form-data">
+    
+    <form class="form-horizontal" action="<?php echo base_url();?>canteen/Invoice/lists" method="GET" enctype="multipart/form-data">
 
     <div class="form-group">
     <label class="col-sm-1 control-label">Search By </label>
@@ -39,25 +40,10 @@ Add New
         <span class="error-msg"><?php echo form_error("product_code");?></span>
         </div>
         <div class="col-sm-2">
-           <input class="form-control" name="pi_no" id="pi_no" value="<?php echo set_value('pi_no'); ?>" placeholder="PI NO">
-          <span class="error-msg"><?php echo form_error("pi_no");?></span>
+           <input class="form-control" name="requisition_no" id="requisition_no" value="<?php echo set_value('requisition_no'); ?>" placeholder="REQ NO">
+          <span class="error-msg"><?php echo form_error("requisition_no");?></span>
         </div>
-        <label class="col-sm-1 control-label">
-          For Department</label>
-          <div class="col-sm-2">
-            <select class="form-control select2" name="for_department_id" id="for_department_id">
-              <option value="All" selected="selected">All Dept.</option>
-            <?php 
-            foreach($dlist as $rows){  ?>
-            <option value="<?php echo $rows->department_id; ?>" 
-              <?php echo $rows->department_id==set_value('for_department_id')? 'selected="selected"':0; ?>>
-               <?php echo $rows->department_name; ?></option>
-            <?php }  ?>
-          </select>                    
-          <span class="error-msg"><?php echo form_error("for_department_id");?></span>
-        </div>
-
-        <div class="col-sm-3">
+             <div class="col-sm-3">
           <select class="form-control select2" name="supplier_id" id="supplier_id">
             <option value="All" selected="selected">All Supplier</option>
             <?php 
@@ -73,18 +59,10 @@ Add New
         <div class="form-group">
           <label class="col-sm-1 control-label">Search By </label>
           <div class="col-sm-2">
-           <input class="form-control" name="file_no" id="file_no" value="<?php echo set_value('file_no'); ?>" placeholder="FILE NO">
-          <span class="error-msg"><?php echo form_error("file_no");?></span>
+           <input class="form-control" name="invoice_no" id="invoice_no" value="<?php echo set_value('invoice_no'); ?>" placeholder="Invoice NO">
+        <span class="error-msg"><?php echo form_error("invoice_no");?></span>
         </div>
-          <div class="col-sm-2">
-           <input class="form-control" name="reference_no" id="reference_no" value="<?php echo set_value('reference_no'); ?>" placeholder="REF NO">
-        <span class="error-msg"><?php echo form_error("reference_no");?></span>
-        </div>
-        <div class="col-sm-2">
-           <input class="form-control" name="po_number" id="po_number" value="<?php echo set_value('po_number'); ?>" placeholder="PO NO">
-        <span class="error-msg"><?php echo form_error("po_number");?></span>
-        </div>
-        <label class="col-sm-1 control-label">Date</label>
+          <label class="col-sm-1 control-label">Date</label>
           <div class="col-sm-2">
           <input type="text" name="from_date" readonly="" class="form-control date" placeholder="From Date" value="<?php  echo set_value('from_date'); ?>">
         </div>
@@ -96,24 +74,22 @@ Add New
           <label class="col-sm-1 control-label"></label>
         <div class="col-sm-3">
           <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
-          <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>canteen/Ipurchase/lists">All</a>
+          <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>canteen/Invoice/lists">All</a>
       </div>
-    </div>
-
-  <!-- /.box-body -->
-</form>
+      </div>
+    </form>
 
       <div class="table-responsive table-bordered">
       <table class="table table-bordered table-striped" style="width:100%;border:#00" >
         <thead>
           <tr>
             <th style="width:3%;">SN</th>
-            <th style="width:10%;">For Department</th>
+            <th style="width:8%;">Type</th>
             <th style="width:8%;">Date</th>
-            <th style="width:8%;">Ref. No</th>
             <th style="width:8%;">Invoice No</th>
+            <th style="width:8%;">Requisition. No</th>
+            <th style="width:8%;">Ref No</th>
             <th style="width:20%;">Supplier</th>
-            <th style="text-align:center;width:10%">PO NO</th>
             <th style="width:12%;">Total Amount</th>
             <th style="width:8%;">Status 状态</th>
             <th style="text-align:center;width:5%;">Actions 行动</th>
@@ -126,24 +102,28 @@ Add New
               ?>
           <tr>
             <td><?php echo $i++; ?></td>
-            <td class="text-center"><?php echo $row->for_department_name; ?></td>
-            <td class="text-center"><?php echo findDate($row->purchase_date); ?></td>
-            <td class="text-center"><?php echo $row->reference_no; ?></td>
-            <td class="text-center"><?php echo $row->invoice_no; ?></td>
-            <td><?php echo "$row->supplier_name";?></td>
-            <td style="text-align:center">
-              <?php echo $row->po_number; ; ?></td>
-            <td class="text-center"><?php echo $row->grand_total; ?></td>
-            <td class="text-center">
-            <span class="btn btn-xs btn-<?php echo ($row->status==2||$row->status==5)?"danger":"success";?>">
+            <td>
               <?php 
-              if($row->status==1) echo "Draft";
-              elseif($row->status==2) echo "Submit";
-              elseif($row->status==3) echo "Received";
-              elseif($row->status==4) echo "Certified";
-              elseif($row->status==5) echo "Approved";
-              elseif($row->status==6) echo "Received";
-              elseif($row->status==8) echo "Cancel";
+              if($row->invoice_type==1) echo "BD Canteen";
+              elseif($row->invoice_type==2) echo "CN Canteen";
+              elseif($row->invoice_type==3) echo "Guest";
+              elseif($row->invoice_type==4) echo "8Th Floor";
+              ?>
+            </td>
+            <td class="text-center"><?php echo findDate($row->invoice_date); ?></td>
+            <td class="text-center"><?php echo $row->invoice_no; ?></td>
+            <td class="text-center"><?php echo $row->requisition_no; ?></td>
+            <td class="text-center"><?php echo $row->ref_no; ?></td>      
+            <td><?php echo "$row->supplier_name";?></td>
+            <td class="text-center"><?php echo $row->total_amount; ?></td>
+            <td class="text-center">
+            <span class="btn btn-xs btn-<?php echo ($row->invoice_status==2||$row->invoice_status==5)?"danger":"success";?>">
+              <?php 
+              if($row->invoice_status==1) echo "Draft";
+              elseif($row->invoice_status==2) echo "Submitted";
+              elseif($row->invoice_status==3) echo "Received";
+              elseif($row->invoice_status==4) echo "Audited";
+              elseif($row->invoice_status==8) echo "Cancel";
               ?>
             </span></td>
             <td style="text-align:center">
@@ -153,14 +133,12 @@ Add New
               <i class="fa fa-gear tiny-icon"></i><span class="caret"></span>
               </button>
               <ul class="dropdown-menu pull-right" role="menu">
-              <li> <a href="<?php echo base_url()?>canteen/Ipurchase/view/<?php echo $row->purchase_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
-              <li> <a href="<?php echo base_url()?>canteen/Ipurchase/viewpdf/<?php echo $row->purchase_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>PDF</a></li>
-              <?php if($row->status==1){ ?>
-              <li><a href="<?php echo base_url()?>canteen/Ipurchase/submit/<?php echo $row->purchase_id;?>"><i class="fa fa-arrow-circle-o-right tiny-icon"></i>Submit</a></li>
-              <?php } ?>
-              <!-- <?php //if($this->session->userdata('delete')=='YES'){ ?> -->
-                <li><a href="#" class="delete" data-pid="<?php echo $row->purchase_id;?>"><i class="fa fa-trash-o tiny-icon"></i>Return</a></li>
-              <!-- <?php //} ?>              -->
+              <li> <a href="<?php echo base_url()?>canteen/Invoice/view/<?php echo $row->invoice_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>View</a></li>
+              <li> <a href="<?php echo base_url()?>canteen/Invoice/viewpdf/<?php echo $row->invoice_id;?>" target="_blank"><i class="fa fa-eye tiny-icon"></i>PDF</a></li>
+              <?php if($row->invoice_status==1){ ?>
+              <li><a href="<?php echo base_url()?>canteen/Invoice/submit/<?php echo $row->invoice_id;?>"><i class="fa fa-arrow-circle-o-right tiny-icon"></i>Submit</a></li>
+              <li><a href="<?php echo base_url()?>canteen/Invoice/edit/<?php echo $row->invoice_id;?>"><i class="fa fa-edit tiny-icon"></i>Edit</a></li>
+              <?php } ?> 
            
               </ul>
             </div>
@@ -195,13 +173,13 @@ $(".delete").click(function(e){
   var rowId=$(this).data('pid');
   $.ajax({
    type:"GET",
-   url:"<?php echo base_url();?>canteen/Ipurchase/checkItemsUse/"+rowId,
+   url:"<?php echo base_url();?>canteen/Invoice/checkItemsUse/"+rowId,
      success:function(data){
       if(data=="EXISTS"){
         $("#alertMessageHTML").html("Sorry, this GRN can't be return.!!");
       $("#alertMessagemodal").modal("show");
       }else{
-        location.href="<?php echo base_url();?>canteen/Ipurchase/delete3/"+rowId;
+        location.href="<?php echo base_url();?>canteen/Invoice/delete3/"+rowId;
      }
 },
 error:function(){

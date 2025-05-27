@@ -8,8 +8,9 @@ class Look_up_model extends CI_Model {
     $department_id=$this->session->userdata('department_id');
     $medical_yes=$this->session->userdata('medical_yes');
     $data=date('Y-m-d');
-        $result=$this->db->query("SELECT p.*,c.category_name,u.unit_name,m.mtype_name
-         FROM product_info p
+        $result=$this->db->query("SELECT p.*,c.category_name,
+          u.unit_name,m.mtype_name
+          FROM product_info p
           INNER JOIN category_info c ON(p.category_id=c.category_id)
           INNER JOIN product_unit u ON(p.unit_id=u.unit_id)
           LEFT JOIN material_info m ON(p.mtype_id=m.mtype_id)

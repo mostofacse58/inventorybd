@@ -118,3 +118,63 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+DROP TABLE canteen_invoice_master;
+
+CREATE TABLE `canteen_invoice_master` (
+  `invoice_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `ref_no` VARCHAR(40)  NULL,
+  `invoice_no` VARCHAR(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `invoice_date` VARCHAR(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `invoice_type` TINYINT(4) NOT NULL DEFAULT 1 ,
+  `requisition_id` BIGINT(20)  NULL,
+  `requisition_no` VARCHAR(40)  NULL,
+  `company_id` BIGINT(20) NOT NULL,
+  `company_name` VARCHAR(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `billing_address` VARCHAR(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping_address` VARCHAR(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `supplier_id` BIGINT(20) NOT NULL,
+  `total_amount` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+  `discount` DECIMAL(12,3) DEFAULT 0.000,
+  `net_amount` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+  `payment_status` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0=Pending, 1=Paid, 2=Partially Paid',
+  `invoice_status` TINYINT(4) NOT NULL DEFAULT 1 COMMENT '1=Draft, 2=Submitted, 3=Approved, 4=Cancelled',
+  `created_by`VARCHAR(250) NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  `received_id` INT(11) NOT NULL,
+  `received_by`VARCHAR(250) NOT NULL,
+  `received_date` VARCHAR(30) NULL,
+  `audit_id` INT(11) NOT NULL,
+  `audit_by`VARCHAR(250) NOT NULL,
+  `audit_date` VARCHAR(30) NULL,
+  `user_id` INT(11) NOT NULL,
+  `note` VARCHAR(3000) NULL,
+  PRIMARY KEY (`invoice_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE canteen_invoice_item_details;
+
+CREATE TABLE `canteen_invoice_item_details` (
+  `item_detail_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `invoice_id` BIGINT(20) NOT NULL,
+  `product_id` BIGINT(20) DEFAULT NULL,
+  `product_code` VARCHAR(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_name` VARCHAR(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `specification` VARCHAR(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `required_qty` DECIMAL(12,3) DEFAULT 0.000,
+  `quantity` DECIMAL(11,2) NOT NULL,
+  `unit_price` DECIMAL(12,3) DEFAULT 0.000,
+  `amount` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+  `actualquantity` DECIMAL(11,2) NOT NULL,
+  `actualunit_price` DECIMAL(12,3) DEFAULT 0.000,
+  `actualamount` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+  `auditquantity` DECIMAL(11,2) NOT NULL,
+  `auditunit_price` DECIMAL(12,3) DEFAULT 0.000,
+  `auditamount` DECIMAL(12,3) NOT NULL DEFAULT 0.000,
+  `invoice_status` TINYINT(4) NOT NULL DEFAULT 1 COMMENT '1=Draft, 2=Submitted, 3=Received, 4=IA',
+  `remarks` VARCHAR(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `requisition_no` VARCHAR(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`item_detail_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

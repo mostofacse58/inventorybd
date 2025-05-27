@@ -101,9 +101,9 @@ class Quotation extends My_Controller {
           unit_price as market_price, 0 as operational_cost,0 as pricedifference,u.unit_name
           FROM canteen_product_info a 
           INNER JOIN product_unit u ON(a.unit_id=u.unit_id)
-          WHERE category_id=167  
-          ORDER BY product_id ASC")->result();
-        }else{
+          WHERE a.category_id=167  
+          ORDER BY a.product_id ASC")->result();
+      }else{
         $detail=$this->db->query("SELECT a.*,product_description as specification,
           unit_price as previous_price,
           unit_price as market_price, 0 as operational_cost,0 as pricedifference,u.unit_name

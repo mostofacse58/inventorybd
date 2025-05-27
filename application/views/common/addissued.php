@@ -207,9 +207,8 @@ $(document).ready(function(){
 
             '<td> <input type="text" name="product_code[]" readonly class="form-control" placeholder="Item Code 项目代码" value="'+ui.item.product_code+'"  style="margin-bottom:5px;width:98%" id="product_code_' + id + '"/> </td>' +
             '<td> <input type="text" name="specification[]" class="form-control" placeholder="specification" value="'+ui.item.specification+'"  style="margin-bottom:5px;width:98%" id="specification_' + id + '"/> </td>' +
-
+            '<td> <input type="text" name="box_name[]" readonly class="form-control" placeholder="Location" value="'+ui.item.box_name+'"  style="margin-bottom:5px;width:98%" id="box_name_' + id + '"> </td>' +
             '<td> <input type="text" name="FIFO_CODE[]" readonly class="form-control" placeholder="FIFO_CODE" style="margin-bottom:5px;width:98%;text-align:center" value="'+ui.item.FIFO_CODE+'"  id="FIFO_CODE_' + id + '" readonly> </td>' +
-
             '<td> <input type="text" name="stock[]" readonly class="form-control" placeholder="Stock" style="margin-bottom:5px;width:98%;text-align:center" value="'+ui.item.stock+'"  id="stock_' + id + '"/> </td>' +
             '<td> <input type="text" name="quantity[]" onfocus="this.select();"  value="1" onblur="return checkQuantity(' + id + ');" onkeyup="return checkQuantity(' + id + ');" class="form-control integerchk"  placeholder="Quantity" style="width:60%;float:left;text-align:center"  id="quantity_' + id + '"/> <label  style="width:38%;float:left">'+ui.item.unit_name+'</label></td>' +
             '<td> <input type="text" readonly name="unit_price[]" class="form-control" placeholder="Unit Price" style="margin-bottom:5px;width:98%;text-align:center" value="'+ui.item.unit_price+'"  id="unit_price_' + id + '"  onblur="return calculateRow(' + id + ');" onkeyup="return calculateRow(' + id + ');"> </td>' +
@@ -534,7 +533,8 @@ $(document).ready(function(){
   <th style="width:5%;text-align:center">SL</th>
   <th style="width:17%;text-align:center">Item Name </th>
   <th style="width:10%;text-align:center">Item Code </th>
-  <th style="width:10%;text-align:center">Specification </th>
+  <th style="width:8%;text-align:center">Specification </th>
+  <th style="width:8%;text-align:center">Rack</th>
   <th style="width:10%;text-align:center;">FIFO CODE</th>
   <th style="width:8%;text-align:center">Stock Qty</th>
   <th style="width:8%;text-align:center;">Quantity</th>
@@ -555,6 +555,7 @@ $(document).ready(function(){
       $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td><td><input type="text" name="product_name[]" class="form-control" readonly placeholder="'.$value->product_name.'" value="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '"/> </td>';
       $str.= '<td><input type="text" name="product_code[]" readonly class="form-control" placeholder="Item Code" value="'.$value->product_code.'"  style="margin-bottom:5px;width:98%" id="product_code_'.$id. '"/> </td>';
       $str.= '<td><input type="text" name="specification[]" readonly class="form-control"  value="'.$value->specification.'"  style="margin-bottom:5px;width:98%" id="specification_'.$id. '"/> </td>';
+      $str.= '<td><input type="text" name="box_name[]" readonly class="form-control"  value="'.$value->box_name.'"  style="margin-bottom:5px;width:98%" id="box_name_'.$id. '"/> </td>';
       $str.= '<td><input type="text" name="FIFO_CODE[]"  class="form-control" placeholder="FIFO_CODE" value="'.$value->FIFO_CODE.'"  style="margin-bottom:5px;width:98%" id="FIFO_CODE_'.$id. '"/> </td>';
       $str.= '<td><input type="text" name="stock[]" readonly class="form-control" placeholder="Stock" 
       value="'.$stock.'" style="margin-bottom:5px;width:98%;text-align:center" id="stock_'.$id.'"> </td>';

@@ -181,7 +181,10 @@ class Issued extends My_Controller {
               $stock=$row->main_stock;
               $pr[] = array('id' => ($c + $r), 'product_id' => $row->product_id, 
                 'label' => $row->product_name . " (" . $row->product_code . ")". "-(FIFO=" . $row->FIFO_CODE . ")-(Stock=" . $row->main_stock . ")-(Spec=". $row->specification . ")",
-                'currency' => $row->currency ,'unit_name' => $row->unit_name,'FIFO_CODE' => $row->FIFO_CODE, 'product_name' => $row->product_name,'product_code' => $row->product_code,'unit_price' => $row->unit_price, 'stock' =>$stock, 'cnc_rate_in_hkd' =>$row->cnc_rate_in_hkd, 'specification' =>$row->specification);
+                'currency' => $row->currency ,'unit_name' => $row->unit_name,'FIFO_CODE' => $row->FIFO_CODE, 
+                'product_name' => $row->product_name,'product_code' => $row->product_code,
+                'unit_price' => $row->unit_price, 'stock' =>$stock, 'cnc_rate_in_hkd' =>$row->cnc_rate_in_hkd, 
+                'specification' =>$row->specification,'box_name' =>$row->box_name);
               $r++;}
             }
             header('Content-Type: application/json');
@@ -229,7 +232,7 @@ class Issued extends My_Controller {
         sm.CRRNCY as currency,sm.EXCH_RATE as cnc_rate_in_hkd,sm.FIFO_CODE,
         sm.UPRICE as unit_price,p.product_id,
         p.product_name,p.product_code,u.unit_name,
-        prd.required_qty,sm.specification
+        prd.required_qty,sm.specification,sm.box_name
         FROM stock_master_detail sm
         INNER JOIN product_info p ON(p.product_id=sm.product_id)
         INNER JOIN requisition_item_details prd ON(p.product_id=prd.product_id)        
@@ -249,6 +252,9 @@ class Issued extends My_Controller {
              $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td> <td> <input type="text" name="product_name[]" class="form-control" readonly placeholder="'.$value->product_name.'" value="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '"/> </td>';
             $str.= '<td> <input type="text" name="product_code[]" readonly class="form-control" placeholder="Item Code" value="'.$value->product_code.'"  style="margin-bottom:5px;width:98%" id="product_code_'.$id. '"/> </td>';
             $str.= '<td> <input type="text" name="specification[]" readonly class="form-control" value="'.$value->specification.'"  style="margin-bottom:5px;width:98%" id="specification_'.$id. '"/> </td>';
+
+            $str.= '<td> <input type="text" name="box_name[]" readonly class="form-control" value="'.$value->box_name.'"  style="margin-bottom:5px;width:98%" id="box_name_'.$id. '"/> </td>';
+            
             $str.= '<td><input type="text" readonly name="FIFO_CODE[]"  class="form-control" placeholder="FIFO_CODE" value="'.$value->FIFO_CODE.'"  style="margin-bottom:5px;width:98%" id="FIFO_CODE_'.$id. '"/> </td>';
             $str.= '<td> <input type="text" name="stock[]" readonly class="form-control" placeholder="Stock" 
             value="'.$stock.'" style="margin-bottom:5px;width:98%;text-align:center" id="stock_'.$id.'"> </td>';

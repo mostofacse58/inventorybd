@@ -162,7 +162,6 @@ class Ipurchase_model extends CI_Model {
         $data['ovgrn_id']=$this->input->post('ovgrn_id');
         $po_number=$this->input->post('po_number');
         $po_number=str_replace(" ","",$po_number);
-
         $data['po_number']=$po_number;
         $chkpo_number=$po_number;
         $data['po_id']=$this->input->post('po_id');
@@ -235,6 +234,7 @@ class Ipurchase_model extends CI_Model {
             $datas['INDATE']=alterDateFormat($this->input->post('purchase_date'));
             $datas['ITEM_CODE']=$product_code[$i];
             $datas['specification']=$specification[$i];
+            $datas['box_name']=$box_name[$i];
             $datas['FIFO_CODE']=$data1['FIFO_CODE'];
             $datas['LOCATION']=$this->session->userdata('dept_shortcode');
             $datas['CRRNCY']=$this->input->post('currency');

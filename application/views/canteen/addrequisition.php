@@ -10,7 +10,7 @@
            <div class="col-sm-3">
             <select class="form-control select2" name="supplier_id" id="supplier_id" required="">
               <option value="" selected="selected">Select</option>
-              <?php foreach ($dlist as $rows) { ?>
+              <?php foreach ($slist as $rows) { ?>
                 <option value="<?php echo $rows->supplier_id; ?>" 
                 <?php if (isset($info))
                     echo $rows->supplier_id == $info->supplier_id? 'selected="selected"' : 0;
@@ -30,12 +30,26 @@
              <input type="text" name="requisition_date" readonly id="requisition_date" class="form-control pull-right" value="<?php if(isset($info)) echo findDate($info->requisition_date); else echo date('d/m/Y'); ?>">
            </div>
            <span class="error-msg"><?php echo form_error("requisition_date");?></span>
-          </div>
-         
+        </div>
       </div><!-- ///////////////////// -->
       <div class="form-group">
+        <label class="col-sm-2 control-label">Type   <span style="color:red;">  *</span></label>
+           <div class="col-sm-2">
+            <select class="form-control" name="for_canteen" id="for_canteen" required="">
+              <option value="" selected="selected">Select</option>
+              <option value="1"
+                <?php if(isset($info)) echo '1'==$info->for_canteen? 'selected="selected"':0; else echo set_select('for_canteen','1');?>> For BD Canteen</option>
+              <option value="2"
+                <?php if(isset($info)) echo '2'==$info->for_canteen? 'selected="selected"':0; else echo set_select('for_canteen','2');?>> For CN Canteen</option>
+              <option value="3"
+                <?php if(isset($info)) echo '3'==$info->for_canteen? 'selected="selected"':0; else echo set_select('for_canteen','3');?>>For Guest</option>
+              <option value="4"
+                <?php if(isset($info)) echo '4'==$info->for_canteen? 'selected="selected"':0; else echo set_select('for_canteen','4');?>>For 8th Floor</option>
+            </select>
+           <span class="error-msg"><?php echo form_error("for_canteen");?></span>
+         </div>
         <label class="col-sm-2 control-label">Demand Date<span style="color:red;">  *</span> </label>
-         <div class="col-sm-3">
+         <div class="col-sm-2">
                <div class="input-group date">
              <div class="input-group-addon">
                <i class="fa fa-calendar"></i>
@@ -45,7 +59,7 @@
            <span class="error-msg"><?php echo form_error("demand_date");?></span>
           </div>
           <label class="col-sm-2 control-label">Note<span style="color:red;">  </span></label>
-           <div class="col-sm-3">
+           <div class="col-sm-2">
            <input type="text" name="other_note" id="other_note" class="form-control" placeholder="Note" value="<?php if(isset($info->other_note)) echo $info->other_note; else echo set_value('other_note'); ?>">
            <span class="error-msg"><?php echo form_error("other_note");?></span>
          </div>  
@@ -83,57 +97,59 @@
       </div>
       </div>
      </div><!-- ///////////////////// -->
-<div class="table-responsive">
-<table class="table table-bordered" id="form-table">
-<thead>
-<tr>
-  <th style="width:3%;text-align:center">SN</th>
-  <th style="width:11%;text-align:center">Item code</th>
-  <th style="width:20%;text-align:center">Materials Description</th>
-  <th style="width:15%;text-align:center">Spacification</th>
-  <th style="width:8%;text-align:center;">Req. Qty</th>
-  <th style="width:5%;text-align:center;">Unit</th>
-  <th style="width:15%;text-align:center;">Remarks</th>
-  <th style="width:5%;text-align:center">
-    <i class="fa fa-trash-o"></i></th></tr>
-</thead>
-<tbody>
- <?php
- $id=0;
-  if(isset($detail)):
-    foreach ($detail as  $value){
-       $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td>';
-       $str.='<td><input readonly type="text" name="product_code[]" class="form-control"  placeholder="Material Code" value="'.$value->product_code.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '"/> </td>';
+          <div class="table-responsive">
+          <table class="table table-bordered" id="form-table">
+          <thead>
+          <tr>
+            <th style="width:3%;text-align:center">SN</th>
+            <th style="width:12%;text-align:center">Item code</th>
+            <th style="width:20%;text-align:center">Materials Description</th>
+            <th style="width:10%;text-align:center">Spacification</th>
+            <th style="width:8%;text-align:center;">Req. Qty</th>
+            <th style="width:5%;text-align:center;">Unit</th>
+            <th style="width:10%;text-align:center;">Unit Price</th>
+            <th style="width:12%;text-align:center;">Remarks</th>
+            <th style="width:5%;text-align:center">
+              <i class="fa fa-trash-o"></i></th></tr>
+          </thead>
+          <tbody>
+           <?php
+           $id=0;
+            if(isset($detail)):
+              foreach ($detail as  $value){
+                 $str='<tr id="row_' . $id . '"><td style="text-align:center"><input type="hidden" value="'.$value->product_id.'" name="product_id[]"  id="product_id_' . $id . '"/><b>' . ($id +1).'</b></td>';
+                 $str.='<td><input readonly type="text" name="product_code[]" class="form-control"  placeholder="Material Code" value="'.$value->product_code.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '"/> </td>';
 
-        $str.='<td><input type="text" name="product_name[]" readonly class="form-control" placeholder="'.$value->product_name.'" value="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '"/> </td>';
-     $str.='<td><input type="text" name="specification[]" class="form-control" placeholder="'.$value->specification.'" value="'.$value->specification.'"  style="margin-bottom:5px;width:98%" id="specification_'  .$id. '"/> </td>';
+                $str.='<td><input type="text" name="product_name[]" readonly class="form-control" placeholder="'.$value->product_name.'" value="'.$value->product_name.'"  style="margin-bottom:5px;width:98%" id="product_item_'  .$id. '"/> </td>';
+                $str.='<td><input type="text" name="specification[]" class="form-control" placeholder="'.$value->specification.'" value="'.$value->specification.'"  style="margin-bottom:5px;width:98%" id="specification_'  .$id. '"/> </td>';
 
-      $str.= '<td><input type="text" name="required_qty[]" value="'.$value->required_qty.'" onblur="return checkQuantity(' .$id.');" onkeyup="return checkQuantity(' .$id.');" class="form-control"  placeholder="Quantity" style="width:60%;float:left;text-align:center"  id="required_qty_' .$id. '"/></td>';
-      $str.= '<td><label  style="width:98%;float:left">'.$value->unit_name.'</label></td>';
-      $str.= '<td><textarea  name="remarks[]" class="form-control"  placeholder="Remarks"  style="margin-bottom:0px;width:98%;padding: 2px 9px;" rows="2" id="remarks_'.$id.'">'.$value->remarks.'</textarea> </td>';
-      $str.= '<td><a class="btn btn-danger btn-xs" onclick="return deleter('. $id .');" style="margin-top:5px;"><i class="fa fa-trash-o"></i></a></td></tr>';
-      echo $str;
-      $id++;
-      }
-      endif;
-      ?>
-</tbody>
-</table>
-</div>
-</div>
-  <!-- /.box-body -->
-  <div class="box-footer">
-  <div class="col-sm-4"><a href="<?php echo base_url(); ?>canteen/Requisition/lists" class="btn btn-info">
-    <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 
-    Back</a></div>
-  <div class="col-sm-4">
-      <button type="submit" class="btn btn-info pull-right"> <i class="fa fa-save"></i> SAVE 保存</button>
+                $str.= '<td><input type="text" name="required_qty[]" value="'.$value->required_qty.'" onblur="return checkQuantity(' .$id.');" onkeyup="return checkQuantity(' .$id.');" class="form-control"  placeholder="Quantity" style="width:60%;float:left;text-align:center"  id="required_qty_' .$id. '"/></td>';
+                $str.= '<td><input type="text" name="unit_price[]" value="'.$value->unit_price.'" onblur="return checkQuantity(' .$id.');" onkeyup="return checkQuantity(' .$id.');" class="form-control"  placeholder="Unit Price" style="width:60%;float:left;text-align:center"  id="unit_price_' .$id. '"/></td>';
+                $str.= '<td><label  style="width:98%;float:left">'.$value->unit_name.'</label></td>';
+                $str.= '<td><textarea  name="remarks[]" class="form-control"  placeholder="Remarks"  style="margin-bottom:0px;width:98%;padding: 2px 9px;" rows="2" id="remarks_'.$id.'">'.$value->remarks.'</textarea> </td>';
+                $str.= '<td><a class="btn btn-danger btn-xs" onclick="return deleter('. $id .');" style="margin-top:5px;"><i class="fa fa-trash-o"></i></a></td></tr>';
+                echo $str;
+                $id++;
+                }
+                endif;
+                ?>
+          </tbody>
+          </table>
+          </div>
+          </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+            <div class="col-sm-4"><a href="<?php echo base_url(); ?>canteen/Requisition/lists" class="btn btn-info">
+              <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 
+              Back</a></div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-info pull-right"> <i class="fa fa-save"></i> SAVE 保存</button>
+            </div>
+          </div>
+          <!-- /.box-footer -->
+      </form>
+    </div>
   </div>
-  </div>
-  <!-- /.box-footer -->
-</form>
-</div>
-</div>
 </div>
 
 <script type="text/javascript">
@@ -164,7 +180,8 @@ $(document).ready(function(){
             url: '<?= base_url('canteen/Requisition/suggestions'); ?>',
             dataType: "json",
             data: {
-              term: request.term
+              term: request.term,
+              for_canteen: $('#for_canteen').val()
             },
             success: function (data) {
                 $(this).removeClass('ui-autocomplete-loading');
@@ -216,14 +233,12 @@ $(document).ready(function(){
               //////////////////////////////
            var nodeStr = '<tr id="row_' + id + '"><td  style="text-align:center"><input type="hidden" value="'+ui.item.product_id+'" name="product_id[]"  id="product_id_' + id + '"/><b></b></td>'+
            '<td> <input type="text" readonly name="product_code[]" class="form-control" placeholder="Material Code" value="'+ui.item.product_code+'" style="margin-bottom:5px;width:98%" id="product_code_' + id + '"/> </td>' +
-
             '<td> <input type="text" name="product_name[]" readonly class="form-control" placeholder="Product Name" value="'+ui.item.product_name+'" style="margin-bottom:5px;width:98%" id="product_name_' + id + '"/> </td>'+
             '<td> <input type="text" name="specification[]" class="form-control" placeholder="Specification" value="" style="margin-bottom:5px;width:98%" id="specification_' + id + '"/> </td>'+          
-
             '<td> <input type="text" name="required_qty[]" value="" onblur="return checkQuantity(' + id + ');" onkeyup="return checkQuantity(' + id + ');" class="form-control"  placeholder="Qty" style="width:98%;float:left;text-align:center"  id="required_qty_' + id + '"/> </td>' +
-           
+            '<td><label  style="width:98%;float:left">'+ui.item.unit_name+'</label></td>' +
+            '<td> <input type="text" name="unit_price[]" readonly value="'+ui.item.unit_price+'" onblur="return checkQuantity(' + id + ');" onkeyup="return checkQuantity(' + id + ');" class="form-control" placeholder="Price" style="width:98%;float:left;text-align:center"  id="unit_price_' + id + '"/> </td>' +
 
-            ' <td><label  style="width:98%;float:left">'+ui.item.unit_name+'</label></td>' +
             '<td class="remarks"><textarea  name="remarks[]" class="form-control" placeholder="Remarks"  style="margin-bottom:0px;width:98%;padding: 2px 9px;" rows="2" id="remarks_' + id + '"></textarea> </td>' +
             ' <td style="text-align:center"> <a class="btn btn-danger btn-xs" onclick="return deleter(' + id + ');" style="margin-top:5px;"><i class="fa fa-trash-o"></i> </a> </td> </tr>';
         $("#form-table tbody").append(nodeStr);

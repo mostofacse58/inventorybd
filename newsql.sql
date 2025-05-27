@@ -346,6 +346,18 @@ ORDER BY pd.department_id ASC
 CREATE VIEW item_issue_detail_view AS
 SELECT issue_id,SUM(amount_hkd) as total_amount_hkd
 FROM item_issue_detail GROUP BY issue_id;
+-- //////////// Medical medicine issue
+
+CREATE VIEW medicineissuedetail AS
+SELECT m.issue_id,m.take_department_id,m.location_id,m.issue_date,
+m.injury_id,d.product_id,d.product_code,d.product_name,d.FIFO_CODE,
+d.quantity,d.unit_price
+FROM item_issue_detail d
+INNER JOIN store_issue_master m ON(m.issue_id=d.issue_id)
+WHERE m.medical_yes=1
+ORDER BY m.issue_date ASC
+
+
 
 CREATE VIEW spares_use_detail_view AS
 SELECT spares_use_id,

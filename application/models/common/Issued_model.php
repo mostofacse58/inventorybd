@@ -133,6 +133,7 @@ class Issued_model extends CI_Model {
     $product_name=$this->input->post('product_name');
     $specification=$this->input->post('specification');
     $cnc_rate_in_hkd=$this->input->post('cnc_rate_in_hkd');
+    $box_name=$this->input->post('box_name');
     ////////////////////////////////
     $i=0;
     $error='';
@@ -178,12 +179,12 @@ class Issued_model extends CI_Model {
         $currency[$i]=$fifoinfo->CRRNCY;
         $unit_price[$i]=$fifoinfo->UPRICE;
         $sub_total[$i]=$fifoinfo->UPRICE*$quantity[$i];
-
         $hkdrate=getHKDRate($currency[$i]);
         $data1['product_id']=$value;
         $data1['product_code']=$product_code[$i];
         $data1['product_name']=$product_name[$i];
         $data1['specification']=$specification[$i];
+        $data1['box_name']=$box_name[$i];
         $data1['issue_id']=$issue_id;
         $data1['quantity']=$quantity[$i];
         $data1['unit_price']=$unit_price[$i];
@@ -213,6 +214,7 @@ class Issued_model extends CI_Model {
         $datas['INDATE']= alterDateFormat($this->input->post('issue_date'));
         $datas['ITEM_CODE']=$product_code[$i];
         $datas['specification']=$specification[$i];
+        $datas['box_name']=$box_name[$i];
         $datas['FIFO_CODE']=$data1['FIFO_CODE'];
         $datas['LOCATION']=$this->session->userdata('dept_shortcode');
         $datas['LOCATION1']="BP01";

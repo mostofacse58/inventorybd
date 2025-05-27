@@ -11,7 +11,8 @@ class Login_model extends CI_Model {
       LEFT JOIN post p ON(u.post_id=p.post_id)
       LEFT JOIN department_info d ON(u.department_id=d.department_id)
       WHERE  1 and 
-      u.email_address='$email_address' and u.password='$password'")->row();
+      TRIM(u.email_address)='$email_address' 
+    and u.password='$password'")->row();
       return $result;
   } 
   public function trycheck($email_address) {

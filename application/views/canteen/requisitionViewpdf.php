@@ -1,45 +1,30 @@
+<html>
+<header>
 <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;width:100%}
+body {
+  padding: 3px;
+   font-size:12px;
+   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
+    }
+.tg  {border-collapse:collapse;border-spacing:0;width:150%}
 .tg td{
   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
   font-size:12px;padding:2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
 .tg th{
   font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
-  font-size:12px;font-weight:normal;padding:3px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+  font-size:12px;font-weight:normal;padding:4px 2px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;text-transform: uppercase;}
 .tg .tg-s6z2{text-align:center}
 .tg .tg-baqh{text-align:center;vertical-align:top}
 hr{margin: 5px}
-.tg1  {border-collapse:collapse;border-spacing:0;width:100%}
-.tg1 td{
-  font-family: 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', Helvetica, Arial, sans-serif;
-  font-size:12px;padding:2px;overflow:hidden;word-break:normal;line-height: 18px;overflow: hidden;}
-  .error-msg{display: none;}
-  .primary_area1{
-  background-color: #fff;
-  border-top: 5px dotted #000;
-  border-bottom: 5px dotted #000;
-  box-shadow: inset 0 -2px 0 0 #000, inset 0 2px 0 0 #000, 0 2px 0 0 #000, 0 -2px 0 0 #000;
-  margin-bottom: 1px;
-  padding: 10px;
-  border-left: 5px;
-  border-right: 5px;
-  border-left-style:double ;
-  border-right-style:double;
-  padding-top:0px;
-}
- 
-</style>
 
-<div class="row">
-    <div class="col-md-12">
-    <div class="box box-info" style="padding: 10px">
-      <div class="primary_area1">
-     <div class="table-responsive table-bordered">  
-  	<div  style="width:100%;float:left;font-size: 30px;text-align: center;overflow:hidden;margin:0;margin-top: 0px;">
+</style>
+</header>
+<body>
+<div  style="width:100%;float:left;font-size: 30px;text-align: center;overflow:hidden;margin:0;margin-top: 0px;">
 <p style="margin:2px 0px;color: #538FD4">
 <b> <?php echo  $this->session->userdata('company_name'); ?></b></p>
 </div>
-<div style="width:100%;overflow:hidden;text-align:center;margin-top: 0px;">
+ <div style="width:100%;overflow:hidden;text-align:center;margin-top: 0px;">
 <p style="line-height: 20px;padding: 3px 5px;font-size: 18px" >
   <b><u> MATERIAL REQUISITION SLIP</u></b></p>
 </div>
@@ -91,9 +76,9 @@ hr{margin: 5px}
   </tr>
   <?php
   if(isset($detail)){
-     $i=1; 
-    foreach($detail as $value){ 
-    ?>
+	   $i=1; 
+	  foreach($detail as $value){ 
+	  ?>
   <tr>
     <td class="tg-s6z2"><?php echo $i++; ?></td>
     <td class="tg-s6z2"><?php echo $value->product_code;  ?></td>
@@ -137,26 +122,5 @@ hr{margin: 5px}
   </tr>
 
 </table>
-</div>
-</div>
-<?php if($info->requisition_status==1&&$controller=='Requisition'){ ?>
-    <a href="<?php echo base_url()?>canteen/Requisition/submit/<?php echo $info->requisition_id;?>" class="btn btn-primary">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Submit</a>
-   
-    <?php } ?>
-
-  
-    <?php if($info->requisition_status==2&&$controller=='Requisitionrec'){ ?>
-    <a href="<?php echo base_url()?>canteen/Requisitionrec/received/<?php echo $info->requisition_id;?>" class="btn btn-primary">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Receive</a>
-    <a href="<?php echo base_url()?>canteen/Requisitionrec/returns/<?php echo $info->requisition_id;?>" class="btn btn-warning">
-      <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-    Return</a>
-    <?php } ?>
-</div>
-</div>
-</div>
-
-
+</body>
+<html>

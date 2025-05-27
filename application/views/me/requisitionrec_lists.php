@@ -16,6 +16,7 @@
       <div class="box-body">
         <form class="form-horizontal" action="<?php echo base_url();?>me/Requisitionrec/lists" method="GET" enctype="multipart/form-data">
           <div class="box-body">
+            <div class="row form-group">
             <label class="col-sm-1 control-label">
              Req. NO <span style="color:red;">  </span></label>
               <div class="col-sm-2">
@@ -41,9 +42,19 @@
                 </select>                    
                 <span class="error-msg"><?php echo form_error("department_id");?></span>
                 </div>
-              <div class="col-sm-2">
-                <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
-                <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>me/Requisitionrec/lists">All</a>
+          </div>
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">Demand Date</label>
+                <div class="col-sm-2">
+                  <input type="text" name="from_date" readonly="" class="form-control date" placeholder="From Date" value="<?php  echo set_value('from_date'); ?>">
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" name="to_date" readonly="" class="form-control date" placeholder="To Date" value="<?php  echo set_value('to_date'); ?>">
+                </div>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-success pull-left"> Search 搜索 </button>
+                  <a class="btn btn-sm btn-primary pull-right" style="margin-right:0px;" href="<?php echo base_url(); ?>format/Requisitionrec/lists">All</a>
+              </div>
             </div>
           </div>
           <!-- /.box-body -->
@@ -102,9 +113,6 @@
               <li><a href="<?php echo base_url()?>me/Requisitionrec/received/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
               Receive</a></li>
-              <li><a href="<?php echo base_url()?>me/Requisitionrec/rejected/<?php echo $row->requisition_id;?>">
-                <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
-              Reject</a></li>
               <li><a href="<?php echo base_url()?>me/Requisitionrec/returns/<?php echo $row->requisition_id;?>">
                 <i class="fa fa-arrow-circle-o-right tiny-icon"></i>
               Return</a></li>

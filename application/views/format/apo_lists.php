@@ -124,7 +124,7 @@
       <span class="btn btn-xs btn-<?php echo ($row->po_status==3||$row->po_status==8)?"danger":"success";?>">
         <?php 
         if($row->po_status==1) echo "Draft";
-        elseif($row->po_status==2) echo "Pending";
+        elseif($row->po_status==2) echo "Waiting For Check";
         elseif($row->po_status==3) echo "Pending";
         elseif($row->po_status==4) echo "Approved";
         elseif($row->po_status==8) echo "Cancel";

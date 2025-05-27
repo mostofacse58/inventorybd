@@ -234,7 +234,6 @@ function viewpipdf($pi_id=FALSE){
  //    Zend_Barcode::render('code128', 'image', array('text' => $string, 'barHeight' => 66), array('imageType' => 'png')); 
  //  }
   function barcode($string = '',$get_be = false){
-    echo "sss"; exit;
     $this->load->library('zend');
     $this->zend->load('Zend/Barcode');
     Zend_Barcode::render('code128', 'image', array('text' =>  $string,

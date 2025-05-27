@@ -36,7 +36,7 @@ class Requisitionreport extends My_Controller {
         $this->load->view('admin/master',$data);
         }
     }
-    function downloadExcel($requisition_status,$take_department_id,$requisition_no,$responsible_department,$product_code=FALSE,$from_date=FALSE,$to_date=FALSE) {
+    function downloadExcel($requisition_status,$take_department_id,$responsible_department,$requisition_no,$product_code=FALSE,$from_date=FALSE,$to_date=FALSE) {
         $data['heading']='Requisition Report ';
         $data['resultdetail']=$this->Requisitionreport_model->reportrResult($requisition_status,$take_department_id,$responsible_department,$requisition_no,$product_code,$from_date,$to_date);
         $this->load->view('commonr/requisitionreportExcel',$data);
@@ -59,7 +59,8 @@ class Requisitionreport extends My_Controller {
     $data['category_id']=$category_id;
     $data['product_code']=$product_code;
     $data['rack_id']=$rack_id;
-    $data['resultdetail']=$this->itemreceivereport_model->reportrResult($category_id,$department_id,$product_code,$from_date,$to_date);
+    $data['resultdetail']=$this->Requisitionreport_model->reportrResult($requisition_status,$take_department_id,$responsible_department,$requisition_no,$product_code,$from_date,$to_date);
+    
     $pdfFilePath='sparesReceivePdf'.date('Y-m-d H:i').'.pdf';
     $this->load->library('mpdf');
     $mpdf = new mPDF('bn','A4','','','15','15','30','18');

@@ -201,6 +201,7 @@ tbody{margin: 0;
     </tr>
     <?php }
   } ?>
+
    <?php if($info->gatepass_type==3){ ?>
     <tr>
      <td style="text-align: center;" colspan="5">Total</td>
@@ -225,6 +226,8 @@ tbody{margin: 0;
   <?php } ?>
   </p>
   <br><br>
+
+
 
   <?php if($info->gatepass_type==3){ ?> 
    <table style="width:100%">
@@ -308,19 +311,23 @@ tbody{margin: 0;
   <table style="width:100%">
   <tr>
     <td style="text-align:left;width: 25%">
-      <?php if($info->gatepass_status>=2){ echo $info->user_name; 
+      <?php if($info->gatepass_status>=2){ 
+        echo $info->user_name; 
         echo "<br>"; echo findDate($info->create_date); echo " $info->create_time";}
       ?></td>
      <td style="text-align:center;width: 25%">
-      <?php if($info->gatepass_status>=5){ echo $info->checked_by_name; 
+      <?php if($info->gatepass_status>=5){ 
+        echo $info->checked_by_name; 
         echo "<br>"; echo findDate($info->checked_date); echo " $info->checked_time";}
       ?></td>
+
      <td style="text-align: center;width: 25%">
           <?php echo getUserName($info->approved_by2); 
           echo "<br>"; 
           echo findDate($info->approved_date2); 
           echo "<br> Logistics"; 
-          ?></td>
+      ?></td>
+
      <td style="text-align:right;width: 25%">
       <?php if($info->gatepass_status>=4) {
         echo $info->approved_by_name; 

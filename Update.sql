@@ -114,3 +114,11 @@ END;
 
 DELIMITER ;
 
+
+
+
+UPDATE `payment_application_master` SET `pa_type` = 'Safety Stock' WHERE `payment_application_master`.`payment_id` = 14651;
+UPDATE `payment_application_detail` SET `pa_type` = 'Safety Stock' WHERE `payment_application_detail`.`payment_id` = 49051;
+UPDATE `payment_dept_amount` SET `pa_type` = 'Safety Stock' WHERE `payment_dept_amount`.`payment_id` = 61578;
+
+

@@ -16,9 +16,9 @@ class Requisitionrec_model extends CI_Model {
         $condition=$condition."  AND pm.department_id='$department_id1' ";
       }
       if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
-          $from_date=$this->input->get('from_date');
-          $to_date=$this->input->get('to_date');
-          $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
+          $from_date=alterDateFormat($this->input->get('from_date'));
+          $to_date=alterDateFormat($this->input->get('to_date'));
+          $condition.=" AND pm.requisition_date BETWEEN '$from_date' AND '$to_date'";
         }
      }
 
@@ -70,10 +70,10 @@ class Requisitionrec_model extends CI_Model {
             $condition=$condition."  AND pm.department_id='$department_id1' ";
           }
           if($this->input->get('from_date')!=''&&$this->input->get('to_date') !=' '){
-          $from_date=$this->input->get('from_date');
-          $to_date=$this->input->get('to_date');
-          $condition.=" AND pm.demand_date BETWEEN '$from_date' AND '$to_date'";
-        }
+            $from_date=alterDateFormat($this->input->get('from_date'));
+            $to_date=alterDateFormat($this->input->get('to_date'));
+            $condition.=" AND pm.requisition_date BETWEEN '$from_date' AND '$to_date'";
+          }
          }
           $department_id=$this->session->userdata('department_id');
           $mlocation_id=$this->session->userdata('mlocation_id');

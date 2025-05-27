@@ -1,19 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Aipurchase extends My_Controller {
+class Invoiceaudit extends My_Controller {
     function __construct(){
         parent::__construct();
-        $this->load->model('canteen/Ipurchase_model');
-        $this->load->model('canteen/Aipurchase_model');
+        $this->load->model('shipping/Import_model');
+        $this->load->model('canteen/Invoice_model');
+        $this->load->model('canteen/Invoiceaudit_model');
+        
      }
     function lists(){
-       $data=array();
+        $data=array();
         if($this->input->post('perpage')!='') 
         $perpage=$this->input->post('perpage'); else $perpage=20;
         $this->load->library('pagination');
-        $config['base_url']=base_url().'canteen/Aipurchase/lists/';
+        $config['base_url']=base_url().'canteen/Invoiceaudit/lists/';
         $config['suffix'] = '?' . http_build_query($_GET, '', "&");
         $config["uri_segment"] = 4;
-        $config['total_rows'] = $this->Aipurchase_model->get_count();
+        $config['total_rows'] = $this->Invoiceaudit_model->get_count();
         $total_rows=$config['total_rows'];
         $config['per_page'] = $perpage;
         $choice = $config["total_rows"] / $config["per_page"];
@@ -36,48 +38,45 @@ class Aipurchase extends My_Controller {
         $config['cur_tag_close'] = "</a></li>";
         $config['num_tag_open'] = '<li>';
         $config['num_tag_close'] = '</li>';
-      //////////////////////////////////////////
+        //////////////////////////////////////////
         $this->pagination->initialize($config); 
         $data['page'] = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $pagination = $this->pagination->create_links();
         $data['pagination']='<p>We have ' . $total_rows . ' records in ' . $choice . ' pages ' . $pagination . '</p>';
-        $data['list']=$this->Aipurchase_model->lists($config["per_page"],$data['page']);
+        $data['list']=$this->Invoiceaudit_model->lists($config["per_page"],$data['page']);
         $this->form_validation->set_rules('location','Location','trim');
         $this->form_validation->set_rules('employee_name','Name','trim');
-        $data['llist']=$this->Look_up_model->getlocation();
         $data['dlist']=$this->Look_up_model->departmentList();
         $data['slist']=$this->Look_up_model->getSupplier();
         ////////////////////////////
-        $data['heading']='GRN Received List';
-        $data['display']='canteen/aipurchaselist';
+        $data['heading']='Invoice List';
+        $data['display']='canteen/Invoiceauditlist';
         $this->load->view('admin/master',$data);
-       }
-
-
+    }
     
-    function view($purchase_id=FALSE){
-        $data['show']=2;
+    function view($invoice_id=FALSE){
+        $data['show']=1;
         $data['controller']=$this->router->fetch_class();
-        $data['heading']='Received Form';
-        $data['info']=$this->Ipurchase_model->get_info($purchase_id);
-        $data['detail']=$this->Ipurchase_model->getDetails($purchase_id);
-        $data['display']='canteen/receiveformhtml';
+        $data['heading']='Invoice Details';
+        $data['info']=$this->Invoice_model->get_info($invoice_id);
+        $data['detail']=$this->Invoice_model->getDetails($invoice_id);
+        $data['display']='canteen/invoiceview';
         $this->load->view('admin/master',$data);
       }
-  function viewpdf($purchase_id=FALSE){
+  function viewpdf($invoice_id=FALSE){
     if ($this->session->userdata('user_id')) {
-    $data['heading']='Received Items ';
-        $data['info']=$this->Ipurchase_model->get_info($purchase_id);
-        $data['detail']=$this->Ipurchase_model->getDetails($purchase_id);
+    $data['heading']='Receive Items ';
+        $data['info']=$this->Invoice_model->get_info($invoice_id);
+        $data['detail']=$this->Invoice_model->getDetails($invoice_id);
         $pdfFilePath='ItemReceiveInvoice'.date('Y-m-d H:i').'.pdf';
-        $this->load->library('mpdf');
-        $mpdf = new mPDF('bn','A4','','','5','5','10','18');
+        require 'vendor/autoload.php';
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 15, 'margin_bottom' => 10,]);
         $mpdf->useAdobeCJK = true;
         
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
         $header = $this->load->view('header', $data, true);
-        $html=$this->load->view('canteen/viewItemsInvoice', $data, true);
+        $html=$this->load->view('canteen/invoiceviewpdf', $data, true);
         $mpdf->setHtmlHeader($header);
         $mpdf->pagenumPrefix = '  Page ';
         $mpdf->pagenumSuffix = ' - ';
@@ -90,15 +89,35 @@ class Aipurchase extends My_Controller {
        redirect("Logincontroller");
     }
   }
-  function received($purchase_id=FALSE){
-    $check=$this->Aipurchase_model->received($purchase_id);
-      if($check){ 
-         $this->session->set_userdata('exception','Approved successfully');
-       }else{
-         $this->session->set_userdata('exception','Failed');
-      }
-    redirect("canteen/Aipurchase/lists");
+  
+  function checkform($invoice_id=FALSE){
+    $data['show']=1;
+    $data['controller']=$this->router->fetch_class();
+    $data['heading']='Invoice Details';
+    $data['info']=$this->Invoice_model->get_info($invoice_id);
+    $data['detail']=$this->Invoice_model->getDetails($invoice_id);
+    $data['display']='canteen/invoiceAuditview';
+    $this->load->view('admin/master',$data);
+  }
+  function updated($invoice_id=FALSE){
+    $check=$this->Invoiceaudit_model->updated($invoice_id);
+    if($check){
+         $this->session->set_userdata('exception','Update successfully');
+    }else{
+       $this->session->set_userdata('exception','Submission Failed');
+    }
+    redirect("canteen/Invoiceaudit/lists");
   }
 
-      
+  function received($invoice_id=FALSE){
+      $check=$this->Invoiceaudit_model->received($invoice_id);
+      if($check){ 
+        $this->session->set_userdata('exception','Received successfully');
+       }else{
+        $this->session->set_userdata('exception','Send Failed');
+      }
+      redirect("canteen/Invoiceaudit/lists");
+    }
+
+        
  }

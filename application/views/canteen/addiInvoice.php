@@ -18,17 +18,13 @@ var deletedRow=[];
     var id=0;
     <?php } ?>
   var check='YES';
-var boxselect='';
-var boxselect='<?php if(isset($blist))
-     {
-     foreach ($blist as $rows){  ?><option value="<?php echo $rows->box_name; ?>"><?php echo "$rows->box_name";?></option><?php }} ?> ';
 $(document).ready(function(){
   ///////  Search 搜索 Item Barcode or QCODE or Put Name //////////////////
   $("#add_item").autocomplete({
         source: function (request, response) {
           $.ajax({
               type: 'get',
-              url: '<?= base_url('canteen/Ipurchase/suggestions'); ?>',
+              url: '<?= base_url('canteen/Invoice/suggestions'); ?>',
               dataType: "json",
               data: {
                 term: request.term
@@ -84,10 +80,8 @@ $(document).ready(function(){
             '<td><input type="text" name="product_code[]" readonly class="form-control" placeholder="CODE" value="'+ui.item.product_code+'"  style="margin-bottom:5px;width:98%" id="product_code_' + id + '"/> </td>' +
             '<td><input type="text" name="specification[]" class="form-control" value="" style="margin-bottom:5px;width:98%" id="specification_' + id + '"/></td>' +
 
-            '<td><input type="text" name="pi_no[]" class="form-control" value="" style="margin-bottom:5px;width:98%" id="pi_no_' + id + '"/> </td>' +
-            '<td><input type="text" name="po_qty[]" readonly class="form-control" placeholder="Qty" value=""  style="margin-bottom:5px;width:98%" id="po_qty_' + id + '"/> </td>' +
+            '<td><input type="text" name="required_qty[]" readonly class="form-control" placeholder="Qty" value=""  style="margin-bottom:5px;width:98%" id="required_qty_' + id + '"/> </td>' +
             ' <td><input type="text" name="quantity[]" value="" onblur="return checkQuantity(' + id + ');" onkeyup="return checkQuantity(' + id + ');" class="form-control integerchk" placeholder="Qty" style="width:100%;float:left;text-align:center"  id="quantity_' + id + '"/> </td>' +
-            ' <td><input type="text" name="unqualified_qty[]" value="" onblur="return checkQuantity(' + id + ');" onkeyup="return checkQuantity(' + id + ');" class="form-control integerchk" placeholder="unqualified_qty" style="width:60%;float:left;text-align:center"  id="unqualified_qty_' + id + '"/> <label  style="width:38%;float:left">'+ui.item.unit_name+'</label></td>' +
             '<td> <input type="text" name="unit_price[]" class="form-control integerchk" placeholder="Price" style="margin-bottom:5px;width:98%;text-align:center" onblur="return calculateRow(' + id + ');" onkeyup="return calculateRow(' + id + ');" value="'+ui.item.unit_price+'"  id="unit_price_' + id + '"/> </td>' +
             '<td> <input type="text" name="amount[]" readonly class="form-control" placeholder="Amount" style="margin-bottom:5px;width:98%;text-align:center" value="0.00"  id="amount_' + id + '"/> </td>' +
             '<td><select name="box_name[]" required class="form-control pull-left select2" style="width:100%;"  id="box_name_' + id + '" required><option value="" selected="selected">Select</option>'+boxselect+'</select> </td>' +
@@ -140,7 +134,7 @@ $(document).ready(function(){
             totalAmount += parseFloat($.trim($("#amount_" + i).val()));
         }
         }
-        $("#grand_total").val(totalAmount.toFixed(2));
+        $("#total_amount").val(totalAmount.toFixed(2));
       }
       //////////////////////////////////////////////
     /////////////CALCULATE ROW
@@ -163,12 +157,7 @@ $(document).ready(function(){
 
 function formsubmit(){
   var error_status=false;
-  var reference_no=$("#reference_no").val();
-  var for_department_id=$("#for_department_id").val();
-  var supplier_id=$("#supplier_id").val();
-  var currency=$("#currency").val();
-  var cnc_rate_in_hkd=$("#cnc_rate_in_hkd").val();
-  var purchase_date=$("#purchase_date").val();
+  var invoice_date=$("#invoice_date").val();
   var serviceNum=$("#form-table tbody tr").length;
   var chk;
   if(serviceNum<1){
@@ -189,32 +178,11 @@ function formsubmit(){
   }
  
 
-  if(for_department_id == '') {
+  if(invoice_date == '') {
     error_status=true;
-    $("#alertMessageHTML").html("Please select department!!");
-    $("#alertMessagemodal").modal("show");
+    $("#invoice_date").css('border', '1px solid #f00');
   } else {
-    $("#for_department_id").css('border', '1px solid #ccc');      
-  }
-  if(supplier_id == '') {
-    error_status=true;
-    $("#alertMessageHTML").html("Please select supplier!!");
-    $("#alertMessagemodal").modal("show");
-  } else {
-    $("#supplier_id").css('border', '1px solid #ccc');      
-  }  
-  if(purchase_date == '') {
-    error_status=true;
-    $("#purchase_date").css('border', '1px solid #f00');
-  } else {
-    $("#purchase_date").css('border', '1px solid #ccc');      
-  }
-  if(currency == '') {
-    error_status=true;
-    $("#alertMessageHTML").html("Please select currency!!");
-    $("#alertMessagemodal").modal("show");
-  } else {
-    $("#currency").css('border', '1px solid #ccc');      
+    $("#invoice_date").css('border', '1px solid #ccc');      
   }
  
   if(error_status==true){
@@ -227,25 +195,22 @@ function formsubmit(){
 }
 ////////////////////////////
 function getPOwiseitem(){
-      var po_number=$("#po_number").val();
-      if(po_number !=''&&po_number.length==10){
+      var requisition_no=$("#requisition_no").val();
+      if(requisition_no !=''&&requisition_no.length>=10){
       $.ajax({
         type:"post",
-        url:"<?php echo base_url()?>"+'canteen/Ipurchase/getPOInfo',
-        data:{po_number:po_number},
+        url:"<?php echo base_url()?>"+'canteen/Invoice/getReqInfo',
+        data:{requisition_no:requisition_no,requisition_no:requisition_no},
         success:function(data1){
           data1=JSON.parse(data1);
           check=data1.check
           if(check=='YES'){
-            $('#supplier_id').val(data1.supplier_id).change();
-            $('#for_department_id').val(data1.for_department_id).change();
-            $('#currency').val(data1.currency).change();
-            $("#po_id").val(data1.po_id);
-            $("#cnc_rate_in_hkd").val(data1.cnc_rate_in_hkd);
+            $("#requisition_id").val(data1.requisition_id);
+            $("#invoice_type").val(data1.for_canteen).change();
             $(".Searchclass").hide();
             totalSum();
           }else{
-            $("#alertMessageHTML").html("This PO not found or not approved!!");
+            $("#alertMessageHTML").html("This Req not found or not approved!!");
             $("#alertMessagemodal").modal("show");
             $(".Searchclass").show();
           }
@@ -253,8 +218,8 @@ function getPOwiseitem(){
       });
       $.ajax({
         type:"post",
-        url:"<?php echo base_url()?>"+'canteen/Ipurchase/getPOwiseitem',
-        data:{po_number:po_number},
+        url:"<?php echo base_url()?>"+'canteen/Invoice/getReqwiseitem',
+        data:{requisition_no:requisition_no},
         success:function(data){
           $("#form-table tbody").empty();
           $("#form-table tbody").append(data);
@@ -274,90 +239,48 @@ function getPOwiseitem(){
     <div class="col-md-12">
     <div class="box box-info">
       <!-- /.box-header -->
-    <form class="form-horizontal" action="<?php echo base_url(); ?>canteen/Ipurchase/save" method="POST" enctype="multipart/form-data" onsubmit="return formsubmit();">
+    <form class="form-horizontal" action="<?php echo base_url(); ?>canteen/Invoice/save" method="POST" enctype="multipart/form-data" onsubmit="return formsubmit();">
          <div class="box-body">
-          <input type="hidden" name="po_id" id="po_id" value="<?php if(isset($info)) echo $info->po_id; else echo set_value('po_id'); ?>">
+          <input type="hidden" name="requisition_id" id="requisition_id" value="<?php if(isset($info)) echo $info->requisition_id; else echo set_value('requisition_id'); ?>">
+          <input type="hidden" name="supplier_id" id="supplier_id" value="<?php if(isset($info)) echo $info->supplier_id; else echo 917; ?>">
          <div class="form-group">
-          <label class="col-sm-2 control-label">PO/WO<span style="color:red;">  </span></label>
+          <label class="col-sm-2 control-label">Requsition No<span style="color:red;">  </span></label>
           <div class="col-sm-2">
-            <input type="text" name="po_number" id="po_number" class="form-control pull-right" value="<?php if(isset($info)) echo $info->po_number; else echo set_value('po_number'); ?>"  onkeyup="return getPOwiseitem();">
+            <input type="text" name="requisition_no" id="requisition_no" class="form-control" value="<?php if(isset($info)) echo $info->requisition_no; else echo set_value('requisition_no'); ?>"  onkeyup="return getPOwiseitem();">
           </div>
-          <label class="col-sm-2 control-label">Supplier Name <span style="color:red;">  *</span></label>
-           <div class="col-sm-3">
-            <select class="form-control select2" name="supplier_id" id="supplier_id" required=""> 
-              <option value="" selected="selected">Select Supplier</option>
-              <?php foreach ($slist as $rows) { ?>
-                <option value="<?php echo $rows->supplier_id; ?>" 
-                <?php if (isset($info))
-                    echo $rows->supplier_id == $info->supplier_id ? 'selected="selected"' : 0;
-                else
-                    echo $rows->supplier_id == set_value('supplier_id') ? 'selected="selected"' : 0;
-                ?>><?php echo "$rows->supplier_name"; ?></option>
-                    <?php } ?>
-                </select>
-           <span class="error-msg"><?php echo form_error("use_type");?></span>
+          <label class="col-sm-2 control-label">Type   <span style="color:red;">  *</span></label>
+           <div class="col-sm-2">
+            <select class="form-control" name="invoice_type" id="invoice_type" required="">
+              <option value="" selected="selected">Select</option>
+              <option value="1"
+                <?php if(isset($info)) echo '1'==$info->invoice_type? 'selected="selected"':0; else echo set_select('invoice_type','1');?>> For BD Canteen</option>
+              <option value="2"
+                <?php if(isset($info)) echo '2'==$info->invoice_type? 'selected="selected"':0; else echo set_select('invoice_type','2');?>> For CN Canteen</option>
+              <option value="3"
+                <?php if(isset($info)) echo '3'==$info->invoice_type? 'selected="selected"':0; else echo set_select('invoice_type','3');?>> For Guest</option>
+              <option value="4"
+                <?php if(isset($info)) echo '4'==$info->invoice_type? 'selected="selected"':0; else echo set_select('invoice_type','4');?>>For 8th Floor</option>
+            </select>
+           <span class="error-msg"><?php echo form_error("invoice_type");?></span>
          </div>
-         <label class="col-sm-1 control-label"> Tolerance  <span style="color:red;">  </span></label>
-          <div class="col-sm-2">
-            <input type="text" name="tolerance_perc" id="tolerance_perc" class="form-control" value="<?php if(isset($info)) echo $info->tolerance_perc; else echo 0; ?>" placeholder="Tolerance Percentage" >
-           </div>
+   
       </div><!-- ///////////////////// -->
       <div class="form-group">
-       <label class="col-sm-1 control-label"> Date  <span style="color:red;">  *</span></label>
+       <label class="col-sm-2 control-label"> Date  <span style="color:red;">  *</span></label>
        <div class="col-sm-2">
              <div class="input-group date">
            <div class="input-group-addon">
              <i class="fa fa-calendar"></i>
            </div>
-           <input type="text" name="purchase_date" readonly id="purchase_date" class="form-control pull-right" value="<?php if(isset($info)) echo findDate($info->purchase_date); else echo date('d/m/Y'); ?>">
+           <input type="text" name="invoice_date" readonly id="invoice_date" class="form-control pull-right" value="<?php if(isset($info)) echo findDate($info->invoice_date); else echo date('d/m/Y'); ?>">
          </div>
-         <span class="error-msg"><?php echo form_error("purchase_date");?></span>
+         <span class="error-msg"><?php echo form_error("invoice_date");?></span>
         </div>
-        <label class="col-sm-1 control-label"> Challan Date  <span style="color:red;">  *</span></label>
-       <div class="col-sm-2">
-             <div class="input-group date">
-           <div class="input-group-addon">
-             <i class="fa fa-calendar"></i>
-           </div>
-           <input type="text" name="challan_date" readonly id="challan_date" class="form-control pull-right" value="<?php if(isset($info)) echo findDate($info->challan_date); else echo date('d/m/Y'); ?>">
-         </div>
-         <span class="error-msg"><?php echo form_error("challan_date");?></span>
-        </div>
-        <label class="col-sm-1 control-label">File No<span style="color:red;">  </span></label>
+     
+        <label class="col-sm-1 control-label">Ref No<span style="color:red;">  </span></label>
           <div class="col-sm-2">
-             <select class="form-control select2" name="file_no" id="file_no">
-            <option value="" selected="selected">Select File No</option>
-            <?php foreach ($flist as $rows) { ?>
-            <option value="<?php echo $rows->file_no; ?>" 
-            <?php if (isset($info))
-                echo $rows->file_no == $info->file_no ? 'selected="selected"' : 0;
-                else
-                echo $rows->file_no == set_value('file_no')? 'selected="selected"' : 0;
-            ?>><?php echo "$rows->file_no"; ?></option>
-                <?php } ?>
-            </select>
-           </div>
-            <label class="col-sm-1 control-label">Invoice<span style="color:red;">  </span></label>
-          <div class="col-sm-2">
-            <input type="text" name="invoice_no" id="invoice_no" class="form-control pull-right" value="<?php if(isset($info)) echo $info->invoice_no; else echo set_value('invoice_no'); ?>">
+            <input type="text" name="ref_no" id="ref_no" class="form-control" value="<?php if(isset($info)) echo $info->ref_no; else echo set_value('ref_no'); ?>">
           </div>
-      
-      
-       <!--  <label class="col-sm-2 control-label ">For Department <span style="color:red;">  *</span></label>
-          <div class="col-sm-2">
-          <select class="form-control select2" name="for_department_id" id="for_department_id"> 
-          <option value="" selected="selected">Select </option>
-          <?php foreach ($dlist as $rows) { ?>
-            <option value="<?php echo $rows->department_id; ?>" 
-            <?php if (isset($info))
-                echo $rows->department_id == $info->for_department_id ? 'selected="selected"' : 0;
-                else echo $rows->department_id == $this->session->userdata('department_id') ? 'selected="selected"' : 0;
-          
-            ?>><?php echo $rows->department_name; ?></option>
-                <?php } ?>
-            </select>
-            <span class="error-msg"><?php echo form_error("for_department_id"); ?></span>
-          </div> -->
       </div><!-- ///////////////////// -->
      <?php if(!isset($show)){ ?>
     <div class="form-group Searchclass">
@@ -389,13 +312,10 @@ function getPOwiseitem(){
   <th style="width:25%;text-align:center;">Item Name</th>
   <th style="width:12%;text-align:center;">Item Code</th>
   <th style="width:12%;text-align:center;">Specification</th>
-  <th style="width:10%;text-align:center;">PI NO</th>
-  <th style="width:8%;text-align:center;">PO Qty</th>
-  <th style="width:8%;text-align:center;">Qualified Qty</th>
-  <th style="width:8%;text-align:center;">unqualified Qty</th>
+  <th style="width:8%;text-align:center;">Req Qty</th>
+  <th style="width:8%;text-align:center;">Send Qty</th>
   <th style="width:10%;text-align:center;">Unit Price</th>
   <th style="width:10%;text-align:center;">Amount</th>
-  <th style="width:10%;text-align:center;">Location</th>
   <th style="width:5%;text-align:center">
      <i class="fa fa-trash-o"></i></th></tr>
 </thead>
@@ -414,16 +334,11 @@ function getPOwiseitem(){
 
       $str.= '<td><input type="text" name="product_code[]" readonly class="form-control" placeholder="Item Code" value="'.$value->product_code.'" style="margin-bottom:5px;width:98%" id="product_code_'.$id. '"/> </td>';
       $str.= '<td><input type="text" name="specification[]" class="form-control" value="'.$value->specification.'" style="margin-bottom:5px;width:98%" id="specification_'.$id. '"/> </td>';
-      $str.= '<td><input type="text" name="pi_no[]" readonly class="form-control" value="'.$value->pi_no.'"  style="margin-bottom:5px;width:98%" id="pi_no_'.$id. '"/> </td>';
-      $str.= '<td><input type="text" name="po_qty[]" readonly class="form-control" value="'.$value->po_qty.'"  style="margin-bottom:5px;width:98%" id="po_qty_'.$id. '"/> </td>';
+      $str.= '<td><input type="text" name="required_qty[]" readonly class="form-control" value="'.$value->required_qty.'"  style="margin-bottom:5px;width:98%" id="required_qty_'.$id. '"/> </td>';
       $str.= '<td><input type="text" name="quantity[]" value="'.$value->quantity.'" onblur="return checkQuantity(' .$id.');" onkeyup="return checkQuantity(' .$id.');" class="form-control"  placeholder="Quantity" style="width:100%;float:left;text-align:center"  id="quantity_' .$id. '"/> </td>';
-
-      $str.= '<td><input type="text" name="unqualified_qty[]" value="'.$value->unqualified_qty.'" onblur="return checkQuantity(' .$id.');" onkeyup="return checkQuantity(' .$id.');" class="form-control"  placeholder="unqualified qty" style="width:60%;float:left;text-align:center"  id="qunqualified_qty_' .$id. '"/> <label  style="width:38%;float:left">'.$value->unit_name.'</label></td>';
 
       $str.= '<td> <input type="text" name="unit_price[]" class="form-control" placeholder="Unit Price" value="'.$value->unit_price.'" onblur="return calculateRow(' .$id.');" onkeyup="return calculateRow(' .$id.');"  style="margin-bottom:5px;width:98%;text-align:center" id="unit_price_'.$id.'"/> </td>';
       $str.= '<td><input type="text" name="amount[]" readonly class="form-control" placeholder="Amount" value="'.$value->amount.'"   style="margin-bottom:5px;width:98%;text-align:center" id="amount_'.$id.'"/> </td>';
-      $str.='<td> <select name="box_name[]" class="form-control select2"  style="width:100%;" id="box_name_' . $id . '" required><option value="" selected="selected">Select</option> '.$boxselect.' </select> </td> ';
-
       $str.= '<td> <a class="btn btn-danger btn-xs" onclick="return deleter('. $id .');" style="margin-top:5px;"><i class="fa fa-trash-o"></i></a></td></tr>';
          echo $str;
        ?>
@@ -437,29 +352,11 @@ function getPOwiseitem(){
 </table>
 </div>
 <div class="form-group">
-  <label class="col-sm-2 control-label ">Currency<span style="color:red;">  *</span></label>
-    <div class="col-sm-2">
-     <select class="form-control select2" name="currency" id="currency" style="width: 100%"> 
-      <?php foreach ($clist as $rows) { ?>
-        <option value="<?php echo $rows->currency; ?>" 
-        <?php if (isset($info))
-            echo $rows->currency == $info->currency ? 'selected="selected"' : 0;
-            else
-            echo $rows->currency ==set_value('currency') ? 'selected="selected"' : 0;
-        ?>><?php echo $rows->currency; ?></option>
-            <?php } ?>
-        </select>
-        <span class="error-msg"><?php echo form_error("currency"); ?></span>
-      </div>
-    <label class="col-sm-2 control-label">Currency Rate <span style="color:red;">  *</span></label>
-    <div class="col-sm-2">
-      <input type="text" name="cnc_rate_in_hkd" id="cnc_rate_in_hkd" readonly class="form-control pull-right" value="<?php if(isset($info)) echo $info->cnc_rate_in_hkd; else echo set_value('cnc_rate_in_hkd'); ?>">
-      <span class="error-msg"><?php echo form_error("cnc_rate_in_hkd"); ?></span>
-    </div>
+
     <label class="col-sm-2 control-label">Total Amount<span style="color:red;">  *</span></label>
     <div class="col-sm-2">
-      <input type="text" name="grand_total" id="grand_total" readonly class="form-control pull-right" value="<?php if(isset($info)) echo $info->grand_total; else echo set_value('grand_total'); ?>">
-      <span class="error-msg"><?php echo form_error("grand_total"); ?></span>
+      <input type="text" name="total_amount" id="total_amount" readonly class="form-control pull-right" value="<?php if(isset($info)) echo $info->total_amount; else echo set_value('total_amount'); ?>">
+      <span class="error-msg"><?php echo form_error("total_amount"); ?></span>
     </div>
   </div><!-- ///////////////////// -->
 
@@ -473,7 +370,7 @@ function getPOwiseitem(){
       </div><!-- ///////////////////// -->
   <!-- /.box-body -->
   <div class="box-footer">
-  <div class="col-sm-4"><a href="<?php echo base_url(); ?>canteen/Ipurchase/lists" class="btn btn-info">
+  <div class="col-sm-4"><a href="<?php echo base_url(); ?>canteen/Invoice/lists" class="btn btn-info">
     <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 
     Back</a></div>
   <div class="col-sm-4">
@@ -486,41 +383,3 @@ function getPOwiseitem(){
 </div>
 </div>
 
-<div class="modal fade" id="partyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Supplier</h4>
-      </div>
-
-      <div class="modal-body">
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Supplier Name 供应商名称 <span style="color:red;">  *</span></label>
-            <div class="col-sm-7">
-              <input type="text" class="form-control" name="supplier_name" placeholder="Supplier Name 供应商名称" value="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Phone No  </label>
-            <div class="col-sm-7">
-              <input type="text" class="form-control" name="phone_no" placeholder="Phone No" value="" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Address </label>
-            <div class="col-sm-7">
-              <input type="text" class="form-control" name="company_address" placeholder="Address" value="" >
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="addNewGuest">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript" src="<?php echo base_url('asset/supplier.js');?>"></script>

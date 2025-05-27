@@ -7,7 +7,6 @@ class Camerastatus extends My_Controller {
      }
       
     function lists(){
-      
       $data=array();
       if($this->session->userdata('user_id')){
       //////////////////
@@ -55,7 +54,7 @@ class Camerastatus extends My_Controller {
         }else{
           redirect("Logincontroller");
         }
-       }
+      }
     function add(){
         if ($this->session->userdata('user_id')) {
         $data['heading']='Add Status';
