@@ -45,13 +45,12 @@
     <th style="text-align: left" >Date: </th>
     <th style="text-align: left" ><?php if(isset($info)) echo findDate($info->issue_date); ?></th>
   </tr>
-  <?php if($info->product_detail_id!=''){ ?>
+  
   <tr>
-    <th style="text-align: left">Asset Name: </th>
-    <th style="text-align: left" colspan="3">
-      <?php if(isset($info)) echo $this->Look_up_model->get_ProductnameSerial($info->product_detail_id); ?></th>
+    <th style="text-align: left">Type: </th>
+    <th style="text-align: left">  <?php if(isset($info)) echo $info->patient_type; ?></th>
   </tr>
-<?php } ?>
+
 </table>
 <br>
 <table class="tg">
@@ -79,8 +78,8 @@
   <tr>
     <td class="tg-s6z2"><?php echo $i++; ?></td>
     <td class="tg-s6z2"><?php echo $value->product_code;  ?></td>
-     <td class=""><?php echo $value->product_name; ?></td>
-     <td class="tg-s6z2"><?php echo "$value->FIFO_CODE"; ?></td>
+    <td class=""><?php echo $value->product_name; ?></td>
+    <td class="tg-s6z2"><?php echo "$value->FIFO_CODE"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->quantity $value->unit_name"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->unit_price"; ?></td>
     <td class="tg-s6z2"><?php echo "$value->sub_total"; ?></td>

@@ -48,8 +48,9 @@ Add Issue
               <th style="width:8%;">For</th>
               <th style="width:8%;">Date</th>
               <th style="width:8%;">Department</th>
-              <th style="width:20%;">Emp. ID</th>
+              <th style="width:10%;">Emp. ID</th>
               <th style="width:6%;text-align:center">Location</th>
+              <th style="width:8%;">Type</th>
               <th style="width:8%;">Total Qty</th>
               <th style="width:12%;">Issued By</th>
               <th style="text-align:center;width:5%;">Actions 行动</th>
@@ -68,8 +69,8 @@ Add Issue
                 <td class="text-center"><?php echo $row->department_name; ?></td>
                 <td class="text-center">
                   <?php echo "$row->employee_id"; ?></td>
-                  <td style="text-align:center">
-                <?php echo $row->location_name; ?></td>
+                  <td style="text-align:center"><?php echo $row->location_name; ?></td>
+                <td class="text-center"><?php echo $row->patient_type; ?></td>
                 <td class="text-center"><?php echo $row->totalquantity; ?></td>
                 <td class="text-center"><?php echo $row->user_name; ?></td>
                 <td style="text-align:center">

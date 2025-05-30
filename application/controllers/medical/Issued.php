@@ -162,8 +162,8 @@ class Issued extends My_Controller {
         }
       redirect("medical/Issued/lists");
     }
-////////////////////////
-public function suggestions(){
+    ////////////////////////
+    public function suggestions(){
         $term = $this->input->get('term', true);
         if (strlen($term) < 1 || !$term) {
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . base_url('dashboard') . "'; }, 10);</script>");
@@ -192,7 +192,7 @@ public function suggestions(){
         }
     }
     function view($issue_id=FALSE){
-    if ($this->session->userdata('user_id')) {
+      if ($this->session->userdata('user_id')) {
           $data['heading']='Invoice Spares ';
           $data['info']=$this->Issued_model->get_info($issue_id);
           $data['dlist']=$this->Look_up_model->departmentList();

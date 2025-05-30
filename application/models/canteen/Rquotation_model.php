@@ -61,6 +61,17 @@ class Rquotation_model extends CI_Model {
       $data['approved_date_time']=date('Y-m-d  h:i:s a');
       $this->db->WHERE('quotation_id',$quotation_id);
       $query=$this->db->Update('canteen_quotation_master',$data);
+      $result=$this->db->query("SELECT *
+        FROM canteen_quotation_item_details 
+        WHERE quotation_id=$quotation_id
+        ORDER BY product_id ASC")->result();
+      foreach ($result as $row1){
+        $datas=array();
+        $datas['unit_price']=$row1->present_price;
+        $datas['last_receive_date']=date('Y-m-d');
+        $this->db->WHERE('product_id',$row1->product_id);
+        $this->db->Update('canteen_product_info',$datas);
+      }
       return $query;
   }
 

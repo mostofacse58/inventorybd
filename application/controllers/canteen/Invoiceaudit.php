@@ -75,7 +75,7 @@ class Invoiceaudit extends My_Controller {
         
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
-        $header = $this->load->view('header', $data, true);
+        $header = $this->load->view('canteen/header', $data, true);
         $html=$this->load->view('canteen/invoiceviewpdf', $data, true);
         $mpdf->setHtmlHeader($header);
         $mpdf->pagenumPrefix = '  Page ';
