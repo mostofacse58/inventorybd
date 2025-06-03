@@ -35,6 +35,7 @@ class Checkmachinedetail extends My_Controller {
     $data['movelist']=$this->Checkmachinedetail_model->getMovementList($tpm_serial_code);
     $data['servlist']=$this->Assetdetail_model->servicinghistory($tpm_serial_code);
     $data['glist']=$this->Assetdetail_model->gatepassHistory($tpm_serial_code);
+    $data['pmlists']=$this->Checkmachinedetail_model->pmlists($tpm_serial_code);
     $data['tpm_serial_code']=$tpm_serial_code;
     $data['heading']='Checking Machine Detail';
     $data['display']='me/checkmDetails';

@@ -23,7 +23,7 @@
          </div>
          <label class="col-sm-1 control-label">PI NO<span style="color:red;">  *</span></label>
           <div class="col-sm-2">
-            <input type="text" name="pi_no" id="pi_no" class="form-control" placeholder="PI NO" value="<?php if(isset($info)) echo $info->pi_no; else echo set_value('pi_no'); ?>" onkeyup="return checkpino();" <?php if(isset($info)) echo "readonly" ?>>
+            <input type="text" name="pi_no" id="pi_no" class="form-control" placeholder="PI NO" value="<?php if(isset($info)) echo $info->pi_no; else echo set_value('pi_no'); ?>"  <?php if(isset($info)) echo "readonly" ?> readonly>
             <span class="error-msg"><?php echo form_error("pi_no"); ?></span>
           </div>
           <label class="col-sm-1 control-label">PI Date <span style="color:red;">  *</span></label>
@@ -369,34 +369,34 @@ $("#AddManualItem").click(function(){
         $("#form-table tbody tr").eq(r).find("td:first b").text(r+1);
     }
     }
-var pinocheck=0;
- function checkpino(){
-      var pi_no=$("#pi_no").val();
-      if(pi_no !=''&&pi_ids==''){
-        $.ajax({
-        type:"POST",
-        url:"<?php echo base_url()?>"+'format/Deptrequisn/checkpino',
-        data:{pi_no:pi_no,pi_id:pi_ids},
-        success:function(data){
-          data=JSON.parse(data);
-          if(data.check=='YES'){
-            pinocheck=1;
-            $("#pi_no").val('');
-            $('input[name=pi_no]').css('border', '1px solid #f00');
-            $("#alertMessageHTML").html("This PI No already exit!!");
-            $("#alertMessagemodal").modal("show");
-          }else{
-            $('input[name=pi_no]').css('border', '1px solid #ccc'); 
-            pinocheck=0;
-          }
-        }
-      });
-    }else{
-      $("#form-table tbody").empty();
-      $(".Searchclass").show();
-      id=0;
-    }
-  }
+  var pinocheck=0;
+ // function checkpino(){
+ //      var pi_no=$("#pi_no").val();
+ //      if(pi_no !=''&&pi_ids==''){
+ //        $.ajax({
+ //        type:"POST",
+ //        url:"<?php echo base_url()?>"+'format/Deptrequisn/checkpino',
+ //        data:{pi_no:pi_no,pi_id:pi_ids},
+ //        success:function(data){
+ //          data=JSON.parse(data);
+ //          if(data.check=='YES'){
+ //            pinocheck=1;
+ //            $("#pi_no").val('');
+ //            $('input[name=pi_no]').css('border', '1px solid #f00');
+ //            $("#alertMessageHTML").html("This PI No already exit!!");
+ //            $("#alertMessagemodal").modal("show");
+ //          }else{
+ //            $('input[name=pi_no]').css('border', '1px solid #ccc'); 
+ //            pinocheck=0;
+ //          }
+ //        }
+ //      });
+ //    }else{
+ //      $("#form-table tbody").empty();
+ //      $(".Searchclass").show();
+ //      id=0;
+ //    }
+ //  }
   function formsubmit(){
   var error_status=false;
   var serviceNum=$("#form-table tbody tr").length;
@@ -408,17 +408,17 @@ var pinocheck=0;
   }
   var pi_date=$("#pi_date").val();
   var demand_date=$("#demand_date").val();
-  var pi_no=$("#pi_no").val();
-  if(pi_no ==''){
-      error_status=true;
-      $('input[name=pi_no]').css('border', '1px solid #f00');
-    } else {
-      $('input[name=pi_no]').css('border', '1px solid #ccc');      
-    }
-  if(pinocheck==1){
-    error_status=true;
-    $('input[name=pi_no]').css('border', '1px solid #f00');
-  }
+  //var pi_no=$("#pi_no").val();
+  // if(pi_no ==''){
+  //     error_status=true;
+  //     $('input[name=pi_no]').css('border', '1px solid #f00');
+  //   } else {
+  //     $('input[name=pi_no]').css('border', '1px solid #ccc');      
+  //   }
+  // if(pinocheck==1){
+  //   error_status=true;
+  //   $('input[name=pi_no]').css('border', '1px solid #f00');
+  // }
   /////////////
   for(var i=0;i<serviceNum;i++){
     if($("#required_qty_"+i).val()==''){
