@@ -167,25 +167,31 @@ class Look_up_model extends CI_Model {
       $condition) ")->result();
     }else{
       $result=$this->db->query("SELECT d.* FROM 
-
       (SELECT p.po_number FROM po_master p
-      WHERE p.for_department_id=$department_id AND p.po_status=4
+      WHERE p.for_department_id=$department_id 
+      AND p.po_status=4
       AND p.total_amount>(SELECT IFNULL(SUM(a.pamount),0) as ammount 
       FROM payment_po_amount a 
       WHERE a.po_number=p.po_number  $condition)
+
       UNION 
       SELECT a.po_number FROM purchase_master a
       WHERE a.department_id=$department_id AND a.status!=5
       AND a.po_number NOT IN (SELECT a.po_number FROM payment_po_amount a 
       WHERE 1 $condition)
       UNION 
-      SELECT p.PO_NUMBER as po_number FROM bd_po_summary p
+      SELECT p.PO_NUMBER as po_number 
+      FROM bd_po_summary p
       WHERE p.TOTAL_AMT>(SELECT IFNULL(SUM(a.pamount),0) as ammount FROM payment_po_amount a 
       WHERE a.po_number=p.PO_NUMBER  $condition)
       
       )as d GROUP By d.po_number ORDER BY d.po_number ASC")->result();
     }
     return $result;
+
+    // WHERE p.TOTAL_AMT>(SELECT IFNULL(SUM(a.pamount),0) as ammount FROM payment_po_amount a 
+    //   WHERE a.po_number=p.PO_NUMBER  $condition)
+
     // $result=$this->db->query("SELECT d.* FROM (SELECT p.po_number FROM po_master p
     //   WHERE p.for_department_id=$department_id AND p.po_status=3
     //   AND p.po_number NOT IN (SELECT a.po_number FROM payment_po_amount a WHERE 1 $cond)
