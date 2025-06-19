@@ -40,8 +40,7 @@ class Issued_model extends CI_Model {
           LEFT JOIN department_info d ON(sm.take_department_id=d.department_id)
           LEFT JOIN location_info l ON(sm.location_id=l.location_id)
           LEFT JOIN user u ON(u.id=sm.user_id) 
-          WHERE sm.department_id=$department_id 
-          AND sm.medical_yes=1 $condition 
+          WHERE sm.medical_yes=1 $condition 
           ORDER BY sm.issue_id DESC 
          LIMIT $start,$limit")->result();
       return $result;
@@ -62,9 +61,8 @@ class Issued_model extends CI_Model {
     function get_info($issue_id){
         $department_id=$this->session->userdata('department_id');
         $result=$this->db->query("SELECT sm.*,d.department_name,
-          m.employee_name,u.user_name,i.injury_name,
-          (SELECT SUM(sd.quantity) FROM item_issue_detail sd 
-          WHERE sm.issue_id=sd.issue_id) as totalquantity
+          m.employee_name,u.user_name,i.injury_name
+      
           FROM  store_issue_master sm 
           LEFT JOIN department_info d ON(sm.take_department_id=d.department_id)
           LEFT JOIN employee_idcard_info m ON(sm.employee_id=m.employee_cardno)
@@ -91,6 +89,7 @@ class Issued_model extends CI_Model {
           $data['location_id']=$this->input->post('location_id');
         }
         $data['injury_id']=$this->input->post('injury_id');
+        $data['patient_type']=$this->input->post('patient_type');
         $data['issue_date']=alterDateFormat($this->input->post('issue_date'));
         $data['user_id']=$this->session->userdata('user_id');
         $data['medical_yes']=1;

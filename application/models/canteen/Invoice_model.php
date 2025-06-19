@@ -184,7 +184,7 @@ class Invoice_model extends CI_Model {
     return $query;
   }
   function get_info($invoice_id){
-     $result=$this->db->query("SELECT pm.*,s.supplier_name,
+     $result=$this->db->query("SELECT pm.*,s.supplier_name,s.company_address,
       u.user_name,u1.user_name as received_by_name
       FROM  canteen_invoice_master pm 
       LEFT JOIN supplier_info s ON(pm.supplier_id=s.supplier_id)

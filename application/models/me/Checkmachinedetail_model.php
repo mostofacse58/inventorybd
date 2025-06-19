@@ -55,5 +55,19 @@ class Checkmachinedetail_model extends CI_Model {
           ORDER BY pd.ventura_code ASC LIMIT 0,10")->result();
     return $result;
    }
+   public function pmlists($tpm_serial_code) {
+    $result=$this->db->query("SELECT  p.*,sd.*,u.unit_name,m.me_name,
+          sm.use_date,sm.using_ref_no,fl.line_no
+          FROM spares_use_detail sd 
+          INNER JOIN spares_use_master sm ON(sd.spares_use_id=sm.spares_use_id)
+          INNER JOIN product_detail_info pd ON(sm.asset_encoding=pd.asset_encoding 
+          OR sm.asset_encoding=pd.ventura_code OR sm.asset_encoding=pd.tpm_serial_code)
+          INNER JOIN product_info p ON(sd.product_id=p.product_id)
+          INNER JOIN product_unit u ON(p.unit_id=u.unit_id)
+          LEFT JOIN floorline_info fl ON(sm.line_id=fl.line_id)
+          LEFT JOIN me_info m ON(sm.me_id=m.me_id)
+          WHERE pd.tpm_serial_code='$tpm_serial_code' OR pd.ventura_code='$tpm_serial_code' ")->result();
+        return $result;
+   }
   
 }

@@ -327,77 +327,77 @@ $(document).ready(function(){
         <form class="form-horizontal" action="<?php echo base_url(); ?>medical/Issued/save<?php if (isset($info)) echo "/$info->issue_id"; ?>" method="POST" enctype="multipart/form-data" onsubmit="return formsubmit();">
          <div class="box-body">
          <div class="form-group">
-          <label class="col-sm-2 control-label">Issue Type 问题类型 <span style="color:red;">  *</span></label>
-           <div class="col-sm-3">
-            <select class="form-control" name="issue_type" id="issue_type">
-              <option value="2"
-                <?php if(isset($info)) echo '2'==$info->issue_type? 'selected="selected"':0; else echo set_select('issue_type','2');?>>For Employee</option>
-                <option value="1"
-                <?php if(isset($info)) echo '1'==$info->issue_type? 'selected="selected"':0; else echo set_select('issue_type','1');?>>For Department</option>
-                <option value="3"
-                <?php if(isset($info)) echo '3'==$info->issue_type? 'selected="selected"':0; else echo set_select('issue_type','3');?>>For Location</option>
-            </select>
-           <span class="error-msg"><?php echo form_error("issue_type");?></span>
-         </div>
-         <label class="col-sm-1 control-label">Symptom <span style="color:red;">  </span></label>
-            <div class="col-sm-5">
-            <select class="form-control select2" name="symptoms_id[]" multiple="multiple" data-placeholder="Select multiple Symptom" style="width: 100%">
-                <?php foreach($slist as $value){ ?>
-                <option value="<?php echo $value->symptoms_id; ?>" <?php if(isset($info))
-                  {if(in_array($value->symptoms_id, $sdetail)) echo 'selected="selected"';}else{
-                   if(isset($_POST['symptoms_id'])) if(in_array($value->symptoms_id, $_POST['symptoms_id'])) echo 'selected="selected"';
-                    } ?>><?php echo $value->symptoms_name; ?></option>
-                  <?php } ?>
-            </select>
-            </div>
-       </div>
-       <div class="form-group">
-         <label class="col-sm-2 control-label departmentDiv">Department <span style="color:red;">  *</span></label>
-            <div class="col-sm-3 departmentDiv">
-            <select class="form-control select2" name="take_department_id" id="take_department_id">> 
-            <option value="" selected="selected">===Select Department===</option>
-            <?php foreach ($dlist as $rows) { ?>
-              <option value="<?php echo $rows->department_id; ?>" 
-              <?php if (isset($info))
-                  echo $rows->department_id == $info->take_department_id ? 'selected="selected"' : 0;
-              else
-                  echo $rows->department_id ==5 ? 'selected="selected"' : 0;
-              ?>><?php echo $rows->department_name; ?></option>
-                  <?php } ?>
+            <label class="col-sm-2 control-label">Issue Type 问题类型 <span style="color:red;">  *</span></label>
+             <div class="col-sm-3">
+              <select class="form-control" name="issue_type" id="issue_type">
+                <option value="2"
+                  <?php if(isset($info)) echo '2'==$info->issue_type? 'selected="selected"':0; else echo set_select('issue_type','2');?>>For Employee</option>
+                  <option value="1"
+                  <?php if(isset($info)) echo '1'==$info->issue_type? 'selected="selected"':0; else echo set_select('issue_type','1');?>>For Department</option>
+                  <option value="3"
+                  <?php if(isset($info)) echo '3'==$info->issue_type? 'selected="selected"':0; else echo set_select('issue_type','3');?>>For Location</option>
               </select>
-              <span class="error-msg"><?php echo form_error("take_department_id"); ?></span>
-            </div>
-            <label class="col-sm-1 control-label employeeDiv">Employee ID <span style="color:red;">  *</span></label>
-           <div class="col-sm-2 employeeDiv">
-             <input type="text" name="employee_id" maxlength="5" id="employee_id" class="form-control pull-right" value="<?php if(isset($info)) echo $info->employee_id; else echo set_value('employee_id'); ?>">
-             <span class="error-msg"><?php echo form_error("employee_id");?></span>
-             <span id="errmsg"></span>
+             <span class="error-msg"><?php echo form_error("issue_type");?></span>
            </div>
+           <label class="col-sm-1 control-label">Symptom <span style="color:red;">  </span></label>
+              <div class="col-sm-5">
+              <select class="form-control select2" name="symptoms_id[]" multiple="multiple" data-placeholder="Select multiple Symptom" style="width: 100%">
+                  <?php foreach($slist as $value){ ?>
+                  <option value="<?php echo $value->symptoms_id; ?>" <?php if(isset($info))
+                    {if(in_array($value->symptoms_id, $sdetail)) echo 'selected="selected"';}else{
+                     if(isset($_POST['symptoms_id'])) if(in_array($value->symptoms_id, $_POST['symptoms_id'])) echo 'selected="selected"';
+                      } ?>><?php echo $value->symptoms_name; ?></option>
+                    <?php } ?>
+              </select>
+              </div>
          </div>
          <div class="form-group">
-           <label class="col-sm-2 control-label locationDiv">Location <span style="color:red;">  *</span></label>
-          <div class="col-sm-3 locationDiv">
-            <select class="form-control select2" name="location_id" id="location_id" style="width: 100%">
-              <option value="">Select Location</option>
-              <?php foreach ($llist as $value) {  ?>
-                <option value="<?php echo $value->location_id; ?>"
-                  <?php  if(isset($info)) echo $value->location_id==$info->location_id? 'selected="selected"':0; else echo set_select('location_id',$value->location_id);?>>
-                  <?php echo $value->location_name; ?></option>
-                <?php } ?>
-            </select>
-           <span class="error-msg"><?php echo form_error("location_id");?></span>
-          </div>
-          <label class="col-sm-1 control-label">Date </label>
-         <div class="col-sm-2">
-            <div class="input-group date">
-             <div class="input-group-addon">
-               <i class="fa fa-calendar"></i>
+           <label class="col-sm-2 control-label departmentDiv">Department <span style="color:red;">  *</span></label>
+              <div class="col-sm-3 departmentDiv">
+              <select class="form-control select2" name="take_department_id" id="take_department_id">> 
+              <option value="" selected="selected">===Select Department===</option>
+              <?php foreach ($dlist as $rows) { ?>
+                <option value="<?php echo $rows->department_id; ?>" 
+                <?php if (isset($info))
+                    echo $rows->department_id == $info->take_department_id ? 'selected="selected"' : 0;
+                else
+                    echo $rows->department_id ==5 ? 'selected="selected"' : 0;
+                ?>><?php echo $rows->department_name; ?></option>
+                    <?php } ?>
+                </select>
+                <span class="error-msg"><?php echo form_error("take_department_id"); ?></span>
+              </div>
+              <label class="col-sm-1 control-label employeeDiv">Employee ID <span style="color:red;">  *</span></label>
+             <div class="col-sm-2 employeeDiv">
+               <input type="text" name="employee_id" maxlength="5" id="employee_id" class="form-control pull-right" value="<?php if(isset($info)) echo $info->employee_id; else echo set_value('employee_id'); ?>">
+               <span class="error-msg"><?php echo form_error("employee_id");?></span>
+               <span id="errmsg"></span>
              </div>
-             <input type="text" name="issue_date" readonly id="issue_date" class="form-control pull-right" value="<?php if(isset($info)) echo findDate($info->issue_date); else echo date('d/m/Y'); ?>">
            </div>
-           <span class="error-msg"><?php echo form_error("issue_date");?></span>
-          </div>
-          <label class="col-sm-1 control-label">Injury <span style="color:red;">  </span></label>
+           <div class="form-group">
+             <label class="col-sm-2 control-label locationDiv">Location <span style="color:red;">  *</span></label>
+            <div class="col-sm-3 locationDiv">
+              <select class="form-control select2" name="location_id" id="location_id" style="width: 100%">
+                <option value="">Select Location</option>
+                <?php foreach ($llist as $value) {  ?>
+                  <option value="<?php echo $value->location_id; ?>"
+                    <?php  if(isset($info)) echo $value->location_id==$info->location_id? 'selected="selected"':0; else echo set_select('location_id',$value->location_id);?>>
+                    <?php echo $value->location_name; ?></option>
+                  <?php } ?>
+              </select>
+             <span class="error-msg"><?php echo form_error("location_id");?></span>
+            </div>
+            <label class="col-sm-1 control-label">Date </label>
+           <div class="col-sm-2">
+              <div class="input-group date">
+               <div class="input-group-addon">
+                 <i class="fa fa-calendar"></i>
+               </div>
+               <input type="text" name="issue_date" readonly id="issue_date" class="form-control pull-right" value="<?php if(isset($info)) echo findDate($info->issue_date); else echo date('d/m/Y'); ?>">
+             </div>
+             <span class="error-msg"><?php echo form_error("issue_date");?></span>
+            </div>
+            <label class="col-sm-1 control-label">Injury <span style="color:red;">  </span></label>
             <div class="col-sm-2">
             <select class="form-control select2" name="injury_id" id="injury_id" style="width: 100%">
               <option value="">Select Injury</option>
@@ -408,6 +408,22 @@ $(document).ready(function(){
                 <?php } ?>
             </select>
             </div>
+          </div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Type <span style="color:red;">  *</span></label>
+             <div class="col-sm-3">
+              <select class="form-control" name="patient_type" id="patient_type">
+                <option value="General"
+                  <?php if(isset($info)) echo 'General'==$info->patient_type? 'selected="selected"':0; else echo set_select('patient_type','General');?>>General</option>
+                  <option value="First Aid"
+                  <?php if(isset($info)) echo 'First Aid'==$info->patient_type? 'selected="selected"':0; else echo set_select('patient_type','First Aid');?>>First Aid</option>
+                  <option value="Pregnancy"
+                  <?php if(isset($info)) echo 'Pregnancy'==$info->patient_type? 'selected="selected"':0; else echo set_select('patient_type','Pregnancy');?>>Pregnancy</option>
+                  <option value="Health Checkup"
+                  <?php if(isset($info)) echo 'Health Checkup'==$info->patient_type? 'selected="selected"':0; else echo set_select('patient_type','Health Checkup');?>>Health Checkup</option>
+              </select>
+             <span class="error-msg"><?php echo form_error("patient_type");?></span>
+           </div>
       </div><!-- ///////////////////// -->
 
     <div class="form-group">

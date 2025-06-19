@@ -176,7 +176,7 @@ hr{margin: 5px}
     <td class=""></td>
     <td class="tg-right"><?php echo number_format($value->amount,2); ?></td>
     <td class="tg-s6z2"><?php echo $value->remarks;  ?></td>
-    <td class="tg-s6z2"> 
+    <td class="tg-s6z2" style="text-align: left;"> 
       <?php
       $detail1=$this->Applications_model->getDetails1($info->payment_id,$value->head_id);
       if(isset($detail1)){

@@ -93,7 +93,6 @@ class Deptrequisn_model extends CI_Model {
         $data=array();
         $data['product_type']='PRODUCT';
         $data['purchase_type_id']=$this->input->post('purchase_type_id');
-        $data['pi_no']=$this->input->post('pi_no');
         $data['pi_date']=alterDateFormat($this->input->post('pi_date'));
         $data['demand_date']=alterDateFormat($this->input->post('demand_date'));
         $data['promised_date']=alterDateFormat($this->input->post('promised_date'));
@@ -124,6 +123,7 @@ class Deptrequisn_model extends CI_Model {
              FROM pi_master WHERE 1")->row('reference_no');
         $reference_no ='VLBD'.date('mi').str_pad($reference_no + 1, 6, '0', STR_PAD_LEFT);
         $data['reference_no']=$reference_no;
+        $data['pi_no']='NO'.date('Ym').rand(1000, 9999);
         $query=$this->db->insert('pi_master',$data);
         $pi_id=$this->db->insert_id();
         foreach ($product_id as $value) {

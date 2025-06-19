@@ -49,8 +49,10 @@ function showQRIntro() {
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-success">
+
+
       <div class="box-header">
-              <div class="widget-block">
+        <div class="widget-block">
              
 <div class="widget-head">
 <h5><?php echo ucwords($heading); ?></h5>
@@ -69,10 +71,10 @@ Download Excel
 </div>
 
 </div>
+<form class="form-horizontal" action="<?php echo base_url();?>me/Checkmachinedetail/search" method="POST">
    <div class="box box-info">
     <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" action="<?php echo base_url();?>me/Checkmachinedetail/search" method="POST">
         <div class="box-body">
          <div class="form-group">
           <label class="col-sm-2 control-label" style="margin-top: 10px">SCAN CODE<span style="color:red;">  </span></label>
@@ -82,25 +84,7 @@ Download Excel
                 <input type=file accept="image/*" capture=environment onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex=-1>
               </label> 
               <button style="width: 15%;" type="submit" class="btn btn-info">Go</button>
-
-           <!--  <div class="col-md-12" id="sticker" style="width: 100%; z-index: 2;">
-            <div class="well well-sm">
-              <div class="form-group" style="margin-bottom:0;">
-                <div class="input-group wide-tip">
-                  <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
-                    <i class="fa fa-2x fa-barcode addIcon"></i></div>
-                  <input name="tpm_serial_code" value="" class="form-control input-lg qrcode-text" id="tpm_serial_code" autofocus="autofocus" placeholder="Please scan CODE" type="text" tabindex=-1>
-                  
-           <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
-              <label class="qrcode-text-btn">
-                <i class="fa fa-2x fa-barcode addIcon"></i>
-         <input type="file" class="form-control"  accept="image/*" capture=environment onclick="return showQRIntro();" onchange="openQRCamera(this);" tabindex=-1>
-           </label>
-            </div>
-            </div>
-        </div>
-      </div>
-      </div> -->
+      
     </div>
    </div><!-- ///////////////////// -->
 </div>
@@ -108,12 +92,12 @@ Download Excel
 <!-- /.box-body -->
 </form>
    <?php if(isset($info)){ ?>
-<div class="box box-primary">
+    <div class="box box-primary">
             <!-- /.box-header -->
     <div class="box-body">
    <?php if(count($info)>0){  ?>
     <div class="alert alert-success alert-dismissable" style="text-align:center">
-    <strong style="font-size:25px"> Machine Details Information! </strong><br>
+    <strong style="font-size:25px"> Machine Details Information! </strong>
     <div class="table-responsive">
         <table class="table">
           <tr>
@@ -125,7 +109,8 @@ Download Excel
                 <th style="width:15%">BARCODE:</th>
                 <th style="width:35%">
                   <?php if($info->tpm_serial_code != '' || $info->tpm_serial_code != NULL) 
-             { echo '<img src="'.base_url('dashboard/barcode/'.$info->tpm_serial_code).'" alt="" />'; } ?></th>
+                 { echo '<img src="'.base_url('dashboard/barcode/'.$info->tpm_serial_code).'" alt="" />'; } ?>
+                 </th>
             </tr>
             <tr>
                 <th style="width:15%">English Name:</th>
@@ -149,7 +134,7 @@ Download Excel
                 <th style="width:15%">Invoice Number:</th>
                 <th style="width:35%"><?php echo $info->invoice_no; ?></th>
                 <th style="width:15%">Purchase Date:</th>
-                <th style="width:35%"><?php echo findDate($info->purchase_date); ?></td>
+                <th style="width:35%"><?php echo findDate($info->purchase_date); ?></th>
             </tr>
             <tr>
                 <th style="width:15%">Product Category:</th>
@@ -171,12 +156,13 @@ Download Excel
                       else echo "Store House"; ?>
                 </th>
                 <th style="width:15%"></th>
-                <th style="width:35%"></td>
+                <th style="width:35%"></th>
             </tr>
         </table>
     </div>
-    <br>
-<h3 style="text-align: center;font-weight: bold;font-size: 18px"> MOVEMENT HISTORY</h3>
+  </div>
+ 
+  <h3 style="text-align: center;font-weight: bold;font-size: 18px"> MOVEMENT HISTORY</h3>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -235,15 +221,12 @@ Download Excel
                 <tr>
                     <td class="textcenter"><?php echo   $value->line_no; ?></td>
                     <td class="textcenter"><?php echo findDate($value->down_date); ?></td>
-                    <td class="textcenter">
-                      <?php echo date("H:i:s A", strtotime($value->problem_start_time));  ?>
+                    <td class="textcenter"> <?php echo date("H:i:s A", strtotime($value->problem_start_time));  ?>
                   </td>
-                    <td class="textcenter">
-                      <?php echo date("H:i:s A", strtotime($value->me_response_time));  ?></td>
+                    <td class="textcenter"><?php echo date("H:i:s A", strtotime($value->me_response_time));  ?></td>
                     <td class="textcenter"><?php echo $value->problem_description; ?></td>
-                    <td class="textcenter">
-                      <?php echo date("H:i:s A", strtotime($value->problem_end_time));  ?>
-                      </td>
+                    <td class="textcenter"><?php echo date("H:i:s A", strtotime($value->problem_end_time));  ?>
+                    </td>
                     <td class="textcenter"><?php echo $value->action_taken; ?></td>
                     <td class="textcenter"><?php echo $value->supervisor_name; ?></td>
                     <td class="textcenter"><?php echo $value->me_name; ?></td>
@@ -258,8 +241,8 @@ Download Excel
                 <tr>
                     <th style="text-align:right" colspan="9">TOTAL DOWNTIME(IN MINUTES)</th>
                     <th class="textcenter"><?php echo $totaldowntime; ?></th>
-                    <td>
-                    </td>
+                    <th>
+                    </th>
                 </tr>
             </tbody>
         </table>
@@ -309,15 +292,10 @@ Download Excel
     <strong style="font-size:25px">This CODE Not Valid!</strong> 
   </div>
   <?php } ?>
-
   </div>
-            <!-- /.box-body -->
-</div>
+ <!-- /.box-body -->
   <?php } ?>
- 
-          </div>
-        </div>
-   
+  </div>
    </div>
  </div>
  

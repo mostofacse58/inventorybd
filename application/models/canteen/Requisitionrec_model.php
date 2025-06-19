@@ -154,17 +154,7 @@ class Requisitionrec_model extends CI_Model {
       $data['received_date']=date('Y-m-d  h:i:s a');
       $this->db->WHERE('requisition_id',$requisition_id);
       $query=$this->db->Update('canteen_requisition_master',$data);
-      $result=$this->db->query("SELECT sd.*
-        FROM canteen_requisition_item_details 
-        WHERE sd.requisition_id=$requisition_id
-        ORDER BY sd.product_id ASC")->result();
-      foreach ($result as $row1){
-        $datas=array();
-        $datas['unit_price']=$row1->unit_price;
-        $datas['last_receive_date']=date('Y-m-d');
-        $this->db->WHERE('product_id',$row1->product_id);
-        $this->db->Update('canteen_product_info',$datas);
-      }
+      
 
 
       return $query;

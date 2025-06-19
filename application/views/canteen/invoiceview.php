@@ -30,7 +30,7 @@
 <div class="box-body">
 <div style="width:100%;overflow:hidden;text-align:center;margin-top: 12px;">
 <p style="line-height: 27px;padding:5px;margin-bottom: 0px;padding-bottom: 0px;font-size: 15px" >
-  <b><i> Material Receive Form
+  <b><i> Invoice
   </i></b></p>
 </div>
 <table style="width: 100%" class="tg">
@@ -129,7 +129,7 @@
     } 
   ?>
   </td>
-  <td style="width:33%;text-align:center">
+  <td style="width:33%;text-align:right">
     <?php if(isset($info)) {
       echo "$info->audit_by<br>";
       echo $info->audit_date;

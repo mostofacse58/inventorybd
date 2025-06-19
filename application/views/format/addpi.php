@@ -23,7 +23,7 @@
          </div>
          <label class="col-sm-1 control-label">PI NO<span style="color:red;">  *</span></label>
           <div class="col-sm-2">
-             <input type="text" name="pi_no" id="pi_no" class="form-control" placeholder="PI NO" value="<?php if(isset($info)) echo $info->pi_no; else echo set_value('pi_no'); ?>" onkeyup="return checkpino();" <?php if(isset($info)) echo "readonly" ?>>
+             <input type="text" name="pi_no" id="pi_no" class="form-control" placeholder="PI NO" value="<?php if(isset($info)) echo $info->pi_no; else echo set_value('pi_no'); ?>"<?php if(isset($info)) echo "readonly" ?> readonly>
               <span class="error-msg"><?php echo form_error("pi_no"); ?></span>
           </div>
           <label class="col-sm-2 control-label">PI Date <span style="color:red;">  *</span></label>
@@ -591,17 +591,17 @@ $("#AddManualItem").click(function(){
   }
   var pi_date=$("#pi_date").val();
   var demand_date=$("#demand_date").val();
-  var pi_no=$("#pi_no").val();
-  if(pi_no ==''){
-      error_status=true;
-      $('input[name=pi_no]').css('border', '1px solid #f00');
-    } else {
-      $('input[name=pi_no]').css('border', '1px solid #ccc');      
-    }
-  if(pinocheck==1){
-    error_status=true;
-    $('input[name=pi_no]').css('border', '1px solid #f00');
-  }
+  // var pi_no=$("#pi_no").val();
+  // if(pi_no ==''){
+  //     error_status=true;
+  //     $('input[name=pi_no]').css('border', '1px solid #f00');
+  //   } else {
+  //     $('input[name=pi_no]').css('border', '1px solid #ccc');      
+  //   }
+  // if(pinocheck==1){
+  //   error_status=true;
+  //   $('input[name=pi_no]').css('border', '1px solid #f00');
+  // }
   /////////////
   for(var i=0;i<serviceNum;i++){
     if($("#required_qty_"+i).val()==''||$("#required_qty_"+i).val()==0){

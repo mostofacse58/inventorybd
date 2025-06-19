@@ -150,25 +150,25 @@ class Invoice extends My_Controller {
   function viewpdf($invoice_id=FALSE){
     if ($this->session->userdata('user_id')) {
     $data['heading']='Receive Items ';
-        $data['info']=$this->Invoice_model->get_info($invoice_id);
-        $data['detail']=$this->Invoice_model->getDetails($invoice_id);
-        $pdfFilePath='ItemReceiveInvoice'.date('Y-m-d H:i').'.pdf';
-        require 'vendor/autoload.php';
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 15, 'margin_bottom' => 10,]);
-        $mpdf->useAdobeCJK = true;
-        
-        $mpdf->autoScriptToLang = true;
-        $mpdf->autoLangToFont = true;
-        $header = $this->load->view('header', $data, true);
-        $html=$this->load->view('canteen/invoiceviewpdf', $data, true);
-        $mpdf->setHtmlHeader($header);
-        $mpdf->pagenumPrefix = '  Page ';
-        $mpdf->pagenumSuffix = ' - ';
-        $mpdf->nbpgPrefix = ' out of ';
-        $mpdf->nbpgSuffix = '';
-        $mpdf->setFooter('{DATE H:i:s j/m/Y}{PAGENO}{nbpg}');
-        $mpdf->WriteHTML($html);
-        $mpdf->Output($pdfFilePath,'D');
+      $data['info']=$this->Invoice_model->get_info($invoice_id);
+      $data['detail']=$this->Invoice_model->getDetails($invoice_id);
+      $pdfFilePath='ItemReceiveInvoice'.date('Y-m-d H:i').'.pdf';
+      require 'vendor/autoload.php';
+      $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 10, 'margin_right' => 10, 'margin_top' => 20, 'margin_bottom' => 10,]);
+      $mpdf->useAdobeCJK = true;
+      
+      $mpdf->autoScriptToLang = true;
+      $mpdf->autoLangToFont = true;
+      $header = $this->load->view('canteen/header', $data, true);
+      $html=$this->load->view('canteen/invoiceviewpdf', $data, true);
+      $mpdf->setHtmlHeader($header);
+      $mpdf->pagenumPrefix = '  Page ';
+      $mpdf->pagenumSuffix = ' - ';
+      $mpdf->nbpgPrefix = ' out of ';
+      $mpdf->nbpgSuffix = '';
+      $mpdf->setFooter('{DATE H:i:s j/m/Y}{PAGENO}{nbpg}');
+      $mpdf->WriteHTML($html);
+      $mpdf->Output($pdfFilePath,'D');
     } else {
        redirect("Logincontroller");
     }

@@ -30,18 +30,17 @@ body {
 </style>
 </header>
 <body>
-
  <div style="width:100%;overflow:hidden;text-align:center;margin-top: 12px;">
   <p style="line-height: 27px;padding:5px;margin-bottom: 0px;padding-bottom: 0px;font-size: 13px" >
-    <b><i> Material Receive Form
+    <b><i> Invoice
     </i></b>
   </p>
 </div>
-
+ 
 <table class="tg">
   <tr>
-    <th style="text-align: left;width: 20%">Supplier</th>
-    <th style="text-align: left;width: 30%"> <?php  echo "$info->supplier_name"; ?></th>
+    <th style="text-align: left;width: 20%;font-size: 15px">Name</th>
+    <th style="text-align: left;width: 30%;font-size: 15px"> <?php  echo $this->session->userdata('company_name'); ?></th>
     <th style="text-align: left;width: 20%">Invoice NO</th>
     <th style="text-align: left;width: 30%"> <?php if(isset($info)) echo $info->invoice_no; ?></th>
   </tr>
@@ -133,7 +132,7 @@ body {
       } 
     ?>
   </td>
-  <td style="width:33%;text-align:center">
+  <td style="width:33%;text-align:right">
     <?php if(isset($info)) {
       echo "$info->audit_by<br>";
       echo $info->audit_date;

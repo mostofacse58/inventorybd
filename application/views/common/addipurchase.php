@@ -161,72 +161,71 @@ $(document).ready(function(){
     }//calculateRow
 
 
-function formsubmit(){
-  var error_status=false;
-  var reference_no=$("#reference_no").val();
-  var for_department_id=$("#for_department_id").val();
-  var supplier_id=$("#supplier_id").val();
-  var currency=$("#currency").val();
-  var cnc_rate_in_hkd=$("#cnc_rate_in_hkd").val();
-  var purchase_date=$("#purchase_date").val();
-  var serviceNum=$("#form-table tbody tr").length;
-  var chk;
-  if(serviceNum<1){
-    $("#alertMessageHTML").html("Please Adding at least one Items!!");
-    $("#alertMessagemodal").modal("show");
-    error_status=true;
-  }
-  
-  for(var i=0;i<serviceNum;i++){
-    if($("#unit_price_"+i).val()==''){
-      $("#unit_price_"+i).css('border', '1px solid #f00');
+  function formsubmit(){
+    var error_status=false;
+    var reference_no=$("#reference_no").val();
+    var for_department_id=$("#for_department_id").val();
+    var supplier_id=$("#supplier_id").val();
+    var currency=$("#currency").val();
+    var cnc_rate_in_hkd=$("#cnc_rate_in_hkd").val();
+    var purchase_date=$("#purchase_date").val();
+    var serviceNum=$("#form-table tbody tr").length;
+    var chk;
+    if(serviceNum<1){
+      $("#alertMessageHTML").html("Please Adding at least one Items!!");
+      $("#alertMessagemodal").modal("show");
       error_status=true;
     }
-    if($("#quantity_"+i).val()==''||$("#quantity_"+i).val()==0){
-      $("#quantity_"+i).css('border', '1px solid #f00');
-      error_status=true;
+    
+    for(var i=0;i<serviceNum;i++){
+      if($("#unit_price_"+i).val()==''){
+        $("#unit_price_"+i).css('border', '1px solid #f00');
+        error_status=true;
+      }
+      if($("#quantity_"+i).val()==''||$("#quantity_"+i).val()==0){
+        $("#quantity_"+i).css('border', '1px solid #f00');
+        error_status=true;
+      }
     }
+   
+    if(for_department_id == '') {
+      error_status=true;
+      $("#alertMessageHTML").html("Please select department!!");
+      $("#alertMessagemodal").modal("show");
+    } else {
+      $("#for_department_id").css('border', '1px solid #ccc');      
+    }
+    if(supplier_id == '') {
+      error_status=true;
+      $("#alertMessageHTML").html("Please select supplier!!");
+      $("#alertMessagemodal").modal("show");
+    } else {
+      $("#supplier_id").css('border', '1px solid #ccc');      
+    }  
+    if(purchase_date == '') {
+      error_status=true;
+      $("#purchase_date").css('border', '1px solid #f00');
+    } else {
+      $("#purchase_date").css('border', '1px solid #ccc');      
+    }
+    if(currency == '') {
+      error_status=true;
+      $("#alertMessageHTML").html("Please select currency!!");
+      $("#alertMessagemodal").modal("show");
+    } else {
+      $("#currency").css('border', '1px solid #ccc');      
+    }
+   
+    if(error_status==true){
+      return false;
+    }else{
+      $('button[type=submit]').attr('disabled','disabled');
+       return true;
+    }
+    $(".error-flash").delay(5000).hide(200);
   }
- 
-
-  if(for_department_id == '') {
-    error_status=true;
-    $("#alertMessageHTML").html("Please select department!!");
-    $("#alertMessagemodal").modal("show");
-  } else {
-    $("#for_department_id").css('border', '1px solid #ccc');      
-  }
-  if(supplier_id == '') {
-    error_status=true;
-    $("#alertMessageHTML").html("Please select supplier!!");
-    $("#alertMessagemodal").modal("show");
-  } else {
-    $("#supplier_id").css('border', '1px solid #ccc');      
-  }  
-  if(purchase_date == '') {
-    error_status=true;
-    $("#purchase_date").css('border', '1px solid #f00');
-  } else {
-    $("#purchase_date").css('border', '1px solid #ccc');      
-  }
-  if(currency == '') {
-    error_status=true;
-    $("#alertMessageHTML").html("Please select currency!!");
-    $("#alertMessagemodal").modal("show");
-  } else {
-    $("#currency").css('border', '1px solid #ccc');      
-  }
- 
-  if(error_status==true){
-    return false;
-  }else{
-    $('button[type=submit]').attr('disabled','disabled');
-     return true;
-  }
-  $(".error-flash").delay(5000).hide(200);
-}
-////////////////////////////
-function getPOwiseitem(){
+  ////////////////////////////
+  function getPOwiseitem(){
       var po_number=$("#po_number").val();
       if(po_number !=''&&po_number.length==10){
       $.ajax({

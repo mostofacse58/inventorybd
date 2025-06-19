@@ -22,8 +22,9 @@ hr{margin: 5px}
    <div class="table-responsive table-bordered">
 
 <div  style="width:100%;float:left;font-size: 30px;text-align: center;overflow:hidden;margin:0;margin-top: 0px;">
-<p style="margin:2px 0px;color: #538FD4">
-<b><?php echo $this->session->userdata('company_name'); ?></b></p>
+  <p style="margin:2px 0px;color: #538FD4">
+   <b><?php echo $this->session->userdata('company_name'); ?></b>
+  </p>
 </div>
  <div style="width:100%;overflow:hidden;text-align:center;margin-top: 12px;">
 <p style="line-height: 27px;padding: 10px 10px;margin-bottom: 0px;padding-bottom: 0px" >
