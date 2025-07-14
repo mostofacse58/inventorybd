@@ -120,8 +120,8 @@
                 ?>>KATE SPADE</option>
               <option value="LE" <?php if (isset($info)) echo "LE" == $info->customer ? 'selected="selected"' : 0; else echo "LE" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>LE</option>
-              <option value="TEFAR" <?php if (isset($info)) echo "TEFAR" == $info->customer ? 'selected="selected"' : 0; else echo "TEFAR" == set_value('customer') ? 'selected="selected"' : 0;
-                ?>>TEFAR</option>
+              <option value="TELFAR" <?php if (isset($info)) echo "TELFAR" == $info->customer ? 'selected="selected"' : 0; else echo "TELFAR" == set_value('customer') ? 'selected="selected"' : 0;
+                ?>>TELFAR</option>
               <option value="MK-M" <?php if (isset($info)) echo "MK-M" == $info->customer ? 'selected="selected"' : 0; else echo "MK-M" == set_value('customer') ? 'selected="selected"' : 0;
                 ?>>MK-M</option>
               <option value="VERA" <?php if (isset($info)) echo "VERA" == $info->customer ? 'selected="selected"' : 0; else echo "VERA" == set_value('customer') ? 'selected="selected"' : 0;

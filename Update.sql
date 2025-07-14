@@ -78,6 +78,9 @@ CREATE TABLE msm_invoice_master_bk LIKE msm_invoice_master;
 
 
 
+
+
+
 DELIMITER //
 
 CREATE TRIGGER after_delete_invoice
@@ -122,3 +125,9 @@ UPDATE `payment_application_detail` SET `pa_type` = 'Safety Stock' WHERE `paymen
 UPDATE `payment_dept_amount` SET `pa_type` = 'Safety Stock' WHERE `payment_dept_amount`.`payment_id` = 61578;
 
 
+
+
+DELETE FROM `payment_application_master` WHERE `payment_id`=15850;
+DELETE FROM `payment_application_detail` WHERE `payment_id`=15850;
+DELETE FROM `payment_dept_amount` WHERE `payment_id`=15850;
+DELETE FROM `payment_po_amount` WHERE `payment_id`=15850;

@@ -76,7 +76,7 @@
           <label class="col-sm-2 control-label">
             Iteam Code物料编码 <span style="color:red;">  </span></label>
           <div class="col-sm-4">
-            <input type="text" name="product_code" <?php if(isset($info)) echo ""; ?> placeholder="Iteam Code物料编码" class="form-control" value="<?php if(isset($info)) echo $info->product_code; else echo set_value('product_code'); ?>"> 
+            <input type="text" name="product_code" <?php if(isset($info)) echo "readonly"; ?> placeholder="Iteam Code物料编码" class="form-control" value="<?php if(isset($info)) echo $info->product_code; else echo set_value('product_code'); ?>"> 
             <span class="error-msg"><?php echo form_error("product_code"); ?></span>
           </div>
           <label class="col-sm-2 control-label">Unit Price单价<span style="color:red;">  *</span></label>

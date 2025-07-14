@@ -28,6 +28,10 @@ class Applications_model extends CI_Model {
       }
      }
     $department_id=$this->session->userdata('department_id');
+    $user_id=$this->session->userdata('user_id');
+    if($user_id==266){
+      $condition=$condition."  AND pm.prepared_by='$user_id' ";
+    }
     $query=$this->db->query("SELECT pm.*,d.department_name,
     	u.user_name, p.supplier_name
       FROM  payment_application_master pm 
@@ -57,7 +61,13 @@ class Applications_model extends CI_Model {
         $condition.=" AND pm.applications_date BETWEEN '$from_date' AND '$to_date'";
       }
      }
-  $department_id=$this->session->userdata('department_id');
+    $department_id=$this->session->userdata('department_id');
+    $user_id=$this->session->userdata('user_id');
+    if($user_id==266){
+      $condition=$condition."  AND pm.prepared_by='$user_id' ";
+    }
+
+
     $result=$this->db->query("SELECT pm.*,
       d.department_name,d.dept_head_email,u.user_name,u.email_address,
       u.mobile,p.supplier_name,

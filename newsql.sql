@@ -293,7 +293,8 @@ CREATE TABLE `pi_master_view` (
 ,`department_name` varchar(100)
 ,`verified_name` varchar(60)
 );
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `pi_master_view`  
+
+CREATE  VIEW `pi_master_view`  
 AS SELECT `pm`.`pi_id` AS `pi_id`, `pm`.`pi_no` 
 AS `pi_no`, `pm`.`pi_type` AS `pi_type`, `pm`.`department_id` 
 AS `department_id`, `pm`.`for_department_id` AS `for_department_id`, `pm`.`pi_date` 
@@ -363,7 +364,11 @@ CREATE VIEW spares_use_detail_view AS
 SELECT spares_use_id,
 SUM(amount_hkd) as total_amount_hkd
 FROM spares_use_detail GROUP BY spares_use_id;
+
+
 -- ///////////////////
+
+
 UPDATE
     store_issue_master sm,
     item_issue_detail_view a
@@ -372,6 +377,9 @@ SET
 WHERE
     sm.issue_id = a.issue_id 
 -- ////////////////////
+
+
+
 UPDATE
     spares_use_master sm,
     spares_use_detail_view a
@@ -379,6 +387,9 @@ SET
     sm.total_amount_hkd = a.total_amount_hkd
 WHERE
     sm.spares_use_id = a.spares_use_id 
+
+
+
 
 UPDATE `stock_master_detail` SET `TOTALAMT`=(QUANTITY*UPRICE) WHERE FIFO_CODE='2209141408530002';
 UPDATE `purchase_detail` SET  `amount`=(`quantity`*`unit_price`) WHERE  FIFO_CODE='2209141408530002';
