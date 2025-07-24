@@ -258,12 +258,12 @@ class Po_model extends CI_Model {
           $po_number=$this->db->query("SELECT IFNULL(MAX(po_id),0) as po_number
                FROM po_master WHERE 1")->row('po_number');
 
-          $po_number ='BDWA'.str_pad($po_number + 1, 6, '0', STR_PAD_LEFT);
+          $po_number =$this->session->userdata('short_name').'WA'.str_pad($po_number + 1, 6, '0', STR_PAD_LEFT);
           $data['po_number']=$po_number;
 
           $reference_no=$this->db->query("SELECT IFNULL(MAX(po_id),0) as reference_no
                FROM po_master WHERE 1")->row('reference_no');
-          $reference_no ='BDPO'.date('m').str_pad($reference_no + 1, 6, '0', STR_PAD_LEFT);
+          $reference_no =$this->session->userdata('short_name').'PO'.date('m').str_pad($reference_no + 1, 6, '0', STR_PAD_LEFT);
           $data['reference_no']=$reference_no;
           $query=$this->db->insert('po_master',$data);
            $data1['po_number']=$po_number;

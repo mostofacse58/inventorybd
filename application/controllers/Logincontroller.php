@@ -67,6 +67,7 @@ class Logincontroller extends CI_Controller {
                 $this->session->set_userdata("logo", $cominfo->logo);
                 $this->session->set_userdata("company_name", $cominfo->company_name);
                 $this->session->set_userdata("caddress", $cominfo->address);
+                $this->session->set_userdata("short_name", $cominfo->short_name);
                 $this->session->set_userdata("cemail_address", $cominfo->email_address);
                 $this->session->set_userdata("website", $cominfo->website);
                 $this->session->set_userdata("loggedinventory",TRUE);

@@ -28,8 +28,8 @@ class Communication extends CI_Model{
             )
         );
         $mail->IsHTML(true);
-        $mail->setFrom('it.support@bdventura.com', 'VLMBD');
-        $mail->addReplyTo('it.support@bdventura.com', 'VLMBD');
+        $mail->setFrom('it@vlmbd.com', 'VLMBD');
+        $mail->addReplyTo('it@vlmbd.com', 'VLMBD');
         // Add a recipient
         $mail->addAddress($emailaddress);
         

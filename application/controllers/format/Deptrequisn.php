@@ -195,7 +195,7 @@ public function suggestions(){
       
       $subject="PI Review Notification";
       $message=$this->load->view('pi_review_notification', $data,true); 
-      $this->Communication->send($emailaddress,$subject,$message);
+      $this->Mail->send($emailaddress,$subject,$message);
     ////////////////////////
     // $user_id = 188;
     // $title= 'Test Title';

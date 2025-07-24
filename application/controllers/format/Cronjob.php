@@ -15,6 +15,7 @@ function pendingpi(){
     ORDER BY p.department_id ASC,p.pi_no ASC")->result();
   if(count($data['plist'])>0){
     $emailaddress="malik.ma@ms.hkthewell.com";
+    //$emailaddress="golam.mostofa@bdventura.com";
     $subject="PI Approval Notification";
     $message=$this->load->view('for_approval_email', $data,true); 
     $this->Communication->send($emailaddress,$subject,$message);

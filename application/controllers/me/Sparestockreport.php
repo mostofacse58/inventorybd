@@ -1,4 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+require_once APPPATH . '../vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+
 class Sparestockreport extends My_Controller {
     function __construct()
     {
@@ -20,8 +26,8 @@ class Sparestockreport extends My_Controller {
     }
 
     function reportrResult(){
-       if ($this->session->userdata('user_id')) {
-           ini_set('display_errors', 'On');
+        ini_set('display_errors', 'On');
+        ini_set('max_execution_time', 3000);
         $data['collapse']='YES';
         $data['heading']='Spares Stock Report ';
         $data['flist']=$this->Look_up_model->getFloor();
@@ -32,25 +38,24 @@ class Sparestockreport extends My_Controller {
         $this->form_validation->set_rules('box_id','Box Name','trim');
         $this->form_validation->set_rules('color_code','Box Name','trim');
         if($this->form_validation->run() == TRUE) {
-        $category_id=$this->input->post('category_id');
-        $rack_id=$this->input->post('rack_id');
-        $product_code=$this->input->post('product_code');
-        $data['category_id']=$this->input->post('category_id');
-        $data['product_code']=$this->input->post('product_code');
-        $data['rack_id']=$this->input->post('rack_id');
-        $data['box_id']=$this->input->post('box_id');
-        $data['color_code']=$this->input->post('color_code');
-        $data['resultdetail']=$this->Sparestockreport_model->reportrResult($category_id,$rack_id,$data['box_id'],$data['color_code'],$product_code);
-        $data['display']='report/sparestockreport';
-        $this->load->view('admin/master',$data);
+            $category_id=$this->input->post('category_id');
+            $rack_id=$this->input->post('rack_id');
+            $product_code=$this->input->post('product_code');
+            $data['category_id']=$this->input->post('category_id');
+            $data['product_code']=$this->input->post('product_code');
+            $data['rack_id']=$this->input->post('rack_id');
+            $data['box_id']=$this->input->post('box_id');
+            $data['color_code']=$this->input->post('color_code');
+            $data['resultdetail']=$this->Sparestockreport_model->reportrResult($category_id,$rack_id,$data['box_id'],$data['color_code'],$product_code);
+            $data['display']='report/sparestockreport';
+            $this->load->view('admin/master',$data);
         }else{
-        $data['display']='report/sparestockreport';
-        $this->load->view('admin/master',$data);
+            $data['display']='report/sparestockreport';
+            $this->load->view('admin/master',$data);
         }
-        } else {
-           redirect("Logincontroller");
-      } 
     }
+  
+
 
     function downloadExcel($category_id=FALSE,$rack_id=FALSE,$box_id=FALSE,$color_code=FALSE,$product_code=FALSE) {
         ini_set('display_errors', 'On');

@@ -99,8 +99,8 @@ class Requisition extends My_Controller {
         }
       redirect("format/Requisition/lists");
     }
-////////////////////////
-public function suggestions(){
+    ////////////////////////
+    public function suggestions(){
         $term = $this->input->get('term', true);
         $responsible_department = $this->input->get('responsible_department', true);
         if (strlen($term) < 1 || !$term) {
@@ -135,22 +135,22 @@ public function suggestions(){
     function view($requisition_id=FALSE){
     if ($this->session->userdata('user_id')) {
         $data['heading']='Requisition Form';
-            $data['info']=$this->Requisition_model->get_info($requisition_id);
-            $data['detail']=$this->Requisition_model->getDetails($requisition_id);
-            $pdfFilePath='Requisition'.date('Y-m-d H:i').'.pdf';
-            require 'vendor/autoload.php';
-            $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 15, 'margin_right' => 15, 'margin_top' => 10, 'margin_bottom' => 18,]);
-            $mpdf->useAdobeCJK = true;
-            
-            $mpdf->autoScriptToLang = true;
-            $mpdf->autoLangToFont = true;
-            $mpdf->AddPage('L');
-            $header = $this->load->view('header', $data, true);
-            $footer = $this->load->view('footer', $data, true);
-            $html=$this->load->view('format/requisitionView', $data, true);
-            $mpdf->setHtmlFooter($footer);
-            $mpdf->WriteHTML($html);
-            $mpdf->Output();
+          $data['info']=$this->Requisition_model->get_info($requisition_id);
+          $data['detail']=$this->Requisition_model->getDetails($requisition_id);
+          $pdfFilePath='Requisition'.date('Y-m-d H:i').'.pdf';
+          require 'vendor/autoload.php';
+          $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4', 'margin_left' => 15, 'margin_right' => 15, 'margin_top' => 10, 'margin_bottom' => 18,]);
+          $mpdf->useAdobeCJK = true;
+          
+          $mpdf->autoScriptToLang = true;
+          $mpdf->autoLangToFont = true;
+          $mpdf->AddPage('L');
+          $header = $this->load->view('header', $data, true);
+          $footer = $this->load->view('footer', $data, true);
+          $html=$this->load->view('format/requisitionView', $data, true);
+          $mpdf->setHtmlFooter($footer);
+          $mpdf->WriteHTML($html);
+          $mpdf->Output();
         } else {
            redirect("Logincontroller");
         }
@@ -162,14 +162,13 @@ public function suggestions(){
       $this->load->view('format/requisitionExcel', $data);
     }
     function submit($requisition_id=FALSE){
-      //$this->load->model('Communication');
       $data['info']=$this->Requisition_model->get_info($requisition_id); 
       $department_id=$data['info']->department_id;
       $emailaddress=$this->db->query("SELECT dept_head_email FROM department_info 
         WHERE department_id=$department_id")->row('dept_head_email');
       $subject="Requisition Approval Notification";
       $message=$this->load->view('req_email_format', $data,true); 
-     // $this->Communication->send($emailaddress,$subject,$message);
+      $this->Mail->send($emailaddress,$subject,$message);
       $check=$this->Requisition_model->submit($requisition_id);
         if($check){ 
            $this->session->set_userdata('exception','Send successfully');

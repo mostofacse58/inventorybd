@@ -47,9 +47,10 @@
               }
             });
           }
-          });
+        });
     });
 </script>
+
 <style type="text/css">
   .colortd td{background-color:#FFDF00; }
 </style>
@@ -239,12 +240,13 @@ Download PDF
       $grandtotal=0; 
       $totalvalue=0;
       $grandpi=0;
-      if(isset($resultdetail)&&!empty($resultdetail)): $i=1;
-        foreach($resultdetail as $row):
+      if(isset($resultdetail)&&!empty($resultdetail)){
+        $i=1;
+        //echo count($resultdetail); exit;
+        foreach($resultdetail as $row){
+
           $piqty=$this->Look_up_model->get_PIStock($row->product_id);
-          if($piqty>0||$row->main_stock>0||$row->reorder_level>0){
-          /////////////////////////////////////////////
-          if($color_code!=3){
+
           $stock=$row->main_stock;
           $grandtotal=$grandtotal+$stock;
           $grandpi=$grandpi+$piqty;
@@ -318,90 +320,11 @@ Download PDF
             <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
             <?php  echo findDate($row->last_receive_date); ?></td>
           </tr> 
-          <?php
-        }else{ 
-        ?>
-        <?php $stock=$row->main_stock;
-          if($piqty>0){
-          $stock=$row->main_stock;
-          $grandtotal=$grandtotal+$stock;
-          $grandpi=$grandpi+$piqty;
-          $totalvalue=$totalvalue+$row->stock_value_hkd;
-            $color="background-color: white;color: #000;";
-            if($stock<$row->reorder_level){
-              $color="background-color: #CE3130;color: #FFF;";
-            } 
-           ?>
-          <tr>
-            <td style="text-align:center;<?php echo $color; ?>">
-              <?php echo $i++; ?></td>
-            <td style="<?php echo $color; ?>"><?php echo $row->product_name;?></td>
-            <td style="<?php echo $color; ?>"><?php echo $row->china_name;?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-              <?php echo $row->category_name; ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-              <?php echo getRack($row->box_id);  ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-              <?php echo $row->product_code;  ?></td> 
-            <td style="text-align:center;<?php echo $color; ?>">
-              <?php echo $row->bd_or_cn; ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->sixqty); ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->fiveqty); ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->fourqty); ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->threeqty); ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->twoqty); ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->oneqty); ?></td>
-            <td style="text-align:center;<?php echo $color; ?>">
-            <?php echo ceil($row->last_six_month_qty); ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo ceil($row->avg_use_per_month); ?></td> 
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo "$row->lead_time days"; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo ceil($row->avg_use_per_month*$row->lead_time/30); ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $row->reorder_level; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $row->re_order_qty; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $row->safety_stock_qty; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $row->minimum_stock; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $stock; ?></td>
-            <td style="vertical-align: text-top;text-align:right;<?php echo $color; ?>">
-            <?php  echo "$row->unit_price";  ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo number_format($row->safety_stock_qty*$row->unit_price,2); ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo number_format($row->minimum_stock*$row->unit_price,2); ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo number_format(($stock*$row->unit_price)-($row->minimum_stock*$row->unit_price),2); ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php if($piqty>0)echo "background-color: #FFDF00";else echo $color; ?>">
-            <?php  echo $piqty; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $row->unit_name; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo $row->usage_category; ?></td>
-            <td style="vertical-align: text-top;text-align:right;<?php echo $color; ?>">
-            <?php  echo number_format($row->stock_value_hkd,2);  ?></td>
-            <td style="vertical-align: text-top;text-align:right;<?php echo $color; ?>">
-            <?php  echo "$row->currency"; ?></td>
-            <td style="vertical-align: text-top;text-align:center;<?php echo $color; ?>">
-            <?php  echo findDate($row->last_receive_date); ?></td>
-          </tr> 
+ 
       <?php  
+         
          }
-         } 
-        }
-          endforeach;
-      endif;
+       }
       ?>
       <tr>
           <th style="text-align:right;" colspan="22">Grand Total</th>

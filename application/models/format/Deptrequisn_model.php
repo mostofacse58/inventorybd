@@ -151,7 +151,7 @@ class Deptrequisn_model extends CI_Model {
       if($pi_id==FALSE){
         $reference_no=$this->db->query("SELECT IFNULL(MAX(pi_id),0) as reference_no
              FROM pi_master WHERE 1")->row('reference_no');
-        $reference_no ='VLBD'.date('mi').str_pad($reference_no + 1, 6, '0', STR_PAD_LEFT);
+        $reference_no =$this->session->userdata('short_name').date('mi').str_pad($reference_no + 1, 6, '0', STR_PAD_LEFT);
         $data['reference_no']=$reference_no;
         $data['pi_no']='NO'.date('yms').rand(0000, 9999);
         $query=$this->db->insert('pi_master',$data);

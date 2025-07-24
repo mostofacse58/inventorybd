@@ -498,7 +498,7 @@ return array(
     'Sreturn' => $baseDir . '/application/orm/Sreturn.php',
     'Sreturn_details' => $baseDir . '/application/orm/Sreturn_details.php',
     'Sreturn_discount' => $baseDir . '/application/orm/Sreturn_discount.php',
-    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+    'Stringable' => $vendorDir . '/myclabs/php-enum/stubs/Stringable.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'User' => $baseDir . '/application/orm/User.php',

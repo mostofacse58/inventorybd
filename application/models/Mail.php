@@ -10,22 +10,21 @@ class Mail extends CI_Model {
         // SMTP configuration
         $mail->isSMTP();
         $mail->SMTPDebug = 0;
-        $mail->isHTML(true); 
-
-        $mail->Host         = 'mailrelay.edis.at'; //smtp.google.com
-        $mail->SMTPAuth     = true;     
-        $mail->Username     = 'support@maatdrive.com';  
-        $mail->Password     = 'MaatSupport1.';
-        $mail->SMTPSecure   = 'STARTTLS';  
-        $mail->Port         = 587;
-
-        // $mail->Host     = 'maatdrive.app';
-        // $mail->SMTPAuth = true;
-        // $mail->Username = 'master@maatdrive.app';
-        // $mail->Password = 'SupportMaatdrive1';
-        // $mail->SMTPSecure = 'STARTTLS';
-        // $mail->Port     = 587;
+        $mail->Host     = 'mail.maatdrive.app';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'mostofa@maatdrive.app';
+        $mail->Password = 'GDG%$#24488';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port     = 587;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
         
+        $mail->IsHTML(true);
         $mail->setFrom($fromemail, $fromName);
         $mail->addReplyTo($fromemail, $fromName);
         
@@ -61,7 +60,7 @@ class Mail extends CI_Model {
 
     function send($emailaddress,$subject,$message){
         // Load PHPMailer library
-        //$emailaddress='golam.mostofa58@gmail.com';
+        $emailaddress='golam.mostofa@bdventura.com';
         if($emailaddress=='atiqul.islam1@bdventura.com')  $emailaddress='atiqul.islam@bdventura.com';
         if($emailaddress=='shurid.khandokar2@bdventura.com')  $emailaddress='shurid.khandokar@bdventura.com';
 
@@ -86,8 +85,8 @@ class Mail extends CI_Model {
             )
         );
         $mail->IsHTML(true);
-        $mail->setFrom('it.support@bdventura.com', 'VLMBD');
-        $mail->addReplyTo('it.support@bdventura.com', 'VLMBD');
+        $mail->setFrom('it@vlmbd.com', 'VLMBD');
+        $mail->addReplyTo('it@vlmbd.com', 'VLMBD');
         // Add a recipient
         $mail->addAddress($emailaddress);
         
@@ -111,6 +110,7 @@ class Mail extends CI_Model {
         }else{
             //echo 'Message has been sent';
         }
+        //exit;
     }
 
   

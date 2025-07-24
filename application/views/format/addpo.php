@@ -344,10 +344,13 @@
     </div>
   </div>
   <div class="form-group">
+    <?php $company_name=$this->session->userdata('company_name');
+          $address=$this->session->userdata('caddress');
+     ?>
     <label class="col-sm-2 control-label">Term & Condition <span style="color:red;">  *</span></label>
      <div class="col-sm-5"> 
-     <textarea type="text" name="term_condition" id="term_condition" class="form-control summernote" placeholder="Body"><?php if(isset($info)) echo $info->term_condition; else echo "Delivery: Delivery will be made within 07 working days at Ventura Leatherware Mfy (BD) Ltd.
-        Factory: Uttara EPZ, Nilphamary"; ?></textarea>
+     <textarea type="text" name="term_condition" id="term_condition" class="form-control summernote" placeholder="Body"><?php if(isset($info)) echo $info->term_condition; else echo "Delivery: Delivery will be made within 07 working days at $company_name .
+        Factory: $address"; ?></textarea>
      <span class="error-msg"><?php echo form_error("term_condition");?></span>
    </div>  
    <label class="col-sm-2 control-label">Total Amount <span style="color:red;">  *</span></label>

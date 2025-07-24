@@ -66,17 +66,17 @@ class Purhrequisn extends My_Controller {
       $this->load->view('admin/master',$data);
     }
 
-  function save($pi_id=FALSE){
-    $check=$this->Purhrequisn_model->save($pi_id);
-    if($check && !$pi_id){
-     $this->session->set_userdata('exception','Saved successfully');
-     }elseif($check&& $pi_id){
-         $this->session->set_userdata('exception','Update successfully');
-     }else{
-       $this->session->set_userdata('exception','Submission Failed');
-     }
-    redirect("format/Purhrequisn/lists");
-  }
+    function save($pi_id=FALSE){
+      $check=$this->Purhrequisn_model->save($pi_id);
+      if($check && !$pi_id){
+       $this->session->set_userdata('exception','Saved successfully');
+       }elseif($check&& $pi_id){
+           $this->session->set_userdata('exception','Update successfully');
+       }else{
+         $this->session->set_userdata('exception','Submission Failed');
+       }
+      redirect("format/Purhrequisn/lists");
+    }
  
     function received($pi_id=FALSE){
       //$this->load->model('Communication');
